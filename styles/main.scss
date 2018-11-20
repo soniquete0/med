@@ -1,0 +1,10 @@
+//INITAL STYLES
+@import '../node_modules/bootstrap/scss/bootstrap-reboot';
+@import 'reset';
+@import 'mediaQueries';
+@import 'mixins';
+@import 'variables';
+
+//COMPONENTS STYLES
+@import 'general';
+@import '../src/components/Dummy/style.scss';
