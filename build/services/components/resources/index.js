@@ -1,5 +1,6 @@
 import * as def from './default.json';
 import * as dummy from './dummy.json';
-import * as benefits from './benefits.json';
-export { def as default, dummy, benefits };
+import * as header from './header.json';
+import * as hero from './hero.json';
+export { def as default, dummy, hero, header };
 //# sourceMappingURL=index.js.map

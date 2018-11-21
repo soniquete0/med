@@ -6,10 +6,14 @@ interface IProperties {
   };
 }
 
-class AlertNotFound extends React.Component<IProperties, {}> {
+class Dummy extends React.Component<IProperties, {}> {
   render() {
-    return <div className={'dummy'}>{this.props.data.text || ''}</div>;
+    return (
+      <div className={'container'}>
+        <div className={'dummy'}>{this.props.data.text || ''}</div>
+      </div>
+    );
   }
 }
 
-export default AlertNotFound;
+export default Dummy;
