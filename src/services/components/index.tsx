@@ -67,8 +67,4 @@ class ComponentsService {
   }
 }
 
-<<<<<<< HEAD
 export default ComponentsService;
-=======
-export default ComponentsService;
->>>>>>> sandbox
