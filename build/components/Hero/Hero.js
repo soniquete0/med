@@ -12,36 +12,19 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 import * as React from 'react';
+import SearchBar from '../SearchBar/SearchBar';
 var Hero = /** @class */ (function (_super) {
     __extends(Hero, _super);
     function Hero() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     Hero.prototype.render = function () {
-        return (React.createElement("div", { className: "container" },
+        return (React.createElement("div", { className: "fullWidthContainer" },
             React.createElement("section", { className: 'hero' },
-                React.createElement("h1", null, "title")),
-            React.createElement("div", { className: "heroTest" },
-                React.createElement("div", null,
-                    React.createElement("h2", null, "Hello"),
-                    " ",
-                    React.createElement("p", null, "this is some crazy text ")),
-                React.createElement("div", null,
-                    React.createElement("h2", null, "Hello"),
-                    " ",
-                    React.createElement("p", null, "this is some crazy text ")),
-                React.createElement("div", null,
-                    React.createElement("h2", null, "Hello"),
-                    " ",
-                    React.createElement("p", null, "this is some crazy text ")),
-                React.createElement("div", null,
-                    React.createElement("h2", null, "Hello"),
-                    " ",
-                    React.createElement("p", null, "this is some crazy text "))),
-            React.createElement("div", { className: 'heroBtn' },
-                React.createElement("button", null, "waka"),
-                React.createElement("button", null, "waka"),
-                React.createElement("button", null, "waka"))));
+                React.createElement("div", { className: 'container' },
+                    React.createElement("h1", null, "title"),
+                    React.createElement("div", { className: 'hero__text' }, "\u0158e\u0161en\u00ED pro ka\u017Ed\u00FD zdravotn\u00ED probl\u00E9m naleznete v na\u0161ich poliklinik\u00E1ch."),
+                    React.createElement(SearchBar, { placeholder: 'Hledám odbornost', barColor: 'lightBlue' })))));
     };
     return Hero;
 }(React.Component));

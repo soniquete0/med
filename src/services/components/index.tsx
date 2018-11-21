@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { isObjectLike } from 'lodash';
 import WebFont from 'webfontloader';
-import { Dummy, AlertNotFound, Hero, Header } from '../../components';
+import { Dummy, AlertNotFound, Hero, Header, CrossRoads } from '../../components';
 import * as resources from './resources';
 
 // WEB FONTS
@@ -19,6 +19,7 @@ class ComponentsService {
     DUMMY: 'Dummy',
     HERO: 'Hero',
     HEADER: 'Header',
+    CROSSROADS: 'CrossRoads',
   };
 
   /***/
@@ -27,7 +28,7 @@ class ComponentsService {
       return this.Types[key];
     });
 
-    return res;
+    return res;  
   }
 
   /***/
@@ -39,6 +40,8 @@ class ComponentsService {
         return Header;
       case this.Types.HERO:
         return Hero;
+      case this.Types.CROSSROADS:
+        return CrossRoads;
 
       default:
         return () => <AlertNotFound type="component" />;
@@ -53,14 +56,14 @@ class ComponentsService {
       res = {
         ...res,
         ...typedRes,
-      };
+      };  
     }
 
     return res;
   }
 
   getForm(type: string) {
-    switch (type) {  
+    switch (type) {
       default:
         return () => <AlertNotFound type="form" />;
     }

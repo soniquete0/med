@@ -124,3 +124,11 @@ button {
   cursor: pointer;
   -webkit-font-smoothing: inherit;
 }
+
+input,
+textarea {
+  border: none;
+  &:focus {
+    outline: none;
+  }
+}

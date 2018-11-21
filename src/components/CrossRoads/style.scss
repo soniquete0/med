@@ -1,0 +1,36 @@
+.crossRoads {
+  padding: 40px 0;
+
+  &__wrapper {
+    @extend .flexRow;
+    justify-content: space-between;
+  }
+
+  &__card {
+    @include flexChild(3, 17px);
+    padding: 23px;
+    background-color: #fff;
+    box-sizing: border-box;
+    box-shadow: 0 0 80px rgba(0, 0, 0, 0.12);
+
+    &__img {
+      height: 90px;
+      width: auto;
+      display: block;
+      margin: 0 auto 34px auto;
+
+      img {
+        margin: 0 auto;
+        display: block;
+      }
+    }
+
+    h3 {
+      text-align: center;
+      color: #3c3c3b;
+      font-family: $mons;
+      font-size: 2rem;
+      font-weight: 400;
+    }
+  }
+}

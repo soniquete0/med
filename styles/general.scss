@@ -7,7 +7,7 @@
     max-width: $layoutMinWidth;
   }
 
-  @include lg {
+  @include xl {
     width: 100%;
   }
 }
@@ -47,7 +47,7 @@
   }
 }
 
-.flexColum {
+.flexColumn {
   display: flex;
   flex-flow: column wrap;
 }

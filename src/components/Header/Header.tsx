@@ -14,13 +14,43 @@ class Header extends React.Component<HeaderProps, HeaderState> {
   public render() {
     return (
       <header className={'header'}>
-        <nav>
-          <li>
-            <a>link</a>
-            <a>link</a>
-            <a>link</a>
-          </li>
-        </nav>
+
+        <div className="container">
+          <div className={'header__wrapper'}>
+            <div className={'header__logo'}>
+              <a href={''}>
+              <img src="/assets/images/logo.png" alt="Medicon Logo" />
+              </a>
+            </div>
+
+            <nav>
+              <ul>
+                <li>
+                  <a href="">Domu</a>
+                </li>
+                <li>
+                  <a href="">O nas</a>
+                </li>
+                <li>
+                  <a href="">kontakty</a>
+                </li>
+              </ul>
+
+              <div className={'hamburgerHolder'}>
+                <div className={'hamburger'}>
+                  <div />
+                </div>
+                <span>menu</span>
+              </div>
+            </nav>
+          </div>
+        </div>
+
+        <div className={'header__iso'}>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none">
+            <polygon fill="white" points="0,0 0,50 10,100 100,0" />
+          </svg>
+        </div>
       </header>
     );
   }

@@ -12,7 +12,7 @@ var __assign = (this && this.__assign) || function () {
 import * as React from 'react';
 import { isObjectLike } from 'lodash';
 import WebFont from 'webfontloader';
-import { Dummy, AlertNotFound, Hero, Header } from '../../components';
+import { Dummy, AlertNotFound, Hero, Header, CrossRoads } from '../../components';
 import * as resources from './resources';
 // WEB FONTS
 WebFont.load({
@@ -29,6 +29,7 @@ var ComponentsService = /** @class */ (function () {
             DUMMY: 'Dummy',
             HERO: 'Hero',
             HEADER: 'Header',
+            CROSSROADS: 'CrossRoads',
         };
     }
     /***/
@@ -48,6 +49,8 @@ var ComponentsService = /** @class */ (function () {
                 return Header;
             case this.Types.HERO:
                 return Hero;
+            case this.Types.CROSSROADS:
+                return CrossRoads;
             default:
                 return function () { return React.createElement(AlertNotFound, { type: "component" }); };
         }

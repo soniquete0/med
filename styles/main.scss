@@ -1,5 +1,5 @@
 //INITAL STYLES
-@import '../node_modules/bootstrap/scss/bootstrap-reboot';
+// @import '../node_modules/bootstrap/scss/bootstrap-reboot';
 @import 'reset';
 @import 'mediaQueries';
 @import 'mixins';
@@ -10,3 +10,8 @@
 @import '../src/components/Dummy/style.scss';
 @import '../src/components/Hero/style.scss';
 @import '../src/components/Header/style.scss';
+@import '../src/components/SearchBar/style.scss';
+@import '../src/components/CrossRoads/style.scss';
+
+//SVG ICONS
+@import '../src/components/SVG/SearchIcon/style.scss';
