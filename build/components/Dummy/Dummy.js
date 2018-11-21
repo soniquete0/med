@@ -12,15 +12,16 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 import * as React from 'react';
-var AlertNotFound = /** @class */ (function (_super) {
-    __extends(AlertNotFound, _super);
-    function AlertNotFound() {
+var Dummy = /** @class */ (function (_super) {
+    __extends(Dummy, _super);
+    function Dummy() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    AlertNotFound.prototype.render = function () {
-        return React.createElement("div", { className: 'dummy' }, this.props.data.text || '');
+    Dummy.prototype.render = function () {
+        return (React.createElement("div", { className: 'container' },
+            React.createElement("div", { className: 'dummy' }, this.props.data.text || '')));
     };
-    return AlertNotFound;
+    return Dummy;
 }(React.Component));
-export default AlertNotFound;
+export default Dummy;
 //# sourceMappingURL=Dummy.js.map

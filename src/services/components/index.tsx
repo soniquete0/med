@@ -1,13 +1,13 @@
 import * as React from 'react';
 import { isObjectLike } from 'lodash';
 import WebFont from 'webfontloader';
-import { Dummy, AlertNotFound } from '../../components';
+import { Dummy, AlertNotFound, Hero, Header } from '../../components';
 import * as resources from './resources';
 
-//FONTS
+// WEB FONTS
 WebFont.load({
   google: {
-    families: ['Roboto Condensed:300,400,700', 'sans-serif'],
+    families: ['Monserrat:400,600,700', 'sans-serif'],
   },
 });
 
@@ -17,6 +17,8 @@ WebFont.load({
 class ComponentsService {
   Types: LooseObject<string> = {
     DUMMY: 'Dummy',
+    HERO: 'Hero',
+    HEADER: 'Header',
   };
 
   /***/
@@ -33,6 +35,10 @@ class ComponentsService {
     switch (type) {
       case this.Types.DUMMY:
         return Dummy;
+      case this.Types.HEADER:
+        return Header;
+      case this.Types.HERO:
+        return Hero;
 
       default:
         return () => <AlertNotFound type="component" />;
@@ -54,7 +60,7 @@ class ComponentsService {
   }
 
   getForm(type: string) {
-    switch (type) {
+    switch (type) {  
       default:
         return () => <AlertNotFound type="form" />;
     }

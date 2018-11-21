@@ -4,7 +4,7 @@ interface IProperties {
         text: string;
     };
 }
-declare class AlertNotFound extends React.Component<IProperties, {}> {
+declare class Dummy extends React.Component<IProperties, {}> {
     render(): JSX.Element;
 }
-export default AlertNotFound;
+export default Dummy;
