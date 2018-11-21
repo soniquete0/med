@@ -1,4 +1,5 @@
 import * as def from './default.json';
 import * as dummy from './dummy.json';
-export { def as default, dummy };
+import * as benefits from './benefits.json';
+export { def as default, dummy, benefits };
 //# sourceMappingURL=index.js.map

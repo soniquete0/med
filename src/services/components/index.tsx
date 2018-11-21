@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { isObjectLike } from 'lodash';
 import WebFont from 'webfontloader';
-import { Dummy, AlertNotFound } from '../../components';
+import { Dummy, AlertNotFound, Benefits } from '../../components';
 import * as resources from './resources';
 
 //FONTS
@@ -17,6 +17,7 @@ WebFont.load({
 class ComponentsService {
   Types: LooseObject<string> = {
     DUMMY: 'Dummy',
+    BENEFITS: 'Benefits'
   };
 
   /***/
@@ -33,6 +34,8 @@ class ComponentsService {
     switch (type) {
       case this.Types.DUMMY:
         return Dummy;
+      case this.Types.BENEFITS:
+        return Benefits;
 
       default:
         return () => <AlertNotFound type="component" />;

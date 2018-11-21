@@ -1,0 +1,20 @@
+{
+    "name": "Benefits",
+    "data": [
+        "Přívětivý personál",
+        "benefit polikliniky",
+        "benefit polikliniky",
+        "benefit polikliniky"
+    ],
+    "form": {
+        "schema": {
+        "type": "array",
+        "properties": {
+            "text": {
+            "type": "text",
+            "title": "Benefits Text"
+            }
+        }
+        }
+    }
+}

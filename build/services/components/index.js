@@ -27,6 +27,7 @@ var ComponentsService = /** @class */ (function () {
     function ComponentsService() {
         this.Types = {
             DUMMY: 'Dummy',
+            BENEFITS: 'Benefits'
         };
     }
     /***/
