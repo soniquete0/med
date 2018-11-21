@@ -1,3 +1,4 @@
+
 @mixin background-image($size: contain, $position: center) {
   background-position: $position;
   background-size: $size;
@@ -64,5 +65,15 @@
 
   li + li {
     margin-top: 0;
+  }
+}
+
+@mixin flexChild($numberOfItems, $gutter) {
+  flex-basis: 100%;
+  margin-bottom: $gutter;
+
+  @include md {
+    flex-basis: calc((100% / #{$numberOfItems}) - #{$gutter});
+    margin-bottom: 0;
   }
 }

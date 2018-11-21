@@ -1,5 +1,6 @@
 import Dummy from './Dummy';
 import AlertNotFound from './AlertNotFound';
-import Benefits from './Benefits';
-
-export { Dummy, AlertNotFound, Benefits };
+import Header from './Header';
+import Hero from './Hero';
+  
+export { Dummy, AlertNotFound, Header, Hero };
