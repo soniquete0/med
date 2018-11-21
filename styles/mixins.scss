@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 
+=======
+>>>>>>> sandbox
 @mixin background-image($size: contain, $position: center) {
   background-position: $position;
   background-size: $size;
@@ -76,4 +79,8 @@
     flex-basis: calc((100% / #{$numberOfItems}) - #{$gutter});
     margin-bottom: 0;
   }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> sandbox

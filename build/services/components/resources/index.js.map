@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 {"version":3,"file":"index.js","sourceRoot":"","sources":["../../../../src/services/components/resources/index.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,GAAG,MAAM,gBAAgB,CAAC;AACtC,OAAO,KAAK,KAAK,MAAM,cAAc,CAAC;AACtC,OAAO,KAAK,MAAM,MAAM,eAAe,CAAC;AACxC,OAAO,KAAK,IAAI,MAAM,aAAa,CAAC;AACpC,OAAO,KAAK,QAAQ,MAAM,iBAAiB,CAAC;AAE5C,OAAO,EAAE,GAAG,IAAI,OAAO,EAAE,KAAK,EAAE,IAAI,EAAE,MAAM,EAAE,QAAQ,EAAE,CAAC"}
+=======
+{"version":3,"file":"index.js","sourceRoot":"","sources":["../../../../src/services/components/resources/index.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,GAAG,MAAM,gBAAgB,CAAC;AACtC,OAAO,KAAK,KAAK,MAAM,cAAc,CAAC;AACtC,OAAO,KAAK,MAAM,MAAM,eAAe,CAAC;AACxC,OAAO,KAAK,IAAI,MAAM,aAAa,CAAC;AAEpC,OAAO,EAAE,GAAG,IAAI,OAAO,EAAE,KAAK,EAAE,IAAI,EAAE,MAAM,EAAE,CAAC"}
+>>>>>>> sandbox
