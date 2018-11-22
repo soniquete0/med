@@ -18,7 +18,7 @@ var Reviews = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     Reviews.prototype.render = function () {
-        return (React.createElement("div", { className: "reviews" },
+        return (React.createElement("section", { className: "reviews" },
             React.createElement("h3", null, "\u0159ekli o n\u00E1s"),
             React.createElement("div", { className: "container-center" },
                 React.createElement("div", { className: "grid-container" },

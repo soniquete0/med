@@ -1,7 +1,18 @@
 import * as React from 'react';
 import { isObjectLike } from 'lodash';
 import WebFont from 'webfontloader';
-import { Dummy, AlertNotFound, Hero, Header, CrossRoads, Benefits, Highlight, Footer, Reviews } from '../../components';
+import {
+  Dummy,
+  AlertNotFound,
+  Hero,
+  Header,
+  CrossRoads,
+  Benefits,
+  Highlight,
+  Footer,
+  Reviews,
+  TextBlock,
+} from '../../components';
 import * as resources from './resources';
 
 // WEB FONTS
@@ -24,6 +35,7 @@ class ComponentsService {
     HIGHLIGHT: 'Highlight',
     FOOTER: 'Footer',
     REVIEWS: 'Reviews',
+    TEXTBLOCK: 'TextBlock',
   };
 
   /***/
@@ -54,6 +66,8 @@ class ComponentsService {
         return Footer;
       case this.Types.REVIEWS:
         return Reviews;
+      case this.Types.TEXTBLOCK:
+        return TextBlock;
 
       default:
         return () => <AlertNotFound type="component" />;

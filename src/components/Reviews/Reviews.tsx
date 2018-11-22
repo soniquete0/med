@@ -3,7 +3,7 @@ import * as React from 'react';
 class Reviews extends React.Component<any, any> {
   public render() {
     return (
-      <div className="reviews">
+      <section className="reviews">
         <h3>řekli o nás</h3>
         <div className="container-center">
           <div className="grid-container">
@@ -51,7 +51,7 @@ class Reviews extends React.Component<any, any> {
             {/* end */}
           </div>
         </div>
-      </div>
+      </section>
     );
   }
 }

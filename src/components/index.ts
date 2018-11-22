@@ -1,11 +1,12 @@
-import Dummy from './Dummy';
 import AlertNotFound from './AlertNotFound';
+import Benefits from './Benefits';
+import CrossRoads from './CrossRoads';
+import Dummy from './Dummy';
+import Footer from './Footer';
 import Header from './Header';
 import Hero from './Hero';
-import CrossRoads from './CrossRoads';
-import Benefits from './Benefits';
 import Highlight from './Highlight';
-import Footer from './Footer';
 import Reviews from './Reviews';
+import TextBlock from './TextBlock';
 
-export { Dummy, AlertNotFound, Header, Hero, CrossRoads, Benefits, Highlight, Footer, Reviews };
+export { Dummy, AlertNotFound, Header, Hero, CrossRoads, Benefits, Highlight, Footer, Reviews, TextBlock };
