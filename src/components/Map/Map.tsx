@@ -1,6 +1,8 @@
 import * as React from 'react';
 import GoogleMapReact from 'google-map-react';
 export const GoogleMapsApiKey = 'AIzaSyCSpatDLsxXguzdvuwbTrK3TulOh10MULI';
+import Marker from './components/Marker';
+import MapBox from './components/MapBox';
 
 class Map extends React.Component<any, any> {
   public render() {
@@ -11,10 +13,11 @@ class Map extends React.Component<any, any> {
     return (
       <div className="fullWidthContainer">
         <section className={'map'}>
-        
           <div className={'map__container'}>
             <button>Zobrazit všechny polikliniky</button>
           </div>
+
+          <MapBox />
 
           <GoogleMapReact
             bootstrapURLKeys={{ key: GoogleMapsApiKey }}
@@ -25,7 +28,9 @@ class Map extends React.Component<any, any> {
             options={{
               scrollwheel: false,
             }}
-          />
+          >
+            {/* <Marker /> */}
+          </GoogleMapReact>
         </section>
       </div>
     );

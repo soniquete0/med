@@ -14,6 +14,7 @@ var __extends = (this && this.__extends) || (function () {
 import * as React from 'react';
 import GoogleMapReact from 'google-map-react';
 export var GoogleMapsApiKey = 'AIzaSyCSpatDLsxXguzdvuwbTrK3TulOh10MULI';
+import MapBox from './components/MapBox';
 var Map = /** @class */ (function (_super) {
     __extends(Map, _super);
     function Map() {
@@ -28,6 +29,7 @@ var Map = /** @class */ (function (_super) {
             React.createElement("section", { className: 'map' },
                 React.createElement("div", { className: 'map__container' },
                     React.createElement("button", null, "Zobrazit v\u0161echny polikliniky")),
+                React.createElement(MapBox, null),
                 React.createElement(GoogleMapReact, { bootstrapURLKeys: { key: GoogleMapsApiKey }, defaultCenter: defaultCenter, defaultZoom: defaultZoom, center: center, zoom: zoom, options: {
                         scrollwheel: false,
                     } }))));
