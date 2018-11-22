@@ -1,0 +1,10 @@
+.map {
+  height: 250px;
+  width: 100%;
+  display: block;
+  position: relative;
+
+  @include md {
+    height: 500px;
+  }
+}

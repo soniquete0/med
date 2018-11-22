@@ -9,21 +9,21 @@ const CrossRoads = (props: CrossRoadsProps) => {
         <a className={'crossRoads__wrapper'}>
           <a className={'crossRoads__card'} href="">
             <div className={'crossRoads__card__img'}>
-              <img src="./assets/images/polikliniky.png" />
+              <img src="./assets/medicon/images/polikliniky.png" />
             </div>
             <p>Hledám polikliniku</p>
           </a>
 
           <a className={'crossRoads__card'} href="">
             <div className={'crossRoads__card__img'}>
-              <img src="./assets/images/lekari.png" />
+              <img src="./assets/medicon/images/lekari.png" />
             </div>
             <p>Hledám lékaře</p>
           </a>
 
           <a className={'crossRoads__card'} href="">
             <div className={'crossRoads__card__img'}>
-              <img src="./assets/images/rada.png" />
+              <img src="./assets/medicon/images/rada.png" />
             </div>
             <p>Potřebuji poradit</p>
           </a>

@@ -11,7 +11,7 @@ declare class ComponentsService {
     /***/
     getComponent(type: string): ((props: import("../../components/CrossRoads/CrossRoads").CrossRoadsProps) => JSX.Element) | typeof Footer;
     /***/
-    getComponentResource(type: string): typeof resources.dummy;
+    getComponentResource(type: string): typeof resources.benefits;
     getForm(type: string): () => JSX.Element;
 }
 export default ComponentsService;

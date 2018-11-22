@@ -1,6 +1,10 @@
 body {
   color: $dark;
   line-height: 24px;
+  font-family: $mons;
+  font-size: 1.6rem;
+  line-height: 24px;
+  padding: 0;
 }
 
 .container {
@@ -28,19 +32,7 @@ body {
   margin: 0 auto;
 }
 
-//TEXT ALIGNMENT
 
-.textAlign {
-  &--center {
-    text-align: center;
-  }
-  &--left {
-    text-align: left;
-  }
-  &--right {
-    text-align: right;
-  }
-}
 
 .flexRow {
   display: flex;
@@ -61,6 +53,7 @@ body {
   display: flex;
   justify-content: space-around;
 }
+
 .grid {
   display: grid;
 }
@@ -79,19 +72,6 @@ body {
   display: inline-grid;
 }
 
-body {
-  font-family: 'Montserrat';
-  color: $dark;
-  font-size: 1.6rem;
-  line-height: 24px;
-  margin: 0;
-  padding: 0;
-}
-
-p {
-  line-height: 30px;
-}
-
 //LIST STYLES
 
 ol,
@@ -102,7 +82,7 @@ ul {
   li {
     padding: 5px;
     &:before {
-      content: url('/assets/images/listPoint.png');
+      content: url('/assets/medicon/images/listPoint.png');
       padding-right: 12px;
     }
   }

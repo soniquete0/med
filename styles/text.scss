@@ -10,6 +10,7 @@ h6 {
   text-align: center;
   padding-bottom: 55px;
   margin-bottom: 0;
+  line-height: 1;
 }
 
 h1 {
@@ -34,4 +35,22 @@ h5 {
 
 strong {
   font-weight: 600;
+}
+
+p {
+  line-height: 30px;
+}
+
+//TEXT ALIGNMENT
+
+.textAlign {
+  &--center {
+    text-align: center;
+  }
+  &--left {
+    text-align: left;
+  }
+  &--right {
+    text-align: right;
+  }
 }

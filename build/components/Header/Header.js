@@ -25,7 +25,7 @@ var Header = /** @class */ (function (_super) {
                 React.createElement("div", { className: 'header__wrapper' },
                     React.createElement("div", { className: 'header__logo' },
                         React.createElement("a", { href: '' },
-                            React.createElement("img", { src: "/assets/images/logo.png", alt: "Medicon Logo" }))),
+                            React.createElement("img", { src: "/assets/medicon/images/logo.png", alt: "Medicon Logo" }))),
                     React.createElement("nav", null,
                         React.createElement("ul", null,
                             React.createElement("li", null,

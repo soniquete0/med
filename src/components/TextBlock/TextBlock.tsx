@@ -13,10 +13,11 @@ const TextBlock = (props: TextBlockProps) => {
             <br /> Poskytuje komletní spectrum ambulantních specializací a v každé z poliklinik i navazující lékařské
             služby.
           </div>
-        </div>
+        </div> 
       </div>
     </section>
   );
 };
 
 export default TextBlock;
+  

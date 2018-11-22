@@ -1,5 +1,5 @@
 //INITAL STYLES
-// @import '../node_modules/bootstrap/scss/bootstrap-reboot';
+@import '../node_modules/bootstrap/scss/bootstrap-reboot';
 @import 'reset';
 @import 'mediaQueries';
 @import 'mixins';
@@ -19,6 +19,9 @@
 @import '../src/components/Footer/style.scss';
 @import '../src/components/Reviews/style.scss';
 @import '../src/components/TextBlock/style.scss';
+@import '../src/components/InfoBoxes/style.scss';
+@import '../src/components/Map/style.scss';
+@import '../src/components/DoctorList/style.scss';
 
 //SVG ICONS
 @import '../src/components/SVG/SearchIcon/style.scss';

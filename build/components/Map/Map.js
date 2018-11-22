@@ -12,13 +12,23 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 import * as React from 'react';
+import GoogleMapReact from 'google-map-react';
+export var GoogleMapsApiKey = 'AIzaSyCSpatDLsxXguzdvuwbTrK3TulOh10MULI';
 var Map = /** @class */ (function (_super) {
     __extends(Map, _super);
     function Map() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     Map.prototype.render = function () {
-        return (React.createElement("div", null, "Map"));
+        var defaultCenter = { lat: 49.743825, lng: 15.13865 };
+        var center = defaultCenter;
+        var defaultZoom = 7;
+        var zoom = 7;
+        return (React.createElement("div", { className: "fullWidthContainer" },
+            React.createElement("section", { className: 'map' },
+                React.createElement(GoogleMapReact, { bootstrapURLKeys: { key: GoogleMapsApiKey }, defaultCenter: defaultCenter, defaultZoom: defaultZoom, center: center, zoom: zoom, options: {
+                        scrollwheel: false,
+                    } }))));
     };
     return Map;
 }(React.Component));

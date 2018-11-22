@@ -12,6 +12,9 @@ import {
   Footer,
   Reviews,
   TextBlock,
+  Map,
+  InfoBoxes,
+  DoctorList,
 } from '../../components';
 import * as resources from './resources';
 
@@ -36,6 +39,9 @@ class ComponentsService {
     FOOTER: 'Footer',
     REVIEWS: 'Reviews',
     TEXTBLOCK: 'TextBlock',
+    INFOBOXES: 'InfoBoxes',
+    MAP: 'Map',
+    DOCTORLIST: 'DoctorList',
   };
 
   /***/
@@ -68,6 +74,12 @@ class ComponentsService {
         return Reviews;
       case this.Types.TEXTBLOCK:
         return TextBlock;
+      case this.Types.MAP:
+        return Map;
+      case this.Types.INFOBOXES:
+        return InfoBoxes;
+      case this.Types.DOCTORLIST:
+        return DoctorList;
 
       default:
         return () => <AlertNotFound type="component" />;
