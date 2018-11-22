@@ -1,3 +1,7 @@
+body {
+  color: $dark;
+}
+
 .container {
   display: block;
   margin: 0 auto;
@@ -60,6 +64,16 @@
   display: grid;
 }
 
+.grid-container {
+  max-width: 1240px;
+  margin: 0 auto;
+  display: grid;
+  grid-gap: 20px;
+  box-sizing: border-box;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+}
+
 .inline-gird {
   display: inline-grid;
 }
@@ -67,7 +81,7 @@
 body {
   font-family: 'Montserrat';
   color: $dark;
-  font-size: 16px;
+  font-size: 1.6rem;
   line-height: 24px;
   margin: 0;
   padding: 0;
@@ -76,8 +90,6 @@ body {
 p {
   line-height: 30px;
 }
-
-
 
 //LIST STYLES
 

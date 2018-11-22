@@ -4,4 +4,7 @@ import Header from './Header';
 import Hero from './Hero';
 import CrossRoads from './CrossRoads';
 import Benefits from './Benefits';
-export { Dummy, AlertNotFound, Header, Hero, CrossRoads, Benefits };
+import Highlight from './Highlight';
+import Footer from './Footer';
+import Reviews from './Reviews';
+export { Dummy, AlertNotFound, Header, Hero, CrossRoads, Benefits, Highlight, Footer, Reviews };
