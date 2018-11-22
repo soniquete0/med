@@ -4,32 +4,32 @@ export interface CrossRoadsProps {}
 
 const CrossRoads = (props: CrossRoadsProps) => {
   return (
-    <div className={'crossRoads'}>
+    <section className={'crossRoads'}>
       <div className={'container'}>
         <a className={'crossRoads__wrapper'}>
           <a className={'crossRoads__card'} href="">
             <div className={'crossRoads__card__img'}>
               <img src="./assets/images/polikliniky.png" />
             </div>
-            <h3>Hledám polikliniku</h3>
+            <p>Hledám polikliniku</p>
           </a>
 
           <a className={'crossRoads__card'} href="">
             <div className={'crossRoads__card__img'}>
               <img src="./assets/images/lekari.png" />
             </div>
-            <h3>Hledám lékaře</h3>
+            <p>Hledám lékaře</p>
           </a>
 
           <a className={'crossRoads__card'} href="">
             <div className={'crossRoads__card__img'}>
               <img src="./assets/images/rada.png" />
             </div>
-            <h3>Potřebuji poradit</h3>
+            <p>Potřebuji poradit</p>
           </a>
         </a>
       </div>
-    </div>
+    </section>
   );
 };
 

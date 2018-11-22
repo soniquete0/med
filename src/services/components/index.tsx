@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { isObjectLike } from 'lodash';
 import WebFont from 'webfontloader';
-import { Dummy, AlertNotFound, Hero, Header, CrossRoads } from '../../components';
+import { Dummy, AlertNotFound, Hero, Header, CrossRoads, Benefits } from '../../components';
 import * as resources from './resources';
 
 // WEB FONTS
@@ -20,6 +20,7 @@ class ComponentsService {
     HERO: 'Hero',
     HEADER: 'Header',
     CROSSROADS: 'CrossRoads',
+    BENEFITS: 'Benefits',
   };
 
   /***/
@@ -28,7 +29,7 @@ class ComponentsService {
       return this.Types[key];
     });
 
-    return res;  
+    return res;
   }
 
   /***/
@@ -42,6 +43,8 @@ class ComponentsService {
         return Hero;
       case this.Types.CROSSROADS:
         return CrossRoads;
+      case this.Types.BENEFITS:
+        return Benefits;
 
       default:
         return () => <AlertNotFound type="component" />;
@@ -56,7 +59,7 @@ class ComponentsService {
       res = {
         ...res,
         ...typedRes,
-      };  
+      };
     }
 
     return res;
