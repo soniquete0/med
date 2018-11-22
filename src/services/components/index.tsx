@@ -15,6 +15,8 @@ import {
   Map,
   InfoBoxes,
   DoctorList,
+  PolyclinicsList,
+  ExpertiseList,
 } from '../../components';
 import * as resources from './resources';
 
@@ -42,6 +44,8 @@ class ComponentsService {
     INFOBOXES: 'InfoBoxes',
     MAP: 'Map',
     DOCTORLIST: 'DoctorList',
+    POLYCLINICSLIST: 'PolyclinicsList',
+    EXPERTISELIST: 'ExpertiseList',
   };
 
   /***/
@@ -80,6 +84,10 @@ class ComponentsService {
         return InfoBoxes;
       case this.Types.DOCTORLIST:
         return DoctorList;
+      case this.Types.POLYCLINICSLIST:
+        return PolyclinicsList;
+      case this.Types.EXPERTISELIST:
+        return ExpertiseList;
 
       default:
         return () => <AlertNotFound type="component" />;

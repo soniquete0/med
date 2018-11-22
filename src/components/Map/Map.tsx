@@ -11,6 +11,11 @@ class Map extends React.Component<any, any> {
     return (
       <div className="fullWidthContainer">
         <section className={'map'}>
+        
+          <div className={'map__container'}>
+            <button>Zobrazit všechny polikliniky</button>
+          </div>
+
           <GoogleMapReact
             bootstrapURLKeys={{ key: GoogleMapsApiKey }}
             defaultCenter={defaultCenter}

@@ -26,6 +26,8 @@ var Map = /** @class */ (function (_super) {
         var zoom = 7;
         return (React.createElement("div", { className: "fullWidthContainer" },
             React.createElement("section", { className: 'map' },
+                React.createElement("div", { className: 'map__container' },
+                    React.createElement("button", null, "Zobrazit v\u0161echny polikliniky")),
                 React.createElement(GoogleMapReact, { bootstrapURLKeys: { key: GoogleMapsApiKey }, defaultCenter: defaultCenter, defaultZoom: defaultZoom, center: center, zoom: zoom, options: {
                         scrollwheel: false,
                     } }))));

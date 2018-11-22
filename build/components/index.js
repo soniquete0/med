@@ -11,5 +11,7 @@ import Map from './Map';
 import Reviews from './Reviews';
 import TextBlock from './TextBlock';
 import DoctorList from './DoctorList';
-export { AlertNotFound, Benefits, CrossRoads, Dummy, Footer, Header, Hero, Highlight, InfoBoxes, Map, Reviews, TextBlock, DoctorList, };
+import PolyclinicsList from './PolyclinicsList';
+import ExpertiseList from './ExpertiseList';
+export { AlertNotFound, Benefits, CrossRoads, Dummy, Footer, Header, Hero, Highlight, InfoBoxes, Map, Reviews, TextBlock, DoctorList, PolyclinicsList, ExpertiseList, };
 //# sourceMappingURL=index.js.map

@@ -11,5 +11,7 @@ import * as map from './map.json';
 import * as reviews from './reviews.json';
 import * as textblock from './textblock.json';
 import * as doctorlist from './doctorlist.json';
-export { def as default, benefits, crossroads, dummy, footer, header, hero, highlight, infoboxes, map, reviews, textblock, doctorlist };
+import * as polyclinicslist from './polyclinicslist.json';
+import * as expertiselist from './expertiselist.json';
+export { def as default, benefits, crossroads, doctorlist, dummy, footer, header, hero, highlight, infoboxes, map, polyclinicslist, reviews, textblock, expertiselist, };
 //# sourceMappingURL=index.js.map

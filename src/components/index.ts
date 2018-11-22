@@ -11,6 +11,8 @@ import Map from './Map';
 import Reviews from './Reviews';
 import TextBlock from './TextBlock';
 import DoctorList from './DoctorList';
+import PolyclinicsList from './PolyclinicsList';
+import ExpertiseList from './ExpertiseList';
 
 export {
   AlertNotFound,
@@ -26,4 +28,6 @@ export {
   Reviews,
   TextBlock,
   DoctorList,
+  PolyclinicsList,
+  ExpertiseList,
 };

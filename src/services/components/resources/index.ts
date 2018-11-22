@@ -11,11 +11,14 @@ import * as map from './map.json';
 import * as reviews from './reviews.json';
 import * as textblock from './textblock.json';
 import * as doctorlist from './doctorlist.json';
+import * as polyclinicslist from './polyclinicslist.json';
+import * as expertiselist from './expertiselist.json';
 
 export {
-  def as default,
+  def as default, 
   benefits,
   crossroads,
+  doctorlist,
   dummy,
   footer,
   header,
@@ -23,7 +26,8 @@ export {
   highlight,
   infoboxes,
   map,
+  polyclinicslist,
   reviews,
   textblock,
-  doctorlist  
+  expertiselist,
 };
