@@ -4,7 +4,7 @@ export interface ExpertiseListProps {}
 
 const ExpertiseList = (props: ExpertiseListProps) => {
   return (
-    <div className="expertiseList">
+    <section className="expertiseList">
       <h3>Odbornosti</h3>
       
       <div className="grid-container">
@@ -42,7 +42,7 @@ const ExpertiseList = (props: ExpertiseListProps) => {
         </div>
       </div>
       <button className="btn btnFirst">Vice info</button>
-    </div>
+    </section>
   );
 };
 

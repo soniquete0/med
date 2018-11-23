@@ -2,7 +2,7 @@ import * as React from 'react';
 
 export interface InfoRectanglesProps {}
 
-const InfoRectangles = (props: InfoRectanglesProps) => { 
+const InfoRectangles = (props: InfoRectanglesProps) => {
   return (
     <section className="info-rectangles">
       <div className="grid-container">

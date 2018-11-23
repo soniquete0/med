@@ -1,6 +1,6 @@
 import * as React from 'react';
 var ExpertiseList = function (props) {
-    return (React.createElement("div", { className: "expertiseList" },
+    return (React.createElement("section", { className: "expertiseList" },
         React.createElement("h3", null, "Odbornosti"),
         React.createElement("div", { className: "grid-container" },
             React.createElement("div", { className: "expertiseList__element" },
