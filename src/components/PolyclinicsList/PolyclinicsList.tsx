@@ -1,8 +1,9 @@
 import * as React from 'react';
 import PcTitle from './components/title';
+import PolyclinicInfo from '../PolyclinicInfo';
 
 const data = {
-  items: [{ name: 'asd' }],
+  items: [{ name: 'asd' }, { name: 'asd' }, { name: 'asd' }],
 };
 
 const PolyclinicsList = () => (
@@ -18,6 +19,33 @@ const PolyclinicsList = () => (
 
               <div className={'pcitem__info'}>
                 <PcTitle />
+
+                <div className="pcitem__info__details">
+                  <div
+                    className="pcitem__info__details__item"
+                    style={{ backgroundImage: 'url(assets/medicon/images/geo.png)' }}
+                  >
+                    <p>
+                      Antala Staška 1670/80 <br />
+                      140 00 Praha 4
+                    </p>
+                  </div>
+                  <div
+                    className="pcitem__info__details__item"
+                    style={{ backgroundImage: 'url(assets/medicon/images/phone.png)' }}
+                  >
+                    <p>+420 261 006 111</p>
+                  </div>
+                  <div
+                    className="pcitem__info__details__item"
+                    style={{ backgroundImage: 'url(assets/medicon/images/metro.png)' }}
+                  >
+                    <p>
+                      Metro C <br />
+                      stanice Budějovická
+                    </p>
+                  </div>
+                </div>
 
                 <div className={'pcitem__info__list'}>
                   <ul>

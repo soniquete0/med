@@ -40,7 +40,7 @@ var Header = /** @class */ (function (_super) {
                             React.createElement("span", null, "menu"))))),
             React.createElement("div", { className: 'header__iso' },
                 React.createElement("svg", { xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 100 100", preserveAspectRatio: "none" },
-                    React.createElement("polygon", { fill: "white", points: "0,0 0,50 10,100 100,0" })))));
+                    React.createElement("polygon", { fill: "white", points: "0,0 0,50 15,100 100,0" })))));
     };
     return Header;
 }(React.Component));

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import PcTitle from './components/title';
 var data = {
-    items: [{ name: 'asd' }],
+    items: [{ name: 'asd' }, { name: 'asd' }, { name: 'asd' }],
 };
 var PolyclinicsList = function () { return (React.createElement("section", { className: "polyclinicsList" }, data.items.map(function (item, index) { return (React.createElement("div", { className: 'pcitem', key: index },
     React.createElement("div", { className: "fullWidthContainer" },
@@ -11,6 +11,19 @@ var PolyclinicsList = function () { return (React.createElement("section", { cla
                     React.createElement("img", { src: "assets/medicon/images/policlinic1.png", alt: "" })),
                 React.createElement("div", { className: 'pcitem__info' },
                     React.createElement(PcTitle, null),
+                    React.createElement("div", { className: "pcitem__info__details" },
+                        React.createElement("div", { className: "pcitem__info__details__item", style: { backgroundImage: 'url(assets/medicon/images/geo.png)' } },
+                            React.createElement("p", null,
+                                "Antala Sta\u0161ka 1670/80 ",
+                                React.createElement("br", null),
+                                "140 00 Praha 4")),
+                        React.createElement("div", { className: "pcitem__info__details__item", style: { backgroundImage: 'url(assets/medicon/images/phone.png)' } },
+                            React.createElement("p", null, "+420 261 006 111")),
+                        React.createElement("div", { className: "pcitem__info__details__item", style: { backgroundImage: 'url(assets/medicon/images/metro.png)' } },
+                            React.createElement("p", null,
+                                "Metro C ",
+                                React.createElement("br", null),
+                                "stanice Bud\u011Bjovick\u00E1"))),
                     React.createElement("div", { className: 'pcitem__info__list' },
                         React.createElement("ul", null,
                             React.createElement("li", null, "Psychologie"),

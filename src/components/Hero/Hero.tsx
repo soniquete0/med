@@ -9,10 +9,10 @@ class Hero extends React.Component<HeroProps, HeroState> {
   public render() {
     return (
       <div className="fullWidthContainer">
-        <section className={'hero'}>
+        <section className={'hero'} style={{ backgroundImage: 'url(assets/medicon/images/hero.png)' }}>
           <div className={'container'}>
             <div className={'hero__holder'}>
-              <h1>title</h1>
+              <h1>jsme nejlepší odborníci</h1>
 
               <div className={'hero__text'}>Řešení pro každý zdravotní problém naleznete v našich poliklinikách.</div>
 

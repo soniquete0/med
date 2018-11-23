@@ -12,7 +12,7 @@ var __assign = (this && this.__assign) || function () {
 import * as React from 'react';
 import { isObjectLike } from 'lodash';
 import WebFont from 'webfontloader';
-import { Dummy, AlertNotFound, Hero, Header, CrossRoads, Benefits, Highlight, Footer, Reviews, TextBlock, Map, InfoBoxes, DoctorList, PolyclinicsList, ExpertiseList, InfoRectangles, } from '../../components';
+import { Dummy, AlertNotFound, Hero, Header, CrossRoads, Benefits, Highlight, Footer, Reviews, TextBlock, Map, InfoBoxes, DoctorList, PolyclinicsList, ExpertiseList, InfoRectangles, PolyclinicInfo, } from '../../components';
 import * as resources from './resources';
 // WEB FONTS
 WebFont.load({
@@ -41,6 +41,7 @@ var ComponentsService = /** @class */ (function () {
             POLYCLINICSLIST: 'PolyclinicsList',
             EXPERTISELIST: 'ExpertiseList',
             INFORECTANGLES: 'InfoRectangles',
+            POLYCLINICINFO: 'PolyclinicInfo',
         };
     }
     /***/
@@ -84,6 +85,8 @@ var ComponentsService = /** @class */ (function () {
                 return ExpertiseList;
             case this.Types.INFORECTANGLES:
                 return InfoRectangles;
+            case this.Types.POLYCLINICINFO:
+                return PolyclinicInfo;
             default:
                 return function () { return React.createElement(AlertNotFound, { type: "component" }); };
         }

@@ -6,8 +6,8 @@ var InfoRectangles = function (props) {
                 React.createElement("div", null,
                     React.createElement("h5", null, "\u0161irok\u00FD v\u00FDb\u011Br zdrav\u00FDchpotravin"),
                     React.createElement("button", { className: "btn btnThird" }, "vice info"))),
-            React.createElement("div", { className: "info-element", style: { backgroundImage: 'url(assets/medicon/images/rect-2.jpg' } },
-                React.createElement("div", null,
+            React.createElement("div", { className: "info-element" },
+                React.createElement("div", { style: { backgroundImage: 'url(assets/medicon/images/rect-2.jpg' } },
                     React.createElement("h5", null, "\u0161irok\u00FD v\u00FDb\u011Br zdrav\u00FDchpotravin"),
                     React.createElement("button", { className: "btn btnThird" }, "vice info"))))));
 };

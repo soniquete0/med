@@ -14,6 +14,7 @@ import DoctorList from './DoctorList';
 import PolyclinicsList from './PolyclinicsList';
 import ExpertiseList from './ExpertiseList';
 import InfoRectangles from './InfoRectangles';
+import PolyclinicInfo from './PolyclinicInfo';
 
 export {
   AlertNotFound,
@@ -32,4 +33,6 @@ export {
   PolyclinicsList,
   ExpertiseList,
   InfoRectangles,
+  PolyclinicInfo,
 };
+

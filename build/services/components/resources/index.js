@@ -14,5 +14,6 @@ import * as doctorlist from './doctorlist.json';
 import * as polyclinicslist from './polyclinicslist.json';
 import * as expertiselist from './expertiselist.json';
 import * as inforectangles from './inforectangles.json';
-export { def as default, benefits, crossroads, doctorlist, dummy, footer, header, hero, highlight, infoboxes, map, polyclinicslist, reviews, textblock, expertiselist, inforectangles, };
+import * as polyclinicinfo from './polyclinicinfo.json';
+export { def as default, benefits, crossroads, doctorlist, dummy, footer, header, hero, highlight, infoboxes, map, polyclinicslist, reviews, textblock, expertiselist, inforectangles, polyclinicinfo, };
 //# sourceMappingURL=index.js.map

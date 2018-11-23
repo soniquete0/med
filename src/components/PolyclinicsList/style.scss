@@ -36,6 +36,50 @@
 
     @extend .flexColumn;
 
+    &__details {
+      @extend .flexRow;
+      justify-content: center;
+      align-content: center;
+      align-items: center;
+      padding: 25px 0;
+      border-bottom: 1px solid $darkGray;
+      flex-wrap: wrap;
+
+      @media (min-width: '1050px') {
+        justify-content: space-between;
+        align-content: space-between;
+        align-items: center;
+      }
+
+      &__item {
+        background-color: transparent;
+        background-repeat: no-repeat;
+        background-position: center left;
+        background-size: 40px;
+        display: table;
+        height: 40px;
+        width: 100%;
+
+        @media (min-width: '1050px') {
+          width: calc(95% / 3);
+        }
+
+        p {
+          display: table-cell;
+          vertical-align: middle;
+          margin: 0;
+          padding: 0;
+          padding-left: 45px;
+          font-size: 1.7rem;
+          line-height: 1.1;
+
+          &:last-of-type {
+            padding-left: 55px;
+          }
+        }
+      }
+    }
+
     &__list {
       padding: 25px 0;
       border-bottom: 1px solid $darkGray;
