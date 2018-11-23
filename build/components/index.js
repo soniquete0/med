@@ -13,5 +13,6 @@ import TextBlock from './TextBlock';
 import DoctorList from './DoctorList';
 import PolyclinicsList from './PolyclinicsList';
 import ExpertiseList from './ExpertiseList';
-export { AlertNotFound, Benefits, CrossRoads, Dummy, Footer, Header, Hero, Highlight, InfoBoxes, Map, Reviews, TextBlock, DoctorList, PolyclinicsList, ExpertiseList, };
+import InfoRectangles from './InfoRectangles';
+export { AlertNotFound, Benefits, CrossRoads, Dummy, Footer, Header, Hero, Highlight, InfoBoxes, Map, Reviews, TextBlock, DoctorList, PolyclinicsList, ExpertiseList, InfoRectangles, };
 //# sourceMappingURL=index.js.map

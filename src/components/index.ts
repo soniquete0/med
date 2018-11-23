@@ -13,6 +13,7 @@ import TextBlock from './TextBlock';
 import DoctorList from './DoctorList';
 import PolyclinicsList from './PolyclinicsList';
 import ExpertiseList from './ExpertiseList';
+import InfoRectangles from './InfoRectangles';
 
 export {
   AlertNotFound,
@@ -30,4 +31,5 @@ export {
   DoctorList,
   PolyclinicsList,
   ExpertiseList,
+  InfoRectangles,
 };

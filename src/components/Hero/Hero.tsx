@@ -11,11 +11,13 @@ class Hero extends React.Component<HeroProps, HeroState> {
       <div className="fullWidthContainer">
         <section className={'hero'}>
           <div className={'container'}>
-            <h1>title</h1>
+            <div className={'hero__holder'}>
+              <h1>title</h1>
 
-            <div className={'hero__text'}>Řešení pro každý zdravotní problém naleznete v našich poliklinikách.</div>
+              <div className={'hero__text'}>Řešení pro každý zdravotní problém naleznete v našich poliklinikách.</div>
 
-            <SearchBar placeholder={'Hledám odbornost'} barColor={'lightBlue'} />
+              <SearchBar placeholder={'Hledám odbornost'} barColor={'lightBlue'} />
+            </div>
           </div>
         </section>
       </div>

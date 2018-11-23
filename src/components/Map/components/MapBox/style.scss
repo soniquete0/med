@@ -19,6 +19,12 @@
       width: 50px;
     }
 
+    h3 {
+      font-size: 2.6rem;
+      text-align: left;
+      line-height: 0.6;
+    }
+
     .pcTitle__title__subtitle {
       font-size: 1.3rem;
     }
@@ -44,7 +50,7 @@
         padding: 0 0 0 10px;
 
         p {
-          color: $dark;
+          color: $darkGray;
           font-size: 1.4rem;
           font-weight: 400;
           letter-spacing: 0.71px;

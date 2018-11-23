@@ -38,7 +38,7 @@
 
     &__list {
       padding: 25px 0;
-      border-bottom: 1px solid $dark;
+      border-bottom: 1px solid $darkGray;
       @extend .flexRow;
       justify-content: space-between;
       align-items: flex-end;
@@ -74,7 +74,7 @@
 .pcTitle {
   @extend .flexRow;
   justify-content: flex-start;
-  border-bottom: 1px solid $dark;
+  border-bottom: 1px solid $darkGray;
   box-sizing: border-box;
   padding-bottom: 25px;
 
@@ -89,7 +89,7 @@
     h3 {
       padding: 0;
       text-transform: capitalize;
-      color: $dark;
+      color: $darkGray;
     }
 
     &__subtitle {

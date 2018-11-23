@@ -13,9 +13,10 @@ import * as textblock from './textblock.json';
 import * as doctorlist from './doctorlist.json';
 import * as polyclinicslist from './polyclinicslist.json';
 import * as expertiselist from './expertiselist.json';
+import * as inforectangles from './inforectangles.json';
 
 export {
-  def as default, 
+  def as default,
   benefits,
   crossroads,
   doctorlist,
@@ -30,4 +31,5 @@ export {
   reviews,
   textblock,
   expertiselist,
+  inforectangles,
 };
