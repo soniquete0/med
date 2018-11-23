@@ -2,7 +2,7 @@ import * as React from 'react';
 var CrossRoads = function (props) {
     return (React.createElement("section", { className: 'crossRoads' },
         React.createElement("div", { className: 'container' },
-            React.createElement("a", { className: 'crossRoads__wrapper' },
+            React.createElement("div", { className: 'crossRoads__wrapper' },
                 React.createElement("a", { className: 'crossRoads__card', href: "" },
                     React.createElement("div", { className: 'crossRoads__card__img' },
                         React.createElement("img", { src: "./assets/medicon/images/polikliniky.png" })),

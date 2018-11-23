@@ -12,8 +12,8 @@
     left: 0;
 
     @include md {
-      height: 100px;
-      bottom: -100px;
+      height: 70px;
+      bottom: -70px;
     }
 
     svg {
@@ -23,8 +23,12 @@
       height: 50px;
       filter: drop-shadow(12px 12px 7px rgba(0, 0, 0, 0.12));
 
+      polygon {
+        transition: 300ms ease;
+      }
+
       @include md {
-        height: 100px;
+        height: 70px;
       }
     }
   }

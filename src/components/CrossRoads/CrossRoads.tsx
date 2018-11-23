@@ -6,7 +6,7 @@ const CrossRoads = (props: CrossRoadsProps) => {
   return (
     <section className={'crossRoads'}>
       <div className={'container'}>
-        <a className={'crossRoads__wrapper'}>
+        <div className={'crossRoads__wrapper'}>
           <a className={'crossRoads__card'} href="">
             <div className={'crossRoads__card__img'}>
               <img src="./assets/medicon/images/polikliniky.png" />
@@ -27,7 +27,7 @@ const CrossRoads = (props: CrossRoadsProps) => {
             </div>
             <p>Potřebuji poradit</p>
           </a>
-        </a>
+        </div>
       </div>
     </section>
   );
