@@ -15,5 +15,6 @@ import PolyclinicsList from './PolyclinicsList';
 import ExpertiseList from './ExpertiseList';
 import InfoRectangles from './InfoRectangles';
 import PolyclinicInfo from './PolyclinicInfo';
-export { AlertNotFound, Benefits, CrossRoads, Dummy, Footer, Header, Hero, Highlight, InfoBoxes, Map, Reviews, TextBlock, DoctorList, PolyclinicsList, ExpertiseList, InfoRectangles, PolyclinicInfo, };
+import Blog from './Blog';
+export { AlertNotFound, Benefits, CrossRoads, Dummy, Footer, Header, Hero, Highlight, InfoBoxes, Map, Reviews, TextBlock, DoctorList, PolyclinicsList, ExpertiseList, InfoRectangles, PolyclinicInfo, Blog, };
 //# sourceMappingURL=index.js.map

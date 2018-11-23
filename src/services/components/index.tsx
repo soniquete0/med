@@ -19,6 +19,7 @@ import {
   ExpertiseList,
   InfoRectangles,
   PolyclinicInfo,
+  Blog,
 } from '../../components';
 import * as resources from './resources';
 
@@ -50,6 +51,7 @@ class ComponentsService {
     EXPERTISELIST: 'ExpertiseList',
     INFORECTANGLES: 'InfoRectangles',
     POLYCLINICINFO: 'PolyclinicInfo',
+    BLOG: 'Blog',
   };
 
   /***/
@@ -96,6 +98,8 @@ class ComponentsService {
         return InfoRectangles;
       case this.Types.POLYCLINICINFO:
         return PolyclinicInfo;
+      case this.Types.BLOG:
+        return Blog;
 
       default:
         return () => <AlertNotFound type="component" />;

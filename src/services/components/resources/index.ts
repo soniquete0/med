@@ -15,6 +15,7 @@ import * as polyclinicslist from './polyclinicslist.json';
 import * as expertiselist from './expertiselist.json';
 import * as inforectangles from './inforectangles.json';
 import * as polyclinicinfo from './polyclinicinfo.json';
+import * as blog from './blog.json';
 
 export {
   def as default,
@@ -34,4 +35,5 @@ export {
   expertiselist,
   inforectangles,
   polyclinicinfo,
+  blog,
 };
