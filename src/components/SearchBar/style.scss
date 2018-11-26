@@ -1,0 +1,48 @@
+.searchBar {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+
+  &__input {
+    display: block;
+    position: relative;
+    background-color: #fff;
+    padding: 19px;
+    width: 100%;
+    box-sizing: border-box;
+
+    input {
+      width: 100%;
+      box-sizing: border-box;
+      padding-right: 25px;
+      color: #3c3c3b;
+      font-family: $mons;
+      font-size: 1.6rem;
+      font-weight: 400;
+      letter-spacing: 0.88px;
+
+      @include md {
+        font-size: 2rem;
+      }
+    }
+
+    .searchIcon {
+      position: absolute;
+      right: 21px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 22px;
+      height: 22px;
+    }
+  }
+
+  &__bar {
+    display: block;
+    height: 5px;
+    width: 100%;
+
+    &--lightBlue {
+      background-color: $lightBlue;
+    }
+  }
+}

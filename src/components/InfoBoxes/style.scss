@@ -1,0 +1,34 @@
+.infoBoxes {
+  padding: 57px 0 34px;
+  
+  .grid-container {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(1, 1fr);
+  }
+
+  h5 {
+    text-align: left;
+    color: white;
+  }
+
+  .info-element {
+    height: 400px;
+    width: 100%;
+    display: table;
+
+    div {
+      display: table-cell;
+      vertical-align: bottom;
+      padding-bottom: 35px;
+    }
+
+    h5,
+    button {
+      margin-left: 35px;
+    }
+
+    h5 {
+      padding-bottom: 35px;
+    }
+  }
+}

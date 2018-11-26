@@ -71,6 +71,7 @@
     "react-geolocated": "^2.4.0",
     "react-lines-ellipsis": "^0.13.2",
     "react-markdown": "^4.0.3",
+    "react-masonry-css": "^1.0.11",
     "react-powerplug": "^1.0.0",
     "react-redux": "^5.1.0",
     "react-router-dom": "^4.3.1",

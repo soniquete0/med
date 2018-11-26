@@ -1,0 +1,61 @@
+.doctorList {
+  &__wrapper {
+    @extend .flexRow;
+    justify-content: space-between;
+  }
+
+  &__item {
+    @include flexChild(2, 10px);
+    @extend .flexRow;
+    justify-content: flex-start;
+    align-items: center;
+    padding-bottom: 24px;
+
+    &__img {
+      width: 40%;
+      height: 100%;
+      background-color: #f4f5f7;
+      max-width: 190px;
+
+      img {
+        object-fit: cover;
+        width: 100%;
+      }
+    }
+
+    &__info {
+      @extend .flexColumn;
+      padding: 17px;
+      box-sizing: border-box;
+      width: 60%;
+      align-items: flex-start;
+
+      h3 {
+        color: $darkGray;
+        font-size: 1.8rem;
+        font-weight: 600;
+        text-align: left;
+        padding: 0;
+      }
+
+      p {
+        color: $darkGray;
+        font-size: 1.6rem;
+        font-weight: 400;
+        margin-bottom: 1.2rem;
+      }
+      &__link {
+        color: $lightBlue;
+        font-size: 1.6rem;
+        font-weight: 400;
+        margin-bottom: 2.8rem;
+      }
+    }
+  }
+
+  &__btnHolder {
+    @extend .flexRow;
+    padding: 25px 0 36px;
+    justify-content: center;
+  }
+}

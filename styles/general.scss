@@ -1,3 +1,12 @@
+body {
+  color: $darkGray;
+  line-height: 24px;
+  font-family: $mons;
+  font-size: 1.6rem;
+  line-height: 24px;
+  padding: 0;
+}
+
 .container {
   display: block;
   margin: 0 auto;
@@ -7,7 +16,7 @@
     max-width: $layoutMinWidth;
   }
 
-  @include lg {
+  @include xl {
     width: 100%;
   }
 }
@@ -23,19 +32,7 @@
   margin: 0 auto;
 }
 
-//TEXT ALIGNMENT
 
-.textAlign {
-  &--center {
-    text-align: center;
-  }
-  &--left {
-    text-align: left;
-  }
-  &--right {
-    text-align: right;
-  }
-}
 
 .flexRow {
   display: flex;
@@ -47,157 +44,51 @@
   }
 }
 
-.flexColum {
+.flexColumn {
   display: flex;
   flex-flow: column wrap;
 }
 
-
-
-.container {
-	max-width: 1240px;
-	height: 100%;
-	margin: auto;
-}
-
 .d-flex {
-	display: flex;
-	justify-content: space-around;
+  display: flex;
+  justify-content: space-around;
 }
+
 .grid {
-	display: grid;
+  display: grid;
+}
+
+.grid-container {
+  max-width: 1240px;
+  margin: 0 auto;
+  display: grid;
+  grid-gap: 20px;
+  box-sizing: border-box;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(2, 1fr);
 }
 
 .inline-gird {
-	display: inline-grid;
+  display: inline-grid;
 }
 
-body {
-  	font-family: 'Montserrat';
-	color: $dark;
-	font-size: 16px;
-	line-height: 24px;
-	margin: 0;
-	padding: 0;
-}
+//LIST STYLES
 
-p {
-	line-height: 30px;
-}
-
-h1, h2, h3, h3, h4, h5, h6 {
-	text-transform: uppercase;
-	color: $blue;
-	text-align: center;
-	padding-bottom: 55px;
-	margin-bottom: 0;
-}
-
-h1 {
-	font-size: 42px;
-}
-
-h2 {
-	font-size: 40px;
-}
-
-h3 {
-	font-size: 32px;
-}
-
-h4 {
-	font-size: 24px;
-}
-
-h5 {
-	font-size: 20px;
-}
-
-a {
-	text-decoration: none;
-}
-
-ol, ul {
-	margin: 0;
-	padding: 0;
-	list-style: none;
-	li {
-		padding: 5px;
-		&:before {
-			content: url("/assets/images/listPoint.png");
-			padding-right: 12px;
-		}
-	}
+ol,
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  li {
+    padding: 5px;
+    &:before {
+      content: url('/assets/medicon/images/listPoint.png');
+      padding-right: 12px;
+    }
+  }
 }
 
 cite {
-	line-height: 44px;
-	font-weight: 600;
-}
-
-.btn {
-	border: none;
-	outline: none;
-	display: block;
-	cursor: pointer;
-	font-weight: 600;
-	padding: 15px 35px;
-	transition: ease 0.2s;
-	letter-spacing: 2.5px;
-	box-sizing: border-box;
-	font-family: 'Montserrat';
-	text-transform: uppercase;
-
-	&:hover {
-		background-position: 95%;
-	}
-}
-
-.btnFirst {
-	color: white;
-	background-image: url("/assets/images/btnArrowWhite.png"),
-		linear-gradient(to right, $blue 0%, $light-blue 100%);
-	background-repeat: no-repeat, no-repeat;
-	background-position: 90% center, center;
-	padding: 18px 38px;
-
-	&:hover {
-		background-image: url("/assets/images/btnArrowWhite.png"),
-		linear-gradient(to right, $blue 0%, $blue 100%);
-		background-color: $blue;
-	}
-}
-
-.btnSecond {
-	color: white;
-	border: 3px solid white;
-	background-color: transparent;
-	background-image: url("/assets/images/btnArrowWhite.png");
-	background-repeat: no-repeat;
-	background-position: 90% center;
-
-	&:hover {
-		color: $blue;
-		background-color: white;
-		background-image: url("/assets/images/btnArrowBlue.png");
-	}
-}
-
-.btnThird {
-	color: $light-blue;
-	background-color: transparent;
-	border: 3px solid $light-blue;
-	background-image: url("/assets/images/btnArrowBlue.png");
-	background-repeat: no-repeat;
-	background-position: 90% center;
-
-	&:hover {
-		color: white;
-		background-color: $light-blue;
-		background-image: url("/assets/images/btnArrowWhite.png");
-	}
-}
-
-.light-blue {
-	color: $light-blue !important;
+  line-height: 44px;
+  font-weight: 600;
 }
