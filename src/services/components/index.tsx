@@ -22,6 +22,7 @@ import {
   Blog,
   PolyclinicBoxes,
   DoctorCard,
+  Odbornost,
   MyProblem,
 } from '../../components';
 import * as resources from './resources';
@@ -57,6 +58,7 @@ class ComponentsService {
     BLOG: 'Blog',
     POLYCLINICBOXES: 'PolyclinicBoxes',
     DOCTORCARD: 'DoctorCard',
+    ODBORNOST: 'Odbornost',
     MYPROBLEM: 'MyProblem',
   };
 
@@ -110,6 +112,8 @@ class ComponentsService {
         return PolyclinicBoxes;
       case this.Types.DOCTORCARD:
         return DoctorCard;
+      case this.Types.ODBORNOST:
+        return Odbornost;
       case this.Types.MYPROBLEM:
         return MyProblem;
 

@@ -16,6 +16,9 @@ import * as expertiselist from './expertiselist.json';
 import * as inforectangles from './inforectangles.json';
 import * as polyclinicinfo from './polyclinicinfo.json';
 import * as blog from './blog.json';
+import * as polyclinicboxes from './polyclinicboxes.json'; 
+import * as doctorcard from './doctorcard.json'; 
+import * as odbornost from './odbornost.json';
 import * as polyclinicboxes from './polyclinicboxes.json';
 import * as doctorcard from './doctorcard.json';
 import * as myproblem from './myproblem.json';
@@ -41,5 +44,6 @@ export {
   blog,
   polyclinicboxes,
   doctorcard,
+  odbornost,
   myproblem
 };

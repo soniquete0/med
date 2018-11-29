@@ -19,6 +19,7 @@ import Blog from './Blog';
 import Button from './Button';
 import PolyclinicBoxes from './PolyclinicBoxes';
 import DoctorCard from './DoctorCard';
+import Odbornost from './Odbornost';
 import MyProblem from './MyProblem';
 
 export {
@@ -43,5 +44,6 @@ export {
   DoctorCard,
   Blog,
   Button,
+  Odbornost,
   MyProblem,
 };
