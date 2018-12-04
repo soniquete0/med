@@ -21,6 +21,7 @@ import PolyclinicBoxes from './PolyclinicBoxes';
 import DoctorCard from './DoctorCard';
 import Odbornost from './Odbornost';
 import MyProblem from './MyProblem';
+import JobOffers from './JobOffers';
 import CareerForm from './CareerForm';
 import MedicalGroup from './MedicalGroup';
 
@@ -48,6 +49,7 @@ export {
   Button,
   Odbornost,
   MyProblem,
+  JobOffers,
   CareerForm,
   MedicalGroup,
 };

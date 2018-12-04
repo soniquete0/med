@@ -12,7 +12,7 @@ var __assign = (this && this.__assign) || function () {
 import * as React from 'react';
 import { isObjectLike } from 'lodash';
 import WebFont from 'webfontloader';
-import { Dummy, AlertNotFound, Hero, Header, CrossRoads, Benefits, Highlight, Footer, Reviews, TextBlock, Map, InfoBoxes, DoctorList, PolyclinicsList, ExpertiseList, InfoRectangles, PolyclinicInfo, Blog, PolyclinicBoxes, DoctorCard, Odbornost, MyProblem, CareerForm, MedicalGroup, } from '../../components';
+import { Dummy, AlertNotFound, Hero, Header, CrossRoads, Benefits, Highlight, Footer, Reviews, TextBlock, Map, InfoBoxes, DoctorList, PolyclinicsList, ExpertiseList, InfoRectangles, PolyclinicInfo, Blog, PolyclinicBoxes, DoctorCard, Odbornost, MyProblem, CareerForm, MedicalGroup, JobOffers, } from '../../components';
 import * as resources from './resources';
 // WEB FONTS
 WebFont.load({
@@ -47,6 +47,7 @@ var ComponentsService = /** @class */ (function () {
             DOCTORCARD: 'DoctorCard',
             ODBORNOST: 'Odbornost',
             MYPROBLEM: 'MyProblem',
+            JOBOFFERS: 'JobOffers',
             CAREERFORM: 'CareerForm',
             MEDICALGROUP: 'MedicalGroup',
         };
@@ -104,10 +105,13 @@ var ComponentsService = /** @class */ (function () {
                 return Odbornost;
             case this.Types.MYPROBLEM:
                 return MyProblem;
+            case this.Types.JOBOFFERS:
+                return JobOffers;
             case this.Types.CAREERFORM:
                 return CareerForm;
             case this.Types.MEDICALGROUP:
                 return MedicalGroup;
+
             default:
                 return function () { return React.createElement(AlertNotFound, { type: "component" }); };
         }
