@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Button from '../../Button';
+import Button from '../../../partials/Button';
 export default function InfoElement(props) {
     var title = props.title, color = props.color, img = props.img, btn = props.btn, titleColor = props.titleColor;
     return (React.createElement("a", { className: "info-element", style: { backgroundImage: "url(" + img + ")" } },

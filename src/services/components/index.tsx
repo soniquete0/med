@@ -124,6 +124,7 @@ class ComponentsService {
         return Odbornost;
       case this.Types.MYPROBLEM:
         return MyProblem;
+      case this.Types.JOBPOSITIONS:
         return JobPositions;
       case this.Types.JOBOFFERS:
         return JobOffers;

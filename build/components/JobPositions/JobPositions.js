@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Button from '../Button';
+import Button from '../../partials/Button';
 var data = {
     title: 'Výpis aktuálních pozic',
     items: [
