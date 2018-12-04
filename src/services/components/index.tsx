@@ -24,6 +24,7 @@ import {
   DoctorCard,
   Odbornost,
   MyProblem,
+  JobPositions,
   JobOffers,
   CareerForm,
   MedicalGroup,
@@ -63,6 +64,7 @@ class ComponentsService {
     DOCTORCARD: 'DoctorCard',
     ODBORNOST: 'Odbornost',
     MYPROBLEM: 'MyProblem',
+    JOBPOSITIONS: 'JobPositions',
     JOBOFFERS: 'JobOffers',
     CAREERFORM: 'CareerForm',
     MEDICALGROUP: 'MedicalGroup',
@@ -122,6 +124,7 @@ class ComponentsService {
         return Odbornost;
       case this.Types.MYPROBLEM:
         return MyProblem;
+        return JobPositions;
       case this.Types.JOBOFFERS:
         return JobOffers;
       case this.Types.CAREERFORM:
