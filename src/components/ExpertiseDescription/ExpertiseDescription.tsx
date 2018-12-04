@@ -37,10 +37,12 @@ const data = {
 const Description = (props: DescriptionProps) => {
   return (
     <div className={'container'}>
+    <section className={'expertiseDescription'}>
       <ExpertiseDescriptionCare title={data.care.title} items={data.care.items} />
       <ExpertiseDescriptionInvestigation title={data.investigationinves.title} items={data.investigationinves.items} />
       <DividerCircles />
       <ExpertiseDescriptionBoxes />
+      </section>
     </div>
   );
 };
