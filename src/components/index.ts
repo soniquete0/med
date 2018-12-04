@@ -23,6 +23,7 @@ import MyProblem from './MyProblem';
 import JobPositions from './JobPositions';
 import JobOffers from './JobOffers';
 import CareerForm from './CareerForm';
+import ExpertiseDescription from './ExpertiseDescription';
 import MedicalGroup from './MedicalGroup';
 
 export {
@@ -51,5 +52,6 @@ export {
   MyProblem,
   JobPositions,
   CareerForm,
+  ExpertiseDescription,
   MedicalGroup,
 };
