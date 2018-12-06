@@ -32,8 +32,8 @@ const MapBox: React.SFC<MapBoxProps> = props => {
         <div className={'mapBox__contacts__item'}>
           <img src={'/assets/medicon/images/geo.png'} />
           <div>
-            <p>Sokolovská </p>
-            <p>304 190 00 Praha 9</p>
+            <p>Sokolovská 304 </p>
+            <p> 190 00 Praha 9</p>
           </div>
         </div>
 
@@ -46,8 +46,10 @@ const MapBox: React.SFC<MapBoxProps> = props => {
       </div>
 
       <div className={'mapBox__buttons'}>
-        <Button classes="btn--small btn--blueBkg">ambulance</Button>
-        <Button classes="btn--small btn--blueBkg">kuddy k nam</Button>
+        <Button classes="btn--small btn--blueBkg" noArrow={true}>
+          ambulance
+        </Button>
+        <Button classes="btn--small btn--blueBorder">kuddy k nam</Button>
       </div>
     </div>
   );

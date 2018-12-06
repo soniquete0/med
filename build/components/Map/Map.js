@@ -15,6 +15,7 @@ import * as React from 'react';
 import GoogleMapReact from 'google-map-react';
 export var GoogleMapsApiKey = 'AIzaSyCSpatDLsxXguzdvuwbTrK3TulOh10MULI';
 import Marker from './components/Marker';
+import MapBox from './components/MapBox';
 // !DEV ONLY
 var clinics = [
     {
@@ -85,7 +86,8 @@ var Map = /** @class */ (function (_super) {
                     React.createElement("button", null, "Zobrazit v\u0161echny polikliniky")),
                 React.createElement(GoogleMapReact, { bootstrapURLKeys: { key: GoogleMapsApiKey }, defaultCenter: defaultCenter, defaultZoom: defaultZoom, center: center, zoom: zoom, options: {
                         scrollwheel: false,
-                    } }, markers))));
+                    } }, markers),
+                this.state.activeMarker && React.createElement(MapBox, null))));
     };
     return Map;
 }(React.Component));

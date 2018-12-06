@@ -6,7 +6,7 @@ export interface ContactFormProps {}
 export interface ContactFormState {
   formValues: {
     name: string;
-    email: string;
+    email: string;  
     message: string;
   };
 }
@@ -28,7 +28,7 @@ class ContactForm extends React.Component<ContactFormProps, ContactFormState> {
     this.setState({
       formValues: { ...this.state.formValues, [e.target.name]: e.target.value },
     });
-  };
+  }
 
   public render() {
     return (

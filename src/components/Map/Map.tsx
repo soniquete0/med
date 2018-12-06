@@ -2,9 +2,10 @@ import * as React from 'react';
 import GoogleMapReact from 'google-map-react';
 export const GoogleMapsApiKey = 'AIzaSyCSpatDLsxXguzdvuwbTrK3TulOh10MULI';
 import Marker from './components/Marker';
+import MapBox from './components/MapBox';
 
 interface Clinic {
-  lat:  number;
+  lat: number;
   lng: number;
 }
 
@@ -26,7 +27,7 @@ const clinics = [
     type: 'big',
   },
   {
-    lat: 50.107963,  
+    lat: 50.107963,
     lng: 14.494764,
     type: 'small',
   },
@@ -120,6 +121,8 @@ class Map extends React.Component<any, MapState> {
           >
             {markers}
           </GoogleMapReact>
+
+          {this.state.activeMarker && <MapBox />}
         </section>
       </div>
     );
