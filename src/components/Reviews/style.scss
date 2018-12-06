@@ -1,6 +1,6 @@
 .reviews {
   margin-bottom: 40px;
-  color: #3c3c3b;
+  color: $darkGray;
 
   h3 { @include webkitGradientText; }
 
