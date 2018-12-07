@@ -2,7 +2,9 @@
   margin-bottom: 40px;
   color: $darkGray;
 
-  h3 { @include webkitGradientText; }
+  h3 {
+    @include webkitGradientText;
+  }
 
   &__list {
     justify-items: center;
@@ -29,12 +31,36 @@
         }
         .stars {
           padding-top: 5px;
+
+          svg {
+            width: 20px;
+            height: 20px;
+            margin-right: 9px;
+
+            &:nth-of-type(1) {  
+              fill: #206aad;
+            }
+            &:nth-of-type(2) {
+              fill: #1b74b3;
+            }
+            &:nth-of-type(3) {
+              fill: #1187bc;
+            }
+            &:nth-of-type(4) {
+              fill: #0f92c2;
+            }
+            &:nth-of-type(5) {
+              fill: #079bc6;
+            }
+          }
         }
       }
     }
   }
 
-  @include max-xl { font-size: 1.4rem; }
+  @include max-xl {
+    font-size: 1.4rem;
+  }
   @include max-lg {
     font-size: 1.6rem;
 
@@ -43,7 +69,7 @@
 
       &__element {
         &__content {
-          cite { 
+          cite {
             max-width: none;
             align-self: center;
           }

@@ -9,7 +9,7 @@ const MapBox: React.SFC<MapBoxProps> = props => {
       <img src={'/assets/medicon/images/mapbox.png'} />
 
       <div className={'pcTitle'}>
-        <img src="/assets/medicon/images/logo.png" alt="" />
+        <img src="/assets/medicon/images/logo.svg" alt="Medicon Logo" />
 
         <div className={'pcTitle__title'}>
           <h3>Poliklinika</h3>
@@ -30,7 +30,8 @@ const MapBox: React.SFC<MapBoxProps> = props => {
 
       <div className={'mapBox__contacts'}>
         <div className={'mapBox__contacts__item'}>
-          <img src={'/assets/medicon/images/geo.png'} />
+          <img src={'/assets/medicon/images/geoIcon.svg'} />
+
           <div>
             <p>Sokolovská 304 </p>
             <p> 190 00 Praha 9</p>
