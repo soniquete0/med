@@ -29,6 +29,7 @@ import * as timeline from './timeline.json';
 import * as viewsaboutus from './viewsaboutus.json';
 import * as contactinfo from './contactinfo.json';
 import * as contactform from './contactform.json';
+import * as contactsblock from './contactsblock.json';
 
 export {
   def as default,
@@ -62,4 +63,5 @@ export {
   contactinfo,
   timeline,
   contactform,
+  contactsblock,
 };

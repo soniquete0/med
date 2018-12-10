@@ -33,6 +33,7 @@ import {
   ViewsAboutUs,
   ContactInfo,
   ContactForm,
+  ContactsBlock,
 } from '../../components';
 import * as resources from './resources';
 
@@ -78,6 +79,7 @@ class ComponentsService {
     VIEWSABOUTUS: 'ViewsAboutUs',
     CONTACTINFO: 'ContactInfo',
     CONTACTFORM: 'ContactForm',
+    CONTACTSBLOCK: 'ContactsBlock',
   };
 
   /***/
@@ -152,9 +154,10 @@ class ComponentsService {
         return ContactInfo;
       case this.Types.CONTACTFORM:
         return ContactForm;
+      case this.Types.CONTACTSBLOCK:
+        return ContactsBlock;
       default:
         return () => <AlertNotFound type="component" />;
-    }
   }
 
   /***/
