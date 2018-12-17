@@ -3,7 +3,7 @@ import DividerCircles from '../../../DividerCircles';
 var DoctorSchedule = function (props) {
     return (React.createElement("div", { className: "doctorSchedule" },
         React.createElement("table", null,
-            React.createElement("tbody", null, props.data.map(function (item) {
+            React.createElement("tbody", null, props.data.map(function (item, index) {
                 return (React.createElement(React.Fragment, null,
                     React.createElement("tr", { className: 'mobileHeading' },
                         React.createElement("td", { colSpan: 3 }, item.day)),

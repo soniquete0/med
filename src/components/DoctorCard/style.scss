@@ -92,8 +92,7 @@
         }
       }
 
-      p,
-      & > div {
+      p {
         padding-left: 10px;
         width: 100%;
         text-align: center;
@@ -101,6 +100,19 @@
         @include lg {
           width: auto;
           text-align: left;
+        }
+
+        span {
+          height: 22px;
+          color: #cf1d4e;
+          font-family: 'Montserrat - Semi Bold Italic';
+          font-size: 2rem;
+          font-weight: 400;
+          line-height: 28.83px;
+          font-family: 'Montserrat Semi Bold';
+          font-weight: 600;
+          font-family: Montserrat;
+          font-style: italic;
         }
       }
 
@@ -141,6 +153,11 @@
       @include flexChild(2, 10px);
       @extend .flexRow;
       justify-content: center;
+    }
+
+    img {
+      max-width: 330px;
+      margin: 0 auto;
     }
   }
 
