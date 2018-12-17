@@ -67,6 +67,9 @@
   position: relative;
   @include leftRightGradient($blue, $lightBlue);
   z-index: 2;
+  left: -5px;
+  top: -5px;
+  transform-origin: left bottom;
 
   &:after,
   &:before {

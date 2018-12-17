@@ -61,7 +61,10 @@
     &__wrapper {
       @extend .flexRow;
       justify-content: space-between;
-      padding: 25px 0;
+
+      @include lg {
+        padding: 25px 0;
+      }
     }
 
     &__item {
@@ -129,7 +132,10 @@
 
       &:nth-of-type(3) {
         flex-basis: 100%;
-
+        & > div {
+          flex-basis: 100%;
+        }
+        
         @include lg {
           flex-basis: 50%;
         }

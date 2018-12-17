@@ -43,7 +43,7 @@ const DoctorCard = (props: DoctorCardProps) => {
     clinicImage,
     clinicName,
     clinicExtraInfo,
-    clinicAddress,  
+    clinicAddress,
     schedule,
     additionalInfo,
   } = props.data;
@@ -101,9 +101,9 @@ const DoctorCard = (props: DoctorCardProps) => {
       <div className={'container'}>
         <div className={'doctorCard__timePlace'}>
           <div>{schedule && <DoctorSchedule data={schedule} />}</div>
-  
+
           <div>{clinicImage && <Media data={clinicImage} type="image" />}</div>
-        </div>  
+        </div>
 
         <div className={'doctorCard__btnHolder'}>
           <Button classes={'btn--blueBkg'} noArrow={true}>
@@ -120,7 +120,7 @@ const DoctorCard = (props: DoctorCardProps) => {
 
       {additionalInfo &&
         additionalInfo.map((item, i) => {
-          return <TextBlock key={i} data={{ title: item.title, text: item.text }} />;  
+          return <TextBlock key={i} data={{ title: item.title, text: item.text }} />;
         })}
     </section>
   );
