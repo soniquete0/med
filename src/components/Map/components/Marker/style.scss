@@ -2,17 +2,21 @@
   position: absolute;
   transform: rotate(0deg);
   z-index: 7;
+  // background-color: red;
+  transform-origin: left top;
+  transform: rotate(-135deg);
+  cursor: pointer;
 
   &.big {
-    width: 1px;
-    height: 1px;
-    background: none;
+    width: 65px;
+    height: 64px;
 
-    &:after {
+    &:after {   
       width: 25px;
       height: 25px;
       margin: 0;
-      top: -50px;
+      top: 20px;
+      left: 20px;
     }
 
     &:before {
@@ -23,13 +27,14 @@
   }
 
   &.small {
-    height: 1px;
-    width: 1px;
+    height: 30px;
+    width: 30px;
 
     &:after {
       width: 14px;
       height: 14px;
-      top: -25px;
+      top: 7px;
+      left: 7px;
     }
     &:before {
       width: 30px;
@@ -45,8 +50,6 @@
     border-radius: 50%;
     backface-visibility: hidden;
     z-index: 20;
-    transform-origin: left bottom;
-    transform: rotate(-45deg);
   }
 
   &:before {
@@ -56,7 +59,7 @@
     border-radius: 50% 50% 50% 0;
     backface-visibility: hidden;
     transform-origin: left bottom;
-    transform: rotate(-45deg);
+    transform: rotate(90deg);
   }
 }
 

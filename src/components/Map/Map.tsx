@@ -5,9 +5,7 @@ export interface MapProps {}
 
 const Map = (props: MapProps) => {
   return (
-    <div>
       <MapComponent />
-    </div>  
   );
 };
 
