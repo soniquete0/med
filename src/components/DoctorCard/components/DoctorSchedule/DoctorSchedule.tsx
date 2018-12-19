@@ -19,8 +19,7 @@ const DoctorSchedule = (props: DoctorScheduleProps) => {
       <table>
         <tbody>
           {props.data.map((item, index) => {
-            return (
-              <>
+            return <>
                 <tr className={'mobileHeading'}>
                   <td colSpan={3}>{item.day}</td>
                 </tr>
@@ -39,8 +38,7 @@ const DoctorSchedule = (props: DoctorScheduleProps) => {
                     <p>{item.eveningHoursdescription}</p>
                   </td>  
                 </tr>
-              </>
-            );
+              </>;
           })}
         </tbody>
       </table>
