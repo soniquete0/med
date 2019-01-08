@@ -1,28 +1,32 @@
 import * as React from 'react';
 import Button from '../../partials/Button';
 import Media from '@source/partials/Media';
+import Link from '@source/partials/Link';
 
 interface Doctors {
   name: string;
   clinicName: string;
-  clinicUrl: string;
+  clinicUrl: LooseObject;
+  doctorUrl: LooseObject;
   field: string;
   image: LooseObject;
 }
 export interface DoctorListProps {
+  languageCode?: string;
   data: {
     title: string;
     doctors: Doctors[];
   };
 }
 
-const DoctorList = (props: DoctorListProps) => {
+const DoctorList = (props: DoctorListProps) => {  
   const { doctors, title } = props.data;
 
   return (
     <section className={'doctorList'}>
       <div className={'container'}>
         {title && <h3>{title}</h3>}
+
 
         <div className="doctorList__wrapper">
           {doctors &&
@@ -35,7 +39,7 @@ const DoctorList = (props: DoctorListProps) => {
                         className="avatar"
                         src={'../../../assets/medicon/images/doctorIcon.svg'}
                         alt="Medicon Doctor Icon"
-                      /> 
+                      />
                     )}
                   </div>
 
@@ -44,11 +48,21 @@ const DoctorList = (props: DoctorListProps) => {
 
                     <p>{doctor.field}</p>
 
-                    <a className={'doctorList__item__info__link'} href="">
+                    <Link
+                      languageCode={props.languageCode}
+                      url={doctor.clinicUrl}
+                      className={'doctorList__item__info__link'}
+                    >
                       {doctor.clinicName}
-                    </a>
+                    </Link>
 
-                    <Button classes="btn--blueBorder btn--small">vice info</Button>
+                    <Button
+                      classes="btn--blueBorder btn--small"
+                      url={doctor.doctorUrl}
+                      languageCode={props.languageCode}
+                    >
+                      vice info
+                    </Button>
                   </div>
                 </div>
               );

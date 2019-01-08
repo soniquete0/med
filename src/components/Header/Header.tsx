@@ -1,7 +1,13 @@
 import * as React from 'react';
 import Hamburger from './components/Hamburger';
+import Link from '@source/partials/Link';
+import { Link as DomLink } from 'react-router-dom';
 
-export interface HeaderProps {}
+export interface HeaderProps {
+  navigations?: LooseObject;
+  languages?: LooseObject;
+  languageCode?: string;
+}
 
 export interface HeaderState {
   vX: number;
@@ -43,27 +49,29 @@ class Header extends React.Component<HeaderProps, HeaderState> {
   }
 
   public render() {
+    const mainNav = this.props.navigations && this.props.navigations.main;
+    const secondaryNav = this.props.navigations && this.props.navigations.secondary;
+
     return (
       <header className={`header ${this.state.menuActive ? 'menuActive' : ''}`}>
         <div className="container">
           <div className={'header__wrapper'} ref={this.headerWrapper}>
             <div className={'header__logo'}>
-              <a href={''}>
+              <DomLink to={'/'}>
                 <img src="/assets/medicon/images/logo.svg" alt="Medicon Logo" />
-              </a>
+              </DomLink>
             </div>
 
             <nav>
               <ul>
-                <li>
-                  <a href="">Domu</a>
-                </li>
-                <li>
-                  <a href="">O nas</a>
-                </li>
-                <li>
-                  <a href="">kontakty</a>
-                </li>
+                {mainNav &&
+                  mainNav.map((navItem, i) => (
+                    <li key={i}>
+                      <Link url={navItem.url} languageCode={this.props.languageCode}>
+                        {navItem.name}
+                      </Link>
+                    </li>
+                  ))}
               </ul>
 
               <Hamburger active={this.state.menuActive} onClick={this.toggleMenu} />
@@ -80,18 +88,15 @@ class Header extends React.Component<HeaderProps, HeaderState> {
         <div className={`hiddenMenu ${this.state.menuActive ? 'hiddenMenu--active' : ''}`}>
           <div className={'hiddenMenu__wrapper'}>
             <ul>
-              <li>
-                <a href="">Link</a>
-              </li>
-              <li>
-                <a href="">Link</a>
-              </li>
-              <li>
-                <a href="">Link</a>
-              </li>
-              <li>
-                <a href="">Link</a>
-              </li>
+              {secondaryNav &&
+                secondaryNav.map((navItem, i) => (
+                  <li key={i}>
+                    {
+                      <Link url={navItem.url} languageCode={this.props.languageCode} onClick={() => this.closeMenu()}>
+                        {navItem.name}
+                      </Link>}
+                  </li>
+                ))}
             </ul>
           </div>
         </div>
