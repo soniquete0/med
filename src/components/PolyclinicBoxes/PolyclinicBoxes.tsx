@@ -38,7 +38,7 @@ const PolyclinicBoxes = (props: PolyclinicBoxesProps) => {
                 </li>
               );
             })}
-        </ul>
+        </ul>  
       </div>
     </section>
   );
