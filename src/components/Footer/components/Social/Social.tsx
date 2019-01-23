@@ -1,20 +1,25 @@
 import * as React from 'react';
+import ReactMarkdown from 'react-markdown';
 import SvgIcon from '@source/partials/SvgIcon';
 
-export interface SocialProps {}
+const Social = (props: any) => {
+  const { icons, info } = props;
 
-const Social = (props: SocialProps) => (
-  <div className="social flexColumn">
-    <a href="#">
-      <SvgIcon type={'white'} name="fb" />
-    </a>
-    <p>
-      <strong>MEDICON a.s.</strong>
-      <br />
-      Antala Staška 1670/80 <br />
-      140 00 Praha 4 <br />
-    </p>
+  return (
+    <div className="social flexColumn">
+
+      {icons && icons.map((icon, i) => (
+        <a href={icon.url} key={i}>
+          <SvgIcon type={'white'} name={icon.name} />
+        </a>
+      ))}
+      
+      {info && 
+        <ReactMarkdown className={'social__text'} source={info} />
+      }
+
   </div>
-);
+  );
+};
 
 export default Social;

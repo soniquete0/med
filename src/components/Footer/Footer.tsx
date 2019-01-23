@@ -45,96 +45,99 @@ const ComposedQuery = adopt({
   },
 });
 
-class Footer extends React.Component<any, any> {
+interface Link {
+  text: string;
+  url: string;
+}
+
+interface Icon {
+  name: string;
+  url: string;
+}
+
+export interface FooterProps {
+  data: {
+    links: Link[];
+    social: string;
+    socialIcons: Icon[];
+    company: string;
+    url: string;
+    text: string;
+  };
+}
+
+export interface FooterState { }
+
+class Footer extends React.Component<FooterProps, FooterState> {
+  constructor(props: FooterProps) {
+    super(props);
+  }
+
   public render() {
+    const {
+      links,
+      social,
+      socialIcons,
+      company,
+      url,
+      text
+    } = this.props.data;
+
     return (
-      <ComposedQuery>
-        {({ getPagesUrls: { loading, error, data }, context }) => {
-          if (!context.navigationsData || !context.languageData || !context.languagesData || !data || !data.pagesUrls) {
-            return <div>Loading...</div>;
-          }
+      <footer className={'footer'}>
+        <HelpPopup />
 
-          if (error) {
-            return `Error...${error}`;
-          }
+        <div className="container">
+          <div className="flexRow flexAlign--space-between">
+          
+            {links && links.length > 0 && 
+              <ul className={'footer__list'}>
+                {links.slice(0, 5).map((link, index) => (
+                  <li key={index}>
+                    <a href={link.url}>{link.text}</a>
+                  </li>
+                ))}
+              </ul>
+            }
 
-          const {
-            navigationsData: navigations,
-            languageData: { code: languageCode },
-          } = context;
+            {links && links.length > 5 && 
+              <ul className={'footer__list'}>
+                {links.slice(5, 10).map((link, index) => (
+                  <li key={index}>
+                    <a href={link.url}>{link.text}</a>
+                  </li>
+                ))}
+              </ul>
+            }
 
-          const transformedNavigations = this.transformNavigationsIntoTree(navigations, data.pagesUrls);
+            {links && links.length > 10 && 
+              <ul className={'footer__list'}>
+              {links.slice(10, 15).map((link, index) => (
+                <li key={index}>
+                  <a href={link.url}>{link.text}</a>
+                </li>
+              ))}
+            </ul>
+            }
 
-          const footerFirstNav = 'footerFirst';
-          const footerSecondNav = 'footerSecond';
-          const footerThirdNav = 'footerThird';
+            {social && <Social info={social} icons={socialIcons} />}
 
-          const footerFirstNavItems =
-            transformedNavigations && transformedNavigations[footerFirstNav]
-              ? transformedNavigations[footerFirstNav]
-              : [];
+          </div>
+        </div>
 
-          const footerSecondNavItems =
-            transformedNavigations && transformedNavigations[footerSecondNav]
-              ? transformedNavigations[footerSecondNav]
-              : [];
+        <div className="bottom">
+          <div className="container">
+            <div className="copyrights grid">
+              
+              {company && <p>{company}</p>}
+              {text && 
+                <a href={url}><p>{text}</p></a>
+              }
 
-          const footerThirdNavItems =
-            transformedNavigations && transformedNavigations[footerThirdNav]
-              ? transformedNavigations[footerThirdNav]
-              : [];
-
-          return (
-            <footer className={'footer'}>
-              <HelpPopup />
-
-              <div className="container">
-                <div className="flexRow flexAlign--space-between">
-                  <ul className={'footer__list'}>
-                    {footerFirstNavItems &&
-                      footerFirstNavItems.map((navItem, i) => (
-                        <li key={i}>
-                          <DomLink to={navItem.url}>{navItem.name}</DomLink>
-                        </li>
-                      ))}
-                  </ul>
-
-                  <ul className={'footer__list'}>
-                    {footerSecondNavItems &&
-                      footerSecondNavItems.map((navItem, i) => (
-                        <li key={i}>
-                          <DomLink to={navItem.url}>{navItem.name}</DomLink>
-                        </li>
-                      ))}
-                  </ul>
-
-                  <ul className={'footer__list'}>
-                    {footerThirdNavItems &&
-                      footerThirdNavItems.map((navItem, i) => (
-                        <li key={i}>
-                          <DomLink to={navItem.url}>{navItem.name}</DomLink>
-                        </li>
-                      ))}
-                  </ul>
-
-                  <Social />
-                </div>
-              </div>
-
-              <div className="bottom">
-                <div className="container">
-                  <div className="copyrights grid">
-                    <p>© 2018 - MEDICON a.s.</p>
-                    <a href="#">
-                      <p>Prohlášení o ochraně osobních údajů</p>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </footer>
-          );
-        }}
-      </ComposedQuery>
+            </div>
+          </div>
+        </div>
+      </footer>
     );
   }
 
