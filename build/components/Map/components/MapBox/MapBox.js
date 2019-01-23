@@ -23,7 +23,7 @@ var MapBox = function (props) {
                     React.createElement("p", null, "Sokolovsk\u00E1 304 "),
                     React.createElement("p", null, " 190 00 Praha 9"))),
             React.createElement("div", { className: 'mapBox__contacts__item' },
-                React.createElement("img", { src: '/assets/medicon/images/phone.png' }),
+                React.createElement("img", { src: '/assets/medicon/images/phoneIcon.svg' }),
                 React.createElement("div", null,
                     React.createElement("p", null, "+420 266 006 211")))),
         React.createElement("div", { className: 'mapBox__buttons' },
