@@ -1,4 +1,4 @@
-/// <reference types="react" />
+import * as React from 'react';
 interface Doctors {
     name: string;
     clinicName: string;
@@ -14,5 +14,11 @@ export interface DoctorListProps {
         doctors: Doctors[];
     };
 }
-declare const DoctorList: (props: DoctorListProps) => JSX.Element;
-export default DoctorList;
+export interface DoctorListState {
+    showMore: boolean;
+}
+export default class DoctorList extends React.Component<DoctorListProps, DoctorListState> {
+    constructor(props: DoctorListProps);
+    render(): JSX.Element;
+}
+export {};
