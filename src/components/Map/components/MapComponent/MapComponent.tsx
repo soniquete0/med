@@ -151,6 +151,7 @@ class MapComponent extends React.Component<MapComponentProps & GeolocatedProps, 
         }
       });
 
+
       markers.push(
         <Marker
           type={'geoLocation'}
@@ -183,7 +184,7 @@ class MapComponent extends React.Component<MapComponentProps & GeolocatedProps, 
             {markers}
           </GoogleMapReact>
 
-          {this.state.activeMarker && <MapBox />}
+          {this.state.activeMarker && <MapBox close={this.handleMarkerClose}/>}
         </section>
       </div>
     );
