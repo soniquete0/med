@@ -4,8 +4,9 @@
   "data": {
     "title": "Title",
     "text": "Text",
+    "textAlign": "textCenter",
     "perex": "Perex",
-    "image": {
+     "image": {
       "recommendedSizes": {
         "width": "820",
         "height": "360"
@@ -28,6 +29,15 @@
         "text": {
           "title": "Text",
           "type": "markdown"
+        },
+        "textAlign": {
+          "type": "enum",
+          "title": "Text Align",
+          "options": {
+            "textCenter": "center",
+            "textLeft": "left",
+            "textRight": "right"
+          }
         },
         "image": {
           "type": "image"

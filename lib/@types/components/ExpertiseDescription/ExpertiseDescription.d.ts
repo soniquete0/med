@@ -2,6 +2,7 @@
 interface Examination {
     title: string;
     url: LooseObject;
+    description: string;
 }
 interface Box {
     title: string;
@@ -13,6 +14,8 @@ export interface DescriptionProps {
         titleCare: string;
         firstText: string;
         secondText: string;
+        hideBtn: string;
+        showHiddenText: boolean;
         titleExamination: string;
         examinations: Examination[];
         boxes: Box[];
