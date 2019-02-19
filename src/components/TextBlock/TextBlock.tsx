@@ -6,15 +6,15 @@ export interface TextBlockProps {
     title?: string;
     text?: string;
     textAlign?: string;
-  };  
+  };
 }
-  
+
 const TextBlock = (props: TextBlockProps) => {
   const { title, text, textAlign } = props.data;
 
   return (
     <section className={'textBlock'}>
-      <div className="container">
+      <div className="container">  
         <div className={'textBlock__container'}>
           {title && <h3 className={'gradientHeading'}>{title}</h3>}
 
