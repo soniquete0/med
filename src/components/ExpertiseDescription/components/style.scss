@@ -2,6 +2,7 @@
   h4 {
     @include webkitGradientText();
     line-height: 3rem;
+    word-break: unset;
   }
 
   a { word-break: unset; }
