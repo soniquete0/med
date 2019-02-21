@@ -3,7 +3,8 @@ import Hamburger from './components/Hamburger';
 import gql from 'graphql-tag';
 import { Query } from 'react-apollo';
 import { adopt } from 'react-adopt';
-import Link from '@source/partials/Link';
+import Link from '../../partials/Link';
+import Loader from '@source/partials/Loader';
 
 const GET_CONTEXT = gql`
   {
@@ -98,7 +99,7 @@ class Header extends React.Component<HeaderProps, HeaderState> {
       <ComposedQuery>
         {({ getPagesUrls: { loading, error, data }, context }) => {
           if (!context.navigationsData || !context.languageData || !context.languagesData || !data || !data.pagesUrls) {
-            return <div>Loading...</div>;
+            return <Loader />;
           }
 
           if (error) {

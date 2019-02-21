@@ -22,7 +22,6 @@ const MapBox: React.SFC<MapBoxProps> = props => {
           </svg>
         </div>
 
-        {console.log('%c Emilio:as ', 'background: #222; color: #83FFFF', props)}
         {image && image.filename && <Media type="image" data={image} />}
 
         <div className={'pcTitle'}>
@@ -37,7 +36,7 @@ const MapBox: React.SFC<MapBoxProps> = props => {
                 <div />
                 <div />
                 <div />
-                <div />
+                <div />  
                 <div />
                 <div />
               </span>
@@ -56,18 +55,19 @@ const MapBox: React.SFC<MapBoxProps> = props => {
           </div>
 
           <div className={'mapBox__contacts__item'}>
-            <img src={'/assets/medicon/images/phoneIcon.svg'} />
+            <img src={'/assets/medicon/images/phoneIcon.svg'} />  
             <div>
               <p>{phone}</p>
             </div>
           </div>
         </div>
+
         <Link {...ambulanceLink}>
           <div className={'mapBox__buttons'}>
             <Button classes="btn--small btn--blueBkg" noArrow={true}>
               ambulance
             </Button>
-            <Button classes="btn--small btn--blueBorder">kuddy k nam</Button>
+            <Button classes="btn--small btn--blueBorder">kudy k nám</Button>
           </div>
         </Link>
       </div>

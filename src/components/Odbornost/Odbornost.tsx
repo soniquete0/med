@@ -19,13 +19,13 @@ const Odbornost = (props: OdbornostProps) => {
 
       <div className={'container'}>
         <div className={'odbornost__doctor'}>
-          {image && <Media type={'image'} data={image} />}
+          <div className={'odbornost__doctor__imageWrapper'}>{image && <Media type={'image'} data={image} />}</div>
 
           <div className={'grid grid--vCenterBlock'}>
             <div>
               <div className={'horizontal-line'} />
-              {doctorName && <p>{doctorName}</p>}
-              {cite && <cite>{cite}</cite>}
+              <p>{doctorName || ''}</p>
+              <cite>{cite || ''}</cite>
             </div>
           </div>
         </div>

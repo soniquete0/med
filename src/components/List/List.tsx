@@ -97,7 +97,7 @@ const AllPagesComposedQuery = adopt({
     }
 
     return (
-      <div>
+      <>  
         <Query 
           query={GET_ALL_PAGES}
           variables={{ 
@@ -109,7 +109,7 @@ const AllPagesComposedQuery = adopt({
             return render(data);
           }}
         </Query>
-      </div>
+      </> 
     );
   },
 });
@@ -275,7 +275,7 @@ class List extends React.Component<Properties, {}> {
                 });
             }}
           </AllPagesComposedQuery>
-      );
+      ); 
     }
 
     return this.props.children({ data: [] });
