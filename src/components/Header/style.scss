@@ -22,7 +22,7 @@
 
     svg {
       position: absolute;
-      bottom: 0;
+      bottom: 1px;
       width: 100%;
       height: 20px;
       filter: drop-shadow(12px 12px 7px rgba(0, 0, 0, 0.12));
@@ -51,7 +51,7 @@
     }
   }
 
-  &__logo {   
+  &__logo {
     @include md {
       flex-basis: 10%;
     }
@@ -162,6 +162,8 @@
   box-shadow: 0 0 25px rgba(0, 52, 97, 0.18);
   z-index: -1;
   width: 100%;
+  display: flex;
+  align-items: center;
 
   @include md {
     width: 100%;
@@ -172,12 +174,13 @@
   }
 
   &__wrapper {
-    padding: 100px 30px 50px 30px;
+    padding: 50px 30px 50px 30px;
     overflow-y: scroll;
     max-height: 100%;
+    width: 100%;
 
     @include md {
-      padding: 150px 50px 50px 50px;
+      padding: 50px 50px 50px 50px;
     }
 
     &::-webkit-scrollbar {
@@ -200,7 +203,7 @@
       li {
         text-align: center;
         color: $lightBlue;
-        padding-bottom: 15px;
+        padding: 5px 5px 15px 5px;
 
         a {
           color: $lightBlue;
