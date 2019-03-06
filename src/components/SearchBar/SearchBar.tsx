@@ -108,82 +108,84 @@ class SearchBar extends React.Component<SearchBarProps, SearchBarState> {
         </div>
 
         <div className={`searchBar__bar`} />
-        <div className={`searchBarResults ${this.state.query.length !== 0 ? 'active' : ''}`}>
-          <List data={doctorSearchResults} searchedText={this.state.query}>
-            {({ data }) => {
-              if (data.length > 0) {
-                return (
-                  <ul className={'searchBarResults__doctors'}>
-                    {data
-                      .map(
-                        (item): LooseObject => {
-                          let workingHours = null;
-                          try {
-                            workingHours = JSON.parse(item.workingHours);
-                          } catch (e) {
-                            console.log('error', e);
-                          }
-
-                          return {
-                            ...item,
-                            isDoctorActive: this.isDoctorActive(workingHours),
-                          };
-                        }
-                      )
-                      .sort((a, b) => (a.isDoctorActive === true ? -1 : 1))
-                      .map((doctor, i) => {
-                        return (
-                          <li key={i} className={doctor.isDoctorActive ? 'active' : ''}>
-                            <Link {...doctor.link}>
-                              <span>
-                                <p>
-                                  <span>{doctor.name}</span>
-                                  <span>{doctor.isDoctorActive ? 'ordinuje' : 'neordinuje'}</span>
-                                </p>
-                                <p>{doctor.speciality}</p>
-                              </span>
-                              <span>{doctor.clinic}</span>
-                            </Link>
-                          </li>
-                        );
-                      })}
-                  </ul>
-                );
-              } else {
-                return <div className={'searchBarResults__noResults'} />;
-              }
-            }}
-          </List>
-
-          <hr />
-
-          {this.props.blogSearchResults && (
-            <List data={this.props.blogSearchResults} searchedText={this.state.query}>
+        {this.state.query.length > 2 &&
+          <div className={`searchBarResults ${this.state.query.length > 2 ? 'active' : ''}`}>
+            <List data={doctorSearchResults} searchedText={this.state.query}>
               {({ data }) => {
                 if (data.length > 0) {
                   return (
-                    <ul className={'searchBarResults__blog'}>
-                      <label>Možná jste hledali:</label>
+                    <ul className={'searchBarResults__doctors'}>
+                      {data
+                        .map(
+                          (item): LooseObject => {
+                            let workingHours = null;
+                            try {
+                              workingHours = JSON.parse(item.workingHours);
+                            } catch (e) {
+                              console.log('error', e);
+                            }
 
-                      {data.map((blogItem, i) => (
-                        <li key={i}>
-                          <Link {...blogItem.link}>
-                            <div>
-                              <h4>{blogItem.title}</h4>
-                              <p>{blogItem.perex}</p>
-                            </div>
-                          </Link>
-                        </li>
-                      ))}
+                            return {
+                              ...item,
+                              isDoctorActive: this.isDoctorActive(workingHours),
+                            };
+                          }
+                        )
+                        .sort((a, b) => (a.isDoctorActive === true ? -1 : 1))
+                        .map((doctor, i) => {
+                          return (
+                            <li key={i} className={doctor.isDoctorActive ? 'active' : ''}>
+                              <Link {...doctor.link}>
+                                <span>
+                                  <p>
+                                    <span>{doctor.name}</span>
+                                    <span>{doctor.isDoctorActive ? 'ordinuje' : 'neordinuje'}</span>
+                                  </p>
+                                  <p>{doctor.speciality}</p>
+                                </span>
+                                <span>{doctor.clinic}</span>
+                              </Link>
+                            </li>
+                          );
+                        })}
                     </ul>
                   );
                 } else {
-                  return <div className={'searchBarResults__noResults'} />;
+                  return (
+                      <div className={'searchBarResults__noResults'}>Bohužel jsme nenalezli žádného lékaře.</div>
+                  );
                 }
               }}
             </List>
-          )}
+
+            {this.props.blogSearchResults && this.state.query.length > 2 && (
+              <List data={this.props.blogSearchResults} searchedText={this.state.query}>
+                {({ data }) => {
+                  if (data.length > 0) {
+                    return (
+                      <ul className={'searchBarResults__blog'}>
+                        <label>Možná jste hledali:</label>
+
+                        {data.map((blogItem, i) => (
+                          <li key={i}>
+                            <Link {...blogItem.link}>
+                              <div>
+                                <h4>{blogItem.title}</h4>
+                                <p>{blogItem.perex}</p>
+                              </div>
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    );
+                  } else {
+                    return (<></>);
+                  }
+                }}
+              </List>
+            )}
         </div>
+      }
       </div>
     );
   }
