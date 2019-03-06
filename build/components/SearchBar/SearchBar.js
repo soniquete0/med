@@ -90,53 +90,53 @@ var SearchBar = /** @class */ (function (_super) {
                 React.createElement("input", { type: "text", placeholder: placeholder, onFocus: function () { return _this.handleFocus(); }, onBlur: function () { return _this.handleFocus(); }, onChange: function (e) { return _this.changeSearchQuery(e.target.value); }, ref: this.input }),
                 React.createElement(SvgIcon, { name: 'search', type: barColor })),
             React.createElement("div", { className: "searchBar__bar" }),
-            React.createElement("div", { className: "searchBarResults " + (this.state.query.length !== 0 ? 'active' : '') },
-                React.createElement(List, { data: doctorSearchResults, searchedText: this.state.query }, function (_a) {
-                    var data = _a.data;
-                    if (data.length > 0) {
-                        return (React.createElement("ul", { className: 'searchBarResults__doctors' }, data
-                            .map(function (item) {
-                            var workingHours = null;
-                            try {
-                                workingHours = JSON.parse(item.workingHours);
-                            }
-                            catch (e) {
-                                console.log('error', e);
-                            }
-                            return __assign({}, item, { isDoctorActive: _this.isDoctorActive(workingHours) });
-                        })
-                            .sort(function (a, b) { return (a.isDoctorActive === true ? -1 : 1); })
-                            .map(function (doctor, i) {
-                            return (React.createElement("li", { key: i, className: doctor.isDoctorActive ? 'active' : '' },
-                                React.createElement(Link, __assign({}, doctor.link),
-                                    React.createElement("span", null,
-                                        React.createElement("p", null,
-                                            React.createElement("span", null, doctor.name),
-                                            React.createElement("span", null, doctor.isDoctorActive ? 'ordinuje' : 'neordinuje')),
-                                        React.createElement("p", null, doctor.speciality)),
-                                    React.createElement("span", null, doctor.clinic))));
-                        })));
-                    }
-                    else {
-                        return React.createElement("div", { className: 'searchBarResults__noResults' });
-                    }
-                }),
-                React.createElement("hr", null),
-                this.props.blogSearchResults && (React.createElement(List, { data: this.props.blogSearchResults, searchedText: this.state.query }, function (_a) {
-                    var data = _a.data;
-                    if (data.length > 0) {
-                        return (React.createElement("ul", { className: 'searchBarResults__blog' },
-                            React.createElement("label", null, "Mo\u017En\u00E1 jste hledali:"),
-                            data.map(function (blogItem, i) { return (React.createElement("li", { key: i },
-                                React.createElement(Link, __assign({}, blogItem.link),
-                                    React.createElement("div", null,
-                                        React.createElement("h4", null, blogItem.title),
-                                        React.createElement("p", null, blogItem.perex))))); })));
-                    }
-                    else {
-                        return React.createElement("div", { className: 'searchBarResults__noResults' });
-                    }
-                })))));
+            this.state.query.length > 2 &&
+                React.createElement("div", { className: "searchBarResults " + (this.state.query.length > 2 ? 'active' : '') },
+                    React.createElement(List, { data: doctorSearchResults, searchedText: this.state.query }, function (_a) {
+                        var data = _a.data;
+                        if (data.length > 0) {
+                            return (React.createElement("ul", { className: 'searchBarResults__doctors' }, data
+                                .map(function (item) {
+                                var workingHours = null;
+                                try {
+                                    workingHours = JSON.parse(item.workingHours);
+                                }
+                                catch (e) {
+                                    console.log('error', e);
+                                }
+                                return __assign({}, item, { isDoctorActive: _this.isDoctorActive(workingHours) });
+                            })
+                                .sort(function (a, b) { return (a.isDoctorActive === true ? -1 : 1); })
+                                .map(function (doctor, i) {
+                                return (React.createElement("li", { key: i, className: doctor.isDoctorActive ? 'active' : '' },
+                                    React.createElement(Link, __assign({}, doctor.link),
+                                        React.createElement("span", null,
+                                            React.createElement("p", null,
+                                                React.createElement("span", null, doctor.name),
+                                                React.createElement("span", null, doctor.isDoctorActive ? 'ordinuje' : 'neordinuje')),
+                                            React.createElement("p", null, doctor.speciality)),
+                                        React.createElement("span", null, doctor.clinic))));
+                            })));
+                        }
+                        else {
+                            return (React.createElement("div", { className: 'searchBarResults__noResults' }, "Bohu\u017Eel jsme nenalezli \u017E\u00E1dn\u00E9ho l\u00E9ka\u0159e."));
+                        }
+                    }),
+                    this.props.blogSearchResults && this.state.query.length > 2 && (React.createElement(List, { data: this.props.blogSearchResults, searchedText: this.state.query }, function (_a) {
+                        var data = _a.data;
+                        if (data.length > 0) {
+                            return (React.createElement("ul", { className: 'searchBarResults__blog' },
+                                React.createElement("label", null, "Mo\u017En\u00E1 jste hledali:"),
+                                data.map(function (blogItem, i) { return (React.createElement("li", { key: i },
+                                    React.createElement(Link, __assign({}, blogItem.link),
+                                        React.createElement("div", null,
+                                            React.createElement("h4", null, blogItem.title),
+                                            React.createElement("p", null, blogItem.perex))))); })));
+                        }
+                        else {
+                            return (React.createElement(React.Fragment, null));
+                        }
+                    })))));
     };
     SearchBar.prototype.getWeekDayKey = function () {
         var day;
