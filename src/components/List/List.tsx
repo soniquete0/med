@@ -26,6 +26,59 @@ export interface Properties extends RouteComponentProps<LooseObject> {
   searchedText?: string;
 }
 
+const FRONTEND = gql`
+  query frontend($url: String!, $origin: String) {
+    frontend: frontend( where: { url: $url, origin: $origin } ) {
+      website @connection(key: "websiteData") {
+        id
+        title
+      }
+      language @connection(key: "languageData") {
+        id
+        code
+        name
+      }
+      page @connection(key: "pageData") {
+        id
+        name
+        content
+      }
+      navigations @connection(key: "navigationsData") {
+        id
+        name
+        nodes {
+          id
+          page
+          title
+          link
+          order
+          parent
+          __typename
+        }
+        __typename
+      },
+      languages @connection(key: "languages") {
+        id
+        code
+        name
+      },
+      datasourceItems @connection(key: "datasourceItems") {
+        id
+        content
+        slug
+        datasource {
+          type
+        }
+      },
+      seo,
+      project {
+        id
+        components
+      }
+    }
+  }
+`;
+
 const DATASOURCE = gql`
   query datasource($id: ID!) {
     datasource(where: { id: $id }) {
@@ -62,17 +115,10 @@ export interface QueryResult {
   data: Array<LooseObject>;
 }
 
-const GET_CONTEXT = gql`
-  {
-    pageData @client
-    languageData @client
-    projectData @client
-  }
-`;
 
 const GET_ALL_PAGES = gql`
-  query localizedPages($languageId: ID! $projectId: ID!) {
-    pages(where: { website: { project: { id: $projectId } } }) {
+  query localizedPages($languageId: ID! $websiteId: ID!) {
+    pages(where: { website: { id: $websiteId } }) {
       id
       type {
         id
@@ -103,15 +149,21 @@ const GET_ALL_PAGES = gql`
 `;
 
 const AllPagesComposedQuery = adopt({
-  getContext: ({ render }) => <Query query={GET_CONTEXT}>{({ data }) => render(data)}</Query>,
+  getContext: ({ render, origin, url }) => (
+    <Query
+      query={FRONTEND} 
+      variables={{ origin, url }}
+    >
+        {({ data }) => render(data)}
+    </Query>
+  ),
   allPages: ({ 
     render,
     getContext: { 
-      languageData,
-      projectData,
+      frontend
     }
   }) => {
-    if (!languageData || !projectData) {
+    if (!frontend || !frontend.language || !frontend.website) {
       return render({ loading: true });
     }
 
@@ -120,8 +172,8 @@ const AllPagesComposedQuery = adopt({
         <Query 
           query={GET_ALL_PAGES}
           variables={{ 
-            languageId: languageData.id,
-            projectId: projectData.id,
+            languageId: frontend.language.id,
+            websiteId: frontend.website.id,
           }}
         >
           {data => {
@@ -163,7 +215,10 @@ class List extends React.Component<Properties, {}> {
   }
 
   render() {
-
+    if (!window) {
+      return (<></>);
+    }
+    const { origin } = window;
     const { data, location } = this.props;
     let { searchedText } = this.props;
 
@@ -198,14 +253,13 @@ class List extends React.Component<Properties, {}> {
     }
 
     if (data && data.sourceType === 'pages') {
-
       return (
-          <AllPagesComposedQuery>
+          <AllPagesComposedQuery origin={process.env.REACT_APP_ORIGIN || origin} url={location.pathname}>
             {({
               allPages: { data: allPagesData, loading: allPagesLoading, error: allPagesError },
-              getContext: { languageData, pageData },
+              getContext: { frontend },
             }) => {
-              if (allPagesLoading || !allPagesData || !languageData) {
+              if (allPagesLoading || !allPagesData || !frontend.page || !frontend.language) {
                 return <Loader />;
               }
   
@@ -235,7 +289,7 @@ class List extends React.Component<Properties, {}> {
                     return false;
                   }
   
-                  if (pageData && p.id === pageData.id) {
+                  if (frontend.page && p.id === frontend.page.id) {
                     return false;
                   }
   
