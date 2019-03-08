@@ -211,7 +211,7 @@ var List = /** @class */ (function (_super) {
     List.prototype.render = function () {
         var _this = this;
         var origin = null;
-        if (!window) {
+        if (window) {
             origin = window.origin;
         }
         var _a = this.props, data = _a.data, location = _a.location;

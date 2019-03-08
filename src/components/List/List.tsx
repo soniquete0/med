@@ -231,7 +231,7 @@ class List extends React.Component<Properties, {}> {
 
   render() {
     let origin = null;
-    if (!window) {
+    if (window) {
       origin = window.origin;
     }
     
