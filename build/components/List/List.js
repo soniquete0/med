@@ -28,7 +28,7 @@ var __assign = (this && this.__assign) || function () {
 };
 import * as React from 'react';
 import gql from 'graphql-tag';
-import { Query } from 'react-apollo';
+import { Query, ApolloConsumer } from 'react-apollo';
 import * as R from 'ramda';
 import { adopt } from 'react-adopt';
 import Loader from '@source/partials/Loader';
@@ -50,10 +50,21 @@ var DATASOURCE = gql(templateObject_2 || (templateObject_2 = __makeTemplateObjec
 var GET_ALL_PAGES = gql(templateObject_3 || (templateObject_3 = __makeTemplateObject(["\n  query localizedPages($languageId: ID! $websiteId: ID!) {\n    pages(where: { website: { id: $websiteId } }) {\n      id\n      type {\n        id\n        name\n      }\n      tags {\n        id\n        name\n      }\n      translations(where: { \n        language: { id: $languageId }\n      }) {\n        id\n        name\n        createdAt\n        content\n        annotations {\n          key\n          value\n        }\n        language {\n          id\n          code\n        }\n      }\n    }\n  }\n"], ["\n  query localizedPages($languageId: ID! $websiteId: ID!) {\n    pages(where: { website: { id: $websiteId } }) {\n      id\n      type {\n        id\n        name\n      }\n      tags {\n        id\n        name\n      }\n      translations(where: { \n        language: { id: $languageId }\n      }) {\n        id\n        name\n        createdAt\n        content\n        annotations {\n          key\n          value\n        }\n        language {\n          id\n          code\n        }\n      }\n    }\n  }\n"])));
 var AllPagesComposedQuery = adopt({
     getContext: function (_a) {
-        var render = _a.render, origin = _a.origin, url = _a.url;
-        return (React.createElement(Query, { query: FRONTEND, variables: { origin: origin, url: url } }, function (_a) {
-            var data = _a.data;
-            return render(data);
+        var render = _a.render, windowOrigin = _a.windowOrigin, locationPath = _a.locationPath;
+        return (React.createElement(ApolloConsumer, null, function (client) {
+            var data = client.cache.data;
+            var origin = windowOrigin;
+            var url = locationPath;
+            if (data && data.data['$ROOT_QUERY.origin']
+                && data.data['$ROOT_QUERY.origin'].url
+                && data.data['$ROOT_QUERY.origin'].origin) {
+                origin = data.data['$ROOT_QUERY.origin'].origin;
+                url = data.data['$ROOT_QUERY.origin'].url;
+            }
+            return (React.createElement(Query, { query: FRONTEND, variables: { origin: origin, url: url } }, function (_a) {
+                var frontend = _a.data;
+                return render(frontend);
+            }));
         }));
     },
     allPages: function (_a) {
@@ -199,10 +210,10 @@ var List = /** @class */ (function (_super) {
     }
     List.prototype.render = function () {
         var _this = this;
+        var origin = null;
         if (!window) {
-            return (React.createElement(React.Fragment, null));
+            origin = window.origin;
         }
-        var origin = window.origin;
         var _a = this.props, data = _a.data, location = _a.location;
         var searchedText = this.props.searchedText;
         var fulltextFilter = data && data.fulltextFilter;
