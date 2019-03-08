@@ -1,6 +1,6 @@
 import * as React from 'react';
 import gql from 'graphql-tag';
-import { Query } from 'react-apollo';
+import { Query, ApolloConsumer } from 'react-apollo';
 import * as R from 'ramda';
 import { adopt } from 'react-adopt';
 import Loader from '@source/partials/Loader';
@@ -115,7 +115,6 @@ export interface QueryResult {
   data: Array<LooseObject>;
 }
 
-
 const GET_ALL_PAGES = gql`
   query localizedPages($languageId: ID! $websiteId: ID!) {
     pages(where: { website: { id: $websiteId } }) {
@@ -149,13 +148,30 @@ const GET_ALL_PAGES = gql`
 `;
 
 const AllPagesComposedQuery = adopt({
-  getContext: ({ render, origin, url }) => (
-    <Query
-      query={FRONTEND} 
-      variables={{ origin, url }}
-    >
-        {({ data }) => render(data)}
-    </Query>
+  getContext: ({ render, windowOrigin, locationPath }) => (
+    <ApolloConsumer>
+      {(client: LooseObject) => {
+        const { cache: { data } } = client;
+        let origin = windowOrigin;
+        let url = locationPath;
+
+        if (data && data.data['$ROOT_QUERY.origin']
+          && data.data['$ROOT_QUERY.origin'].url
+          && data.data['$ROOT_QUERY.origin'].origin ) {
+            origin = data.data['$ROOT_QUERY.origin'].origin;
+            url = data.data['$ROOT_QUERY.origin'].url;
+          }
+
+        return (
+          <Query
+            query={FRONTEND} 
+            variables={{ origin, url }}
+          >
+            {({ data: frontend }) => render(frontend)}
+          </Query>
+        );
+      }}
+     </ApolloConsumer>
   ),
   allPages: ({ 
     render,
@@ -186,7 +202,6 @@ const AllPagesComposedQuery = adopt({
   },
 });
 class List extends React.Component<Properties, {}> {
-
   getPaginatingFunction: GetPaginatingFunction = (items) => {
     
     const getPage: GetPage = function (
@@ -215,10 +230,11 @@ class List extends React.Component<Properties, {}> {
   }
 
   render() {
+    let origin = null;
     if (!window) {
-      return (<></>);
+      origin = window.origin;
     }
-    const { origin } = window;
+    
     const { data, location } = this.props;
     let { searchedText } = this.props;
 
