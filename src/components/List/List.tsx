@@ -115,6 +115,14 @@ export interface QueryResult {
   data: Array<LooseObject>;
 }
 
+const GET_CONTEXT = gql`
+  {
+    pageData @client
+    languageData @client
+    websiteData @client
+  }
+`;
+
 const GET_ALL_PAGES = gql`
   query localizedPages($languageId: ID! $websiteId: ID!) {
     pages(where: { website: { id: $websiteId } }) {
@@ -148,7 +156,8 @@ const GET_ALL_PAGES = gql`
 `;
 
 const AllPagesComposedQuery = adopt({
-  getContext: ({ render, windowOrigin, locationPath }) => (
+  getContext: ({ render }) => <Query query={GET_CONTEXT}>{({ data }) => render(data)}</Query>,
+  getFrontend: ({ render, windowOrigin, locationPath }) => (
     <ApolloConsumer>
       {(client: LooseObject) => {
         const { cache: { data } } = client;
@@ -161,6 +170,10 @@ const AllPagesComposedQuery = adopt({
             origin = data.data['$ROOT_QUERY.origin'].origin;
             url = data.data['$ROOT_QUERY.origin'].url;
           }
+
+        if (!windowOrigin || !locationPath) {
+          return render({ frontend: null });
+        }
 
         return (
           <Query
@@ -175,11 +188,21 @@ const AllPagesComposedQuery = adopt({
   ),
   allPages: ({ 
     render,
-    getContext: { 
+    getFrontend: {
       frontend
-    }
+    },
+    getContext: { 
+      languageData,
+      websiteData,
+    },
   }) => {
-    if (!frontend || !frontend.language || !frontend.website) {
+    const languageId = (languageData && languageData.id) || 
+      (frontend && frontend.language && frontend.language.id);
+
+    const websiteId = (websiteData && websiteData.id) ||
+      (frontend && frontend.website && frontend.website.id);
+
+    if (!languageId || !websiteId) {
       return render({ loading: true });
     }
 
@@ -188,8 +211,8 @@ const AllPagesComposedQuery = adopt({
         <Query 
           query={GET_ALL_PAGES}
           variables={{ 
-            languageId: frontend.language.id,
-            websiteId: frontend.website.id,
+            languageId,
+            websiteId,
           }}
         >
           {data => {
@@ -273,9 +296,14 @@ class List extends React.Component<Properties, {}> {
           <AllPagesComposedQuery origin={process.env.REACT_APP_ORIGIN || origin} url={location.pathname}>
             {({
               allPages: { data: allPagesData, loading: allPagesLoading, error: allPagesError },
-              getContext: { frontend },
+              getFrontend: { frontend },
+              getContext: { pageData }
             }) => {
-              if (allPagesLoading || !allPagesData || !frontend.page || !frontend.language) {
+              const pageId = (pageData && pageData.id) ||
+                (frontend && frontend.page && frontend.page.id);
+              
+              console.log(pageId);
+              if (allPagesLoading || !allPagesData) {
                 return <Loader />;
               }
   
@@ -305,7 +333,7 @@ class List extends React.Component<Properties, {}> {
                     return false;
                   }
   
-                  if (frontend.page && p.id === frontend.page.id) {
+                  if (pageId && p.id === pageId) {
                     return false;
                   }
   
