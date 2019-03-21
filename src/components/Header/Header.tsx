@@ -138,7 +138,10 @@ class Header extends React.Component<HeaderProps, HeaderState> {
               <div className="container">
                 <div className={'header__wrapper'}>
                   <div className={'header__logo'} ref={this.logo}>
-                    <Link url={`/${context.websiteData.title.toLowerCase()}/${context.languageData.code}`}>
+                  <Link 
+                      url={`${context.websiteData.urlMask === '/' ? 
+                              '' : context.websiteData.urlMask}/${context.languageData.code}`}
+                    >
                       <img src="/assets/medicon/images/logo.svg" alt="Medicon Logo" />
                     </Link>
                   </div>
