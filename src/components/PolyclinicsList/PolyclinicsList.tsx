@@ -1,9 +1,10 @@
 import * as React from 'react';
+import ReactMarkdown from 'react-markdown';
+
+import List from '../List';
+import Media from '../../partials/Media';
 import PcTitle from './components/title';
 import Button from '../../partials/Button';
-import Media from '../../partials/Media';
-import ReactMarkdown from 'react-markdown';
-import List from '../List';
 
 interface Clinic {
   name: string;
@@ -17,6 +18,8 @@ interface Clinic {
   station: string;
   services: string;
   url?: LooseObject;
+  clinic?: string;
+  clinicColor?: string;
 }
 
 export interface PolyclinicsListProps {
@@ -37,7 +40,7 @@ class PolyclinicsList extends React.Component<PolyclinicsListProps, PolyclinicsL
 
     this.state = {
       displayAllServices: false,
-      activeCard: null,
+      activeCard: null
     };
   }
 
@@ -45,14 +48,16 @@ class PolyclinicsList extends React.Component<PolyclinicsListProps, PolyclinicsL
     services = services && services.length > 0 && services
       .split('\n')
       .filter((service, i) => i <= 8)
-      .join('\n') || "";
+      .join('\n') || '';
 
     return services;
   }
 
+  getServicesLength = (services) => services.split('\n').length;
+
   toggleDisplayServices = (index: number) => {
     this.setState({
-      displayAllServices: index === null ?  false : true,
+      displayAllServices: index === null ? false : true,
       activeCard: index,
     });
   }
@@ -79,10 +84,22 @@ class PolyclinicsList extends React.Component<PolyclinicsListProps, PolyclinicsL
                           <div className="pcitem__info__details__item">
                             <img src="../../../assets/medicon/images/geoIcon.svg" alt="Medicon GeoLocation Icon" />
 
-                            <p>
-                              {clinic.address && clinic.address} <br />
-                              {clinic.district && clinic.district}
-                            </p>
+                            <div>
+                              <p>
+                                {clinic.address && clinic.address} <br />
+                                {clinic.district && clinic.district}
+                              </p>
+
+                              {clinic.clinic && 
+                                <p 
+                                  style={
+                                    clinic.clinicColor ? 
+                                    { color: `${clinic.clinicColor}`} : 
+                                    {}
+                                  }
+                                >{clinic.clinic}
+                                </p>}
+                            </div>
                           </div>
 
                           <div className="pcitem__info__details__item">
@@ -117,16 +134,18 @@ class PolyclinicsList extends React.Component<PolyclinicsListProps, PolyclinicsL
                             }}
                           />
 
-                          <div
-                            onClick={() => this.toggleDisplayServices(index === this.state.activeCard ? null : index)}
-                          >  
-                            {this.state.displayAllServices && index === this.state.activeCard
-                              ? 'Skrýt'
-                              : 'Další odbornosti'}{' '}
-                            <span className="arrow" />
-                          </div>
+                          {this.getServicesLength(clinic.services) > 9 &&
+                            <div
+                              className={'pcitem__info__list__showMore'}
+                              onClick={() => this.toggleDisplayServices(index === this.state.activeCard ? null : index)}
+                            >  
+                              {this.state.displayAllServices && index === this.state.activeCard
+                                ? 'Skrýt'
+                                : 'Další odbornosti'}{' '}
+                              <span className="arrow" />
+                            </div>}
                         </div>
-
+                         
                         <div className={'pcitem__info__desc'}>
                           <div className={'pcitem__info__desc__txt'}>
                             <ReactMarkdown
@@ -139,7 +158,7 @@ class PolyclinicsList extends React.Component<PolyclinicsListProps, PolyclinicsL
 
                           <div className={'pcitem__info__btnHolder'}>
                             <Button classes="btn btn--blueBorder" url={clinic.url && clinic.url}>
-                              vice info
+                              více informací
                             </Button>
                           </div>
                         </div>
