@@ -298,7 +298,6 @@ class List extends React.Component<Properties, {}> {
               const pageId = (pageData && pageData.id) ||
                 (frontend && frontend.page && frontend.page.id);
               
-              console.log(pageId);
               if (allPagesLoading || !allPagesData) {
                 return <Loader />;
               }

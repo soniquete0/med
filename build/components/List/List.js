@@ -257,7 +257,6 @@ var List = /** @class */ (function (_super) {
                 var _b = _a.allPages, allPagesData = _b.data, allPagesLoading = _b.loading, allPagesError = _b.error, frontend = _a.getFrontend.frontend, pageData = _a.getContext.pageData;
                 var pageId = (pageData && pageData.id) ||
                     (frontend && frontend.page && frontend.page.id);
-                console.log(pageId);
                 if (allPagesLoading || !allPagesData) {
                     return React.createElement(Loader, null);
                 }
