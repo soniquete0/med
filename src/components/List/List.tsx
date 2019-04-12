@@ -5,13 +5,9 @@ import * as R from 'ramda';
 import { adopt } from 'react-adopt';
 import { withRouter, RouteComponentProps } from 'react-router';
 import Loader from '@source/partials/Loader';
-
 const escape = function (str: string) {
   // TODO: escape %x75 4HEXDIG ?? chars
   return str
-    .replace(/[\"]/g, '\\"')
-    .replace(/[\\]/g, '\\\\')
-    .replace(/[\/]/g, '\\/')
     .replace(/[\b]/g, '\\b')
     .replace(/[\f]/g, '\\f')
     .replace(/[\n]/g, '\\n')
@@ -32,7 +28,6 @@ const FRONTEND = gql`
       website @connection(key: "websiteData") {
         id
         title
-        urlMask
       }
       language @connection(key: "languageData") {
         id
@@ -107,8 +102,7 @@ export interface GetPage {
 
 export interface GetPaginatingFunction {
   (
-    items: Array<LooseObject>,
-    searchedFragments?: any
+    items: Array<LooseObject>
   ): GetPage;
 }
 
@@ -227,7 +221,7 @@ const AllPagesComposedQuery = adopt({
   },
 });
 class List extends React.Component<Properties, {}> {
-  getPaginatingFunction: GetPaginatingFunction = (items, searchedFragments) => {
+  getPaginatingFunction: GetPaginatingFunction = (items) => {
     
     const getPage: GetPage = function (
       numberOfPage: number, 
@@ -244,13 +238,6 @@ class List extends React.Component<Properties, {}> {
           (numberOfPage) * pageSize < numberOfItems ? 
             cutTo - pageSize : (((numberOfPage - 1) && ((numberOfPage - 1) * pageSize)) || 0);
 
-        if (searchedFragments && searchedFragments.length > 0) {
-          items = searchedFragments.reduce(
-            (filteredPages, fragment) => {
-              return filteredPages.filter(page => JSON.stringify(page).toLowerCase().includes(fragment.toLowerCase())); 
-            }, 
-            items);
-        }
         return { items: items.slice(
           paginationType === 'pagination' ? cutFrom : 0, 
           cutTo),
@@ -292,9 +279,8 @@ class List extends React.Component<Properties, {}> {
     }  
 
     const searchedFragments = searchedText && searchedText.trim().split(' ').map(fragment => fragment.trim());
-
     if (Array.isArray(data)) {
-      return this.props.children({ data, getPage: this.getPaginatingFunction(data, searchedFragments) });
+      return this.props.children({ data, getPage: this.getPaginatingFunction(data) });
     }
     // In case that data isn't array and contain datasourceId try to fetch datasource with his items
     if (data && data.datasourceId) {
@@ -453,8 +439,10 @@ class List extends React.Component<Properties, {}> {
               replaced = replaced.replace(result[0], JSON.stringify(replacement));
             } else if (replacement && typeof replacement === 'number') {
               replaced = replaced.replace(result[0], replacement.toString());
+            } else {
+              replaced = replaced.replace(result[0], '');
             }
-          }    
+          }
         } catch (e) {
           console.log(e);
         }
@@ -476,7 +464,7 @@ class List extends React.Component<Properties, {}> {
         const { data: dataShape, error, loading } = data;
 
         let datasourceItems = ((queryData.data.datasource && queryData.data.datasource.datasourceItems) || []);
-        
+
         if (searchedFragments && searchedFragments.length > 0) {
           datasourceItems = searchedFragments.reduce(
           (filteredItems, fragment) => {

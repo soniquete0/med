@@ -12,7 +12,7 @@ export interface GetPage {
     };
 }
 export interface GetPaginatingFunction {
-    (items: Array<LooseObject>, searchedFragments?: any): GetPage;
+    (items: Array<LooseObject>): GetPage;
 }
 export interface QueryResult {
     getPage: GetPage;
