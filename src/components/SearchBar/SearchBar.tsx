@@ -149,7 +149,7 @@ class SearchBar extends React.Component<SearchBarProps, SearchBarState> {
                                         {color: '#c23636'} 
                                       }
                                     >
-                                      {doctor.isDoctorActive ? 'ordinuje' : 'neordinuje'}
+                                      {doctor.isDoctorActive ? 'ordinuje' : 'Dnes již neordinuje'}
                                     </span>
                                   </p>
                                   <p>{doctor.speciality}</p>

@@ -1,6 +1,5 @@
 {
   "name": "DoctorSchedule",
-
   "form": {
     "schema": {
       "type": "object",

@@ -116,7 +116,7 @@ var SearchBar = /** @class */ (function (_super) {
                                                 React.createElement("span", null, doctor.name),
                                                 React.createElement("span", { style: doctor.isDoctorActive ?
                                                         { color: '#31a031' } :
-                                                        { color: '#c23636' } }, doctor.isDoctorActive ? 'ordinuje' : 'neordinuje')),
+                                                        { color: '#c23636' } }, doctor.isDoctorActive ? 'ordinuje' : 'Dnes již neordinuje')),
                                             React.createElement("p", null, doctor.speciality)),
                                         React.createElement("span", null, doctor.clinic))));
                             })));

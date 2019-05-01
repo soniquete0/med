@@ -2,10 +2,10 @@ import * as React from 'react';
 import moment from 'moment';
 import gql from 'graphql-tag';
 import { urlize } from 'urlize';
-import { Query } from 'react-apollo';
 import { cloneDeep } from 'lodash';
+import { Query } from 'react-apollo';
 
-import Link from '../../partials/Link';
+import Link from '@source/partials/Link';
 import DividerCircles from '../DividerCircles';
 
 const GET_CONTEXT = gql`
@@ -325,13 +325,16 @@ const DoctorSchedule = (props: DoctorScheduleProps) => {
                       if (absence) {
                         return (
                           <tr key={i}>
-                            <td>{(absence.fromDate && moment(absence.fromDate.date).format('DD-MM-YYYY')) || ''}</td>
-                            <td>{(absence.toDate.date && moment(absence.toDate.date).format('DD-MM-YYYY')) || ''}</td>
+                            <td>
+                              {(absence.fromDate && moment(absence.fromDate.date).format('DD-MM-YYYY')) || ''}
+                            </td>
+                            <td>
+                              {(absence.toDate.date && moment(absence.toDate.date).format('DD-MM-YYYY')) || ''}
+                            </td>
                             <td>
                               <Link dynamic={true} url={getAbsenceLink(data, absence.alternate)}>
-                                {`${(absence.alternate && absence.alternate.firstName) || ''} ${(absence.alternate &&
-                                  absence.alternate.lastName) ||
-                                  ''}`}
+                                {`${(absence.alternate && absence.alternate.firstName) || ''} 
+                                ${(absence.alternate && absence.alternate.lastName) || ''}`}
                               </Link>
                             </td>
                           </tr>

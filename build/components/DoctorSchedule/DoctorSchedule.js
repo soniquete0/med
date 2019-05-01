@@ -6,9 +6,9 @@ import * as React from 'react';
 import moment from 'moment';
 import gql from 'graphql-tag';
 import { urlize } from 'urlize';
-import { Query } from 'react-apollo';
 import { cloneDeep } from 'lodash';
-import Link from '../../partials/Link';
+import { Query } from 'react-apollo';
+import Link from '@source/partials/Link';
 import DividerCircles from '../DividerCircles';
 var GET_CONTEXT = gql(templateObject_1 || (templateObject_1 = __makeTemplateObject(["\n  {\n    languageData @client\n    pageData @client\n    websiteData @client\n    languagesData @client\n    navigationsData @client\n  }\n"], ["\n  {\n    languageData @client\n    pageData @client\n    websiteData @client\n    languagesData @client\n    navigationsData @client\n  }\n"])));
 var getDayOfWeek = function (day) {
@@ -242,9 +242,7 @@ var DoctorSchedule = function (props) {
                                 React.createElement("td", null, (absence.fromDate && moment(absence.fromDate.date).format('DD-MM-YYYY')) || ''),
                                 React.createElement("td", null, (absence.toDate.date && moment(absence.toDate.date).format('DD-MM-YYYY')) || ''),
                                 React.createElement("td", null,
-                                    React.createElement(Link, { dynamic: true, url: getAbsenceLink(data, absence.alternate) }, ((absence.alternate && absence.alternate.firstName) || '') + " " + ((absence.alternate &&
-                                        absence.alternate.lastName) ||
-                                        '')))));
+                                    React.createElement(Link, { dynamic: true, url: getAbsenceLink(data, absence.alternate) }, ((absence.alternate && absence.alternate.firstName) || '') + " \n                                " + ((absence.alternate && absence.alternate.lastName) || '')))));
                         }
                     })))))));
         })));
