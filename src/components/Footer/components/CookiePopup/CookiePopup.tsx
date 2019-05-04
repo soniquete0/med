@@ -19,7 +19,7 @@ const CookiePopup = () => {
     <CookieConsent
       expires={365}
       location={'bottom'}
-      cookieName={'Cookies'}
+      cookieName={'MediconCookies'}
       acceptOnScroll={false}
       buttonText={'Got it!'}
       acceptOnScrollPercentage={100}
