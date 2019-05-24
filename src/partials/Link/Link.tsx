@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import gql from 'graphql-tag';
 import { adopt } from 'react-adopt';
 import { Query } from 'react-apollo';
@@ -70,6 +70,7 @@ const ComposerLink = props => {
           return (
             <a
               {...args}
+              style={props.style}
               target={urlNewWindow ? '_blank' : ''}
               href={(isExternalLink(url) && url) || (pageUrlObj && pageUrlObj.url) || '#'}
             >
@@ -78,7 +79,7 @@ const ComposerLink = props => {
           );
         } else {
           return (
-            <Link to={(dynamic && url) || (pageUrlObj ? pageUrlObj.url : '#')} {...args}>
+            <Link style={props.style} to={(dynamic && url) || (pageUrlObj ? pageUrlObj.url : '#')} {...args}>
               {children}
             </Link>
           );

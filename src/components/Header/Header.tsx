@@ -1,10 +1,11 @@
 import * as React from 'react';
-import Hamburger from './components/Hamburger';
 import gql from 'graphql-tag';
-import { Query } from 'react-apollo';
 import { adopt } from 'react-adopt';
+import { Query } from 'react-apollo';
+
 import Link from '../../partials/Link';
-import Loader from '@source/partials/Loader';
+import Loader from '../../partials/Loader';
+import Hamburger from './components/Hamburger';
 
 const GET_CONTEXT = gql`
   {
@@ -138,8 +139,8 @@ class Header extends React.Component<HeaderProps, HeaderState> {
               <div className="container">
                 <div className={'header__wrapper'}>
                   <div className={'header__logo'} ref={this.logo}>
-                    <Link 
-                      url={`${context.websiteData.urlMask === '/' ? 
+                    <Link
+                      url={`${context.websiteData.urlMask === '/' ?
                               '' : context.websiteData.urlMask}/${context.languageData.code}`}
                     >
                       <img src="/assets/medicon/images/logo.svg" alt="Medicon Logo" />
