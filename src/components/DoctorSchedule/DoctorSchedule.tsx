@@ -1,5 +1,5 @@
 import * as React from 'react';
-import moment from 'moment';
+import * as moment from 'moment';
 import gql from 'graphql-tag';
 import { urlize } from 'urlize';
 import { Query } from 'react-apollo';

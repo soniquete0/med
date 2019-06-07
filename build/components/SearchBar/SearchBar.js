@@ -25,7 +25,7 @@ var __assign = (this && this.__assign) || function () {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
-var moment_1 = require("moment");
+var moment = require("moment");
 var lodash_1 = require("lodash");
 var Link_1 = require("../../partials/Link");
 var List_1 = require("../../components/List");
@@ -148,7 +148,7 @@ var SearchBar = /** @class */ (function (_super) {
     };
     SearchBar.prototype.getWeekDayKey = function () {
         var day;
-        switch (moment_1.default().isoWeekday()) {
+        switch (moment().isoWeekday()) {
             case 1:
                 day = 'mo';
                 break;
@@ -192,15 +192,15 @@ var SearchBar = /** @class */ (function (_super) {
                 var from = regex.exec(doctorWorkingHours.from);
                 var to = regex.exec(doctorWorkingHours.to);
                 if (from && from[1] && from[2] && to && to[1] && to[2]) {
-                    var startOfShift = moment_1.default()
+                    var startOfShift = moment()
                         .startOf('day')
                         .add(from[1], 'hours')
                         .add(from[2], 'minutes');
-                    var endOfShift = moment_1.default()
+                    var endOfShift = moment()
                         .startOf('day')
                         .add(to[1], 'hours')
                         .add(to[2], 'minutes');
-                    var now = moment_1.default();
+                    var now = moment();
                     if (now.isSameOrBefore(endOfShift) && now.isSameOrAfter(startOfShift)) {
                         return true;
                     }

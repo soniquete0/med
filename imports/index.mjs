@@ -8,6 +8,7 @@ import fetch from 'node-fetch';
 import urli from  'urlize';
 
 import apollo from 'apollo-client';
+import * as context from 'apollo-link-context';
 
 const { ApolloClient } = apollo;
 const { HttpLink } = http;
@@ -16,12 +17,35 @@ const { urlize } = urli;
 
 const cache = new InMemoryCache();
 
-console.log(ApolloClient);
-
+// console.log(ApolloClient);
+const date = new Date();
+console.log(date);
 const httpLink = new HttpLink({ uri: 'https://visionary.mediconas.cz/api/graphql', fetch: fetch });
 
+const GET_OUTDATED = gql`
+  query datasourceItems($date: DateTime) {
+    datasourceItems(where:{updatedAt_lt: $date}) {
+      id
+      slug
+      createdAt
+      updatedAt
+    }
+  }
+`;
+
+const authLink = context.default.setContext((_, { headers }) => {
+  // get the authentication token from local storage if it exists
+  // return the headers to the context so httpLink can read them
+  return {
+    headers: {
+      ...headers,
+      authorization: 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6Ik1UQTVRVVJDTlVWRk1ERXdPRE5HTlRBd1FqSTRORGd4TlRRMlFqTkJOMFF4TWtFM056YzNNUSJ9.eyJpc3MiOiJodHRwczovL2ZveGVyMzYwLmV1LmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHw1YzgxMTU0NTZkM2Q3MzJlNmFhOWQ2YjgiLCJhdWQiOlsiZm94ZXIzNjAtc2VydmVyIiwiaHR0cHM6Ly9mb3hlcjM2MC5ldS5hdXRoMC5jb20vdXNlcmluZm8iXSwiaWF0IjoxNTU5ODE2MTIyLCJleHAiOjE1NTk5MDI1MjIsImF6cCI6IkFEMjZwUzFyVG42ZEhjNkRPbVVoeFE5MDRPM2xHN2JzIiwic2NvcGUiOiJvcGVuaWQgcHJvZmlsZSBlbWFpbCJ9.s4mxsB2VypN6WeRRvO8LU_TEfP05FEnK950t0Rc0jeHqaDOta091Lq3GYTQ54KfIapbGV71nCM-ukd5pVJ3EYscDF0o_yR-epETooRRwuTdMiEWxPKM-uTFLqnKWfpChWyMnpnnpacqmdWk-VK3b04pGWYYt_sloiWLPUbIWtlnYSfOtg2b4e7_bTRWGawB5oj7BsAJvwKZqB_M6YNUxmsfzg_H4nxosqiVN0DesvNxsH2omFky6cPuJdUa1uh9Z3vRU6AyWL402zO6qKTY1k0cOh69lc5RNYIPXg-tegRqQk9bcIW59cBG2_6pIn3xOqRPEc8xuuEBZtg0IJPdC0A'
+    }
+  }
+});
+
 const client = new ApolloClient({
-  link: httpLink,
+  link: authLink.concat(httpLink),
   cache
 }); 
 
@@ -91,16 +115,6 @@ const DELETE_DATASOURCE_ITEM = gql`
   }
 `;
 
-const getUniqueSlug = (datasource, slug, index, datasourceItemId) => {
-  // tslint:disable-next-line:max-line-length
-  if (datasource.datasourceItems.some(item => item.slug === `${slug}${(index > 0 ? `-${index}` : '')}` && datasourceItemId !== item.id)) {
-    index++;
-    return getUniqueSlug(datasource, slug, index);
-  } else {
-    return `${slug}${(index > 0 ? `-${index}` : '')}`;
-  }
-};
-
 // tslint:disable-next-line:typedef
 const createNewItem =  function (datasource, data) {
   const slug = urlize(datasource.slug
@@ -109,12 +123,11 @@ const createNewItem =  function (datasource, data) {
     )
     .join('-').toLowerCase());
 
-  const uniqueSlug = getUniqueSlug(datasource, slug, 0);
   return client.mutate({
     mutation: CREATE_DATASOURCE_ITEM,
     variables: {
       content: data,
-      slug: uniqueSlug,
+      slug: slug,
       id: datasource.id,
     },
     // tslint:disable-next-line:no-shadowed-variable
@@ -138,12 +151,11 @@ const updateItem = function (datasource, id, data) {
     )
     .join('-').toLowerCase());
 
-  const uniqueSlug = getUniqueSlug(datasource, slug, 0);
   return client.mutate({
     mutation: UPDATE_DATASOURCE_ITEM,
     variables: {
       content: data,
-      slug: uniqueSlug,
+      slug,
       id,
     },
     // tslint:disable-next-line:no-shadowed-variable
@@ -162,7 +174,7 @@ const updateItem = function (datasource, id, data) {
 };
 
 // tslint:disable-next-line:typedef
-const deleteItem = function (datasource, id) {
+const deleteItem = function (id) {
   return client.mutate({
     mutation: DELETE_DATASOURCE_ITEM,
     variables: {
@@ -198,7 +210,25 @@ const deleteItem = function (datasource, id) {
             // const validate = ajv.compile(datasource.schema);
             const { nurses } = doctor;
             delete doctor.nurses;
-            const transformedDoctor = { doctorPersonalInformation: { ...doctor }, nurses };
+            doctor.expertises = [doctor.expertises.reduce(
+              (acc, v) =>  {
+                if (!acc) {
+                  return v;
+                }
+
+                return ({
+                  id: [acc.id, v.id].join(', '),
+                  code: [acc.code, v.code].join(', '),
+                  name: [acc.name, v.name].join(', ')
+                });
+              },                                      
+              null)];
+
+            const transformedDoctor = { doctorPersonalInformation: {
+              ...doctor,
+              order: `${doctor.profession.id === 16 ? 'A' : 'N'} ${doctor.lastName} ${doctor.firstName}`,
+            }, nurses };
+            
             // const valid = validate(transformedDoctor);
             const existingDoctorItem = datasource.datasourceItems
               .find(item => item.content.doctorPersonalInformation.id === doctor.id);
@@ -214,7 +244,7 @@ const deleteItem = function (datasource, id) {
             // }
 
             // tslint:disable-next-line:max-line-length
-            console.log(`Updating ${doctor.firstName} ${doctor.lastName}`);
+            console.log(`Updating ${transformedDoctor.doctorPersonalInformation.order}`);
             if (!existingDoctorItem) {
               return createNewItem(datasource, transformedDoctor)
                 .then(() => setTimeout(() => Promise.resolve(), 2000));
@@ -224,7 +254,30 @@ const deleteItem = function (datasource, id) {
 
           }).catch((err) => { console.log(err); process.exit(); });
         // tslint:disable-next-line:align
-        }, Promise.resolve());
+        }, Promise.resolve())
+        .then(() => {
+          return client.query({
+            query: GET_OUTDATED,
+            variables: {
+              date,
+            }
+          });
+        })
+        .then((outdated) => {
+          if (outdated && outdated.data && outdated.data.datasourceItems) {
+
+            return outdated.data.datasourceItems.reduce((result, item) => {
+              return result.then(
+                (r) => {
+                  console.log(`Deleting ${item.slug}`);
+                  return deleteItem(item.id)
+                    .then(() => setTimeout(() => Promise.resolve(), 2000));
+                }).catch((err) => { console.log(err); });
+              // tslint:disable-next-line:align
+              }, Promise.resolve());
+          }
+        }).catch((err) => console.error(err.result.errors));
+        
     } catch (e) {
       console.log('insertion error', e);
     }
