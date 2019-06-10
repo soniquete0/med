@@ -189,7 +189,7 @@ export default class CareerForm extends React.Component<CareerFormProps, CareerF
 
       try {
         axios
-          .post(process.env.REACT_APP_SERVER + '/inquiry/upload', data)
+          .post(process.env.REACT_APP_REST_API_URL + '/inquiry/upload', data)
           .then(response => {
             this.setState({ ...this.state, formStatus: 'success' });
           })
