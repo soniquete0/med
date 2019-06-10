@@ -75,15 +75,17 @@ var ContactForm = /** @class */ (function (_super) {
             e.preventDefault();
             if (_this.isValid()) {
                 var data = new FormData();
-                data.append('name', _this.state.formValues.name);
+                data.append('firstName', _this.state.formValues.name);
+                data.append('lastName', '');
                 data.append('email', _this.state.formValues.email);
+                data.append('phone', '-');
                 data.append('text', _this.state.formValues.message);
                 data.append('url', window.location.href);
                 data.append('subject', subject);
                 data.append('formType', 'contact');
                 try {
                     axios_1.default
-                        .post(process.env.REACT_APP_SERVER + '/inquiry/upload', data)
+                        .post(process.env.REACT_APP_REST_API_URL + '/inquiry/upload', data)
                         .then(function (response) {
                         _this.setState(__assign({}, _this.state, { formStatus: 'success' }));
                     })

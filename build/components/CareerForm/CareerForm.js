@@ -85,9 +85,9 @@ var CareerForm = /** @class */ (function (_super) {
             if (_this.isValid()) {
                 var data = new FormData();
                 data.append('file', _this.state.formValues.file);
-                data.append('firstname', _this.state.formValues.firstName);
-                data.append('lastname', _this.state.formValues.lastName);
-                data.append('telephone', _this.state.formValues.telephone);
+                data.append('firstName', _this.state.formValues.firstName);
+                data.append('lastName', _this.state.formValues.lastName);
+                data.append('phone', _this.state.formValues.telephone);
                 data.append('location', _this.state.formValues.location);
                 data.append('email', _this.state.formValues.email);
                 data.append('text', _this.state.formValues.message);
@@ -96,7 +96,7 @@ var CareerForm = /** @class */ (function (_super) {
                 data.append('formType', 'career');
                 try {
                     axios_1.default
-                        .post(process.env.REACT_APP_SERVER + '/inquiry/upload', data)
+                        .post(process.env.REACT_APP_REST_API_URL + '/inquiry/upload', data)
                         .then(function (response) {
                         _this.setState(__assign({}, _this.state, { formStatus: 'success' }));
                     })
@@ -222,15 +222,7 @@ var CareerForm = /** @class */ (function (_super) {
                                         React.createElement("span", { className: 'form__input__label' }, errors.email ? errors.email : 'E-mail'),
                                         React.createElement("div", { className: 'form__input__bar' })))),
                             React.createElement("div", { className: 'form__row form__row--second' },
-                                React.createElement("div", { className: 'form__selectInput' },
-                                    React.createElement("select", { onChange: function (e) { return _this.changeInputValue(e); }, value: location, name: "location", defaultValue: '' },
-                                        React.createElement("option", { value: '', disabled: true }, "Lokalita kde chcete pracovat"),
-                                        React.createElement("option", { value: '1' }, "1"),
-                                        React.createElement("option", { value: '2' }, "2"),
-                                        React.createElement("option", { value: '3' }, "3"),
-                                        React.createElement("option", { value: '4' }, "4")),
-                                    React.createElement("div", { className: 'form__input__bar' })),
-                                React.createElement("div", { className: 'form__inputBtn' },
+                                React.createElement("div", { className: 'form__inputBtn', style: { marginLeft: '0px', width: '50%' } },
                                     React.createElement("button", { onClick: function (e) {
                                             e.preventDefault();
                                             _this.onChooseFile();
@@ -239,7 +231,7 @@ var CareerForm = /** @class */ (function (_super) {
                                         React.createElement("span", null,
                                             React.createElement(SvgIcon_1.default, { name: "download" }))),
                                     React.createElement("input", { type: "file", name: "file", ref: function (ref) { return (_this.fileRef = ref); }, onChange: function (e) { return _this.onChangeFile(e); }, style: { display: 'none' } }),
-                                    React.createElement("div", { className: 'form__input__bar' }),
+                                    React.createElement("div", { className: 'form__input__bar', style: { textOverflow: 'auto' } }),
                                     file && file.name && React.createElement("p", null, file.name))),
                             React.createElement("div", { className: "form__textarea  " + (errors.message ? 'error' : '') + " " },
                                 React.createElement("label", null, errors.message ? errors.message : 'Průvodní dopis'),
