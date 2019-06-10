@@ -177,9 +177,9 @@ export default class CareerForm extends React.Component<CareerFormProps, CareerF
     if (this.isValid()) {
       let data = new FormData();
       data.append('file', this.state.formValues.file);
-      data.append('firstname', this.state.formValues.firstName);
-      data.append('lastname', this.state.formValues.lastName);
-      data.append('telephone', this.state.formValues.telephone);
+      data.append('firstName', this.state.formValues.firstName);
+      data.append('lastName', this.state.formValues.lastName);
+      data.append('phone', this.state.formValues.telephone);
       data.append('location', this.state.formValues.location);
       data.append('email', this.state.formValues.email);
       data.append('text', this.state.formValues.message);
@@ -304,7 +304,7 @@ export default class CareerForm extends React.Component<CareerFormProps, CareerF
                     </div>
 
                     <div className={'form__row form__row--second'}>
-                      <div className={'form__selectInput'}>
+                      {/* <div className={'form__selectInput'}>
                         <select
                           onChange={e => this.changeInputValue(e)}
                           value={location}
@@ -321,9 +321,8 @@ export default class CareerForm extends React.Component<CareerFormProps, CareerF
                         </select>
 
                         <div className={'form__input__bar'} />
-                      </div>
-
-                      <div className={'form__inputBtn'}>
+                      </div>*/}
+                      <div className={'form__inputBtn'} style={{ marginLeft: '0px', width: '50%' }}>
                         <button
                           onClick={e => {
                             e.preventDefault();
@@ -344,7 +343,7 @@ export default class CareerForm extends React.Component<CareerFormProps, CareerF
                           style={{ display: 'none' }}
                         />
 
-                        <div className={'form__input__bar'} />
+                        <div className={'form__input__bar'} style={{ textOverflow: 'auto' }}/>
                         {file && file.name && <p>{file.name}</p>}
                       </div>
                     </div>

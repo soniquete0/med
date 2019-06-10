@@ -131,8 +131,10 @@ class ContactForm extends React.Component<ContactFormProps, ContactFormState> {
 
     if (this.isValid()) {
       let data = new FormData();
-      data.append('name', this.state.formValues.name);
+      data.append('firstName', this.state.formValues.name);
+      data.append('lastName', '');
       data.append('email', this.state.formValues.email);
+      data.append('phone', '-');
       data.append('text', this.state.formValues.message);
       data.append('url', window.location.href);
       data.append('subject', subject);
@@ -140,7 +142,7 @@ class ContactForm extends React.Component<ContactFormProps, ContactFormState> {
 
       try {
         axios
-          .post(process.env.REACT_APP_SERVER + '/inquiry/upload', data)
+          .post(process.env.REACT_APP_REST_API_URL + '/inquiry/upload', data)
           .then(response => {
             this.setState({ ...this.state, formStatus: 'success' });
           })
