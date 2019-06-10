@@ -129,7 +129,7 @@ const DoctorSchedule = (props: DoctorScheduleProps) => {
                     if (item.day === 'sobota' || item.day === 'neděle') { return ''; }
                     
                     return (
-                      <>
+                      <React.Fragment key={j}>
                         <tr key={j} className={'mobileHeading'}>
                           <td colSpan={7}>{item.day}</td>
                         </tr>
@@ -161,7 +161,7 @@ const DoctorSchedule = (props: DoctorScheduleProps) => {
                             {item['3'] && item['3'].note && <p>{item['3'].note}</p>}
                           </td>
                         </tr>
-                      </>
+                      </React.Fragment>
                     );
                   })}
               </tbody>
