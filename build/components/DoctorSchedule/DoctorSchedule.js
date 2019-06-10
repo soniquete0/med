@@ -88,7 +88,7 @@ var DoctorSchedule = function (props) {
                             if (item.day === 'sobota' || item.day === 'neděle') {
                                 return '';
                             }
-                            return (React.createElement(React.Fragment, null,
+                            return (React.createElement(React.Fragment, { key: j },
                                 React.createElement("tr", { key: j, className: 'mobileHeading' },
                                     React.createElement("td", { colSpan: 7 }, item.day)),
                                 React.createElement("tr", { className: 'normalRow' },
