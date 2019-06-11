@@ -9,25 +9,15 @@ export interface BlogCardProps {
   text: string;
   color: string;
   img?: LooseObject;
-  special?: boolean;
 }
 
 export function BlogCard(props: BlogCardProps) {
-  const { url, title, text, color, img, special } = props;
-
-  if (special) {
-    return (
-      <Link className={'blogCard blogCard--special'}>
-        <h3>{title}</h3>
-        <p>{text}</p>
-      </Link>
-    );
-  }
+  const { url, title, text, color, img } = props;
 
   return (
     <Link className={'blogCard'} {...url}>
       <h3>{title}</h3>
-      <p>{text}</p>
+      <p>{text && text.length > 50 ? text.slice(0, 50) + ' ..' : text}</p>
 
       {img && <Media type={'image'} data={img} />}
       <div
