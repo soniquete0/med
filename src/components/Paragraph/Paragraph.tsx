@@ -1,6 +1,7 @@
 import * as React from 'react';
 import MediaQuery from 'react-responsive';
 
+import Button from '../../partials/Button';
 import ParagraphText from './components/ParagraphText';
 import ParagraphMedia from './components/ParagraphMedia';
 
@@ -20,6 +21,8 @@ export interface ParagraphProps {
     rightMedia?: LooseObject;
     paddingTop?: boolean;
     paddingBottom?: boolean;
+    buttonText: string;
+    buttonUrl?: LooseObject;
   };
 }
 
@@ -167,26 +170,31 @@ const Paragraph = (props: ParagraphProps) => {
           <div style={{ padding: '3rem 0' }}>
             <p style={{ fontSize: 24 }}>
               <b>Left text:</b>{' '}
-              <span style={{ color: '#c92731' }}>can be used only with right text or right image</span>
+              <span style={{ color: '#2473ba' }}>can be used only with right text or right image</span>
             </p>
             <p style={{ fontSize: 24 }}>
               <b>Left image:</b>{' '}
-              <span style={{ color: '#c92731' }}>can be used only with right text or right image</span>
+              <span style={{ color: '#2473ba' }}>can be used only with right text or right image</span>
             </p>
             <p style={{ fontSize: 24 }}>
               <b>Right text:</b>{' '}
-              <span style={{ color: '#c92731' }}>can be used only with left text and left image</span>
+              <span style={{ color: '#2473ba' }}>can be used only with left text and left image</span>
             </p>
             <p style={{ fontSize: 24 }}>
               <b>Right Image:</b>{' '}
-              <span style={{ color: '#c92731' }}>can be used only with left text or left image</span>
+              <span style={{ color: '#2473ba' }}>can be used only with left text or left image</span>
             </p>
           </div>
         );
     }
   };
 
-  const { paddingTop, paddingBottom } = props.data;
+  const {
+    buttonUrl,
+    buttonText,
+    paddingTop,
+    paddingBottom,
+  } = props.data;
 
   return (
     <div 
@@ -196,6 +204,12 @@ const Paragraph = (props: ParagraphProps) => {
       <div className="container">
         <div className={`paragraph__content`}>
           {renderLayout(layout)}
+          
+          {buttonText && buttonUrl && buttonUrl.url && buttonUrl.url.length > 0 && 
+            <Button url={buttonUrl} classes={'btn--blueBorder'}>
+              {buttonText}
+            </Button>
+          }
         </div>
       </div>
     </div>
