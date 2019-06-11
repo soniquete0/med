@@ -4,7 +4,7 @@
   box-shadow: 0 0 13px rgba(0, 52, 97, 0.18);
 
   @include md {
-    margin-bottom: 50px;
+    margin-bottom: 5rem;
   }
 
   .container {
@@ -19,6 +19,7 @@
 
     @include md {
       justify-content: space-between;
+      align-items: flex-start;
     }
   }
 
@@ -26,9 +27,13 @@
     @include flexChild(2, 10px);
     @extend .flexRow;
     justify-content: flex-start;
-    align-items: center;
-    padding-bottom: 24px;
+    align-items: flex-start;
+    padding-bottom: 2.4rem;
     flex-wrap: wrap;
+
+    @include xl {
+      align-items: center;
+    }
 
     &__img {
       background-color: #f4f5f7;
@@ -59,12 +64,12 @@
     &__info {
       @extend .flexColumn;
       box-sizing: border-box;
-      align-items: center;
-      padding: 17px 0;
+      align-items: flex-start;
+      padding: 0 1.7rem 0 1.7rem;
       width: 100%;
 
-      @include md {
-        padding: 17px;
+      @include xl {
+        padding: 1.7rem 6rem 1.7rem 1.7rem;
       }
 
       @include lg {
@@ -83,6 +88,59 @@
           font-size: 2rem;
           text-align: left;
         }
+
+        @include max-lg {
+          padding: 2rem 0 1rem 0;
+        }
+      }
+
+      &--mobileField {
+        display: block;
+        position: relative;
+
+        @include lg {
+          display: none;
+        }
+      }
+
+      &__description {
+        position: relative;
+        min-height: 48px;
+        width: 100%;
+
+        &--container {
+          position: absolute;
+          z-index: 101;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          cursor: pointer;
+          overflow: hidden;
+          background-color: transparent;
+
+          p {
+            position: absolute;
+            top: 0;
+            left: 0;
+          }
+        
+          &:focus, 
+          &:hover {
+            max-height: 600px;
+            overflow: unset;
+            text-align: center;
+
+            p {
+              background: white;
+              padding-bottom: 1rem;
+              border-bottom: 1px solid #e6e6e6;
+            }
+          }
+        }
+
+        @include max-lg {
+          display: none;
+        }
       }
 
       p {
@@ -90,7 +148,6 @@
         color: $darkGray;
         font-size: 1.4rem;
         font-weight: 400;
-        margin-bottom: 1rem;
         text-align: center;
         line-height: initial;
 
@@ -104,11 +161,12 @@
           }
         }
       }
+
       &__link {
         color: $lightBlue;
         font-size: 1.4rem;
         font-weight: 400;
-        margin-bottom: 2.8rem;
+        padding: 1rem 0;
 
         &:hover {
           color: $lightBlue;
@@ -129,6 +187,12 @@
 
       @include lg {
         width: calc(100% - 190px);
+      }
+
+      a {
+        @include max-lg {
+          margin: 0 auto;
+        }
       }
 
       button {
