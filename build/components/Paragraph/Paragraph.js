@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
 var react_responsive_1 = require("react-responsive");
+var Button_1 = require("../../partials/Button");
 var ParagraphText_1 = require("./components/ParagraphText");
 var ParagraphMedia_1 = require("./components/ParagraphMedia");
 var LEFT_TEXT_RIGHT_TEXT = 'ltrt';
@@ -103,25 +104,28 @@ var Paragraph = function (props) {
                     React.createElement("p", { style: { fontSize: 24 } },
                         React.createElement("b", null, "Left text:"),
                         ' ',
-                        React.createElement("span", { style: { color: '#c92731' } }, "can be used only with right text or right image")),
+                        React.createElement("span", { style: { color: '#2473ba' } }, "can be used only with right text or right image")),
                     React.createElement("p", { style: { fontSize: 24 } },
                         React.createElement("b", null, "Left image:"),
                         ' ',
-                        React.createElement("span", { style: { color: '#c92731' } }, "can be used only with right text or right image")),
+                        React.createElement("span", { style: { color: '#2473ba' } }, "can be used only with right text or right image")),
                     React.createElement("p", { style: { fontSize: 24 } },
                         React.createElement("b", null, "Right text:"),
                         ' ',
-                        React.createElement("span", { style: { color: '#c92731' } }, "can be used only with left text and left image")),
+                        React.createElement("span", { style: { color: '#2473ba' } }, "can be used only with left text and left image")),
                     React.createElement("p", { style: { fontSize: 24 } },
                         React.createElement("b", null, "Right Image:"),
                         ' ',
-                        React.createElement("span", { style: { color: '#c92731' } }, "can be used only with left text or left image"))));
+                        React.createElement("span", { style: { color: '#2473ba' } }, "can be used only with left text or left image"))));
         }
     };
-    var _b = props.data, paddingTop = _b.paddingTop, paddingBottom = _b.paddingBottom;
+    var _b = props.data, buttonUrl = _b.buttonUrl, buttonText = _b.buttonText, paddingTop = _b.paddingTop, paddingBottom = _b.paddingBottom;
     return (React.createElement("div", { className: "paragraph " + (paddingTop ? 'paragraph--paddingTop' : '') + " " + (paddingBottom ? 'paragraph--paddingBottom' : '') },
         React.createElement("div", { className: "container" },
-            React.createElement("div", { className: "paragraph__content" }, renderLayout(layout)))));
+            React.createElement("div", { className: "paragraph__content" },
+                renderLayout(layout),
+                buttonText && buttonUrl && buttonUrl.url && buttonUrl.url.length > 0 &&
+                    React.createElement(Button_1.default, { url: buttonUrl, classes: 'btn--blueBorder' }, buttonText)))));
 };
 exports.default = Paragraph;
 //# sourceMappingURL=Paragraph.js.map

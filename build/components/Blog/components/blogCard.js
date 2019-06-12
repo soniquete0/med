@@ -15,15 +15,10 @@ var React = require("react");
 var Link_1 = require("../../../partials/Link");
 var Media_1 = require("../../../partials/Media");
 function BlogCard(props) {
-    var url = props.url, title = props.title, text = props.text, color = props.color, img = props.img, special = props.special;
-    if (special) {
-        return (React.createElement(Link_1.default, { className: 'blogCard blogCard--special' },
-            React.createElement("h3", null, title),
-            React.createElement("p", null, text)));
-    }
+    var url = props.url, title = props.title, text = props.text, color = props.color, img = props.img;
     return (React.createElement(Link_1.default, __assign({ className: 'blogCard' }, url),
         React.createElement("h3", null, title),
-        React.createElement("p", null, text),
+        React.createElement("p", null, text && text.length > 50 ? text.slice(0, 50) + ' ..' : text),
         img && React.createElement(Media_1.default, { type: 'image', data: img }),
         React.createElement("div", { className: 'blogCard__colorGradient', style: { background: "linear-gradient( to bottom,rgba(125, 185, 232, 0) 0%," + color + " 100%)" } })));
 }

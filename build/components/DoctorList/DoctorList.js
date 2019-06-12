@@ -53,7 +53,10 @@ var DoctorList = /** @class */ (function (_super) {
                                 React.createElement("div", { className: 'doctorList__item__img' }, (doctor.image && doctor.image.filename && React.createElement(Media_1.default, { data: doctor.image, type: "image" })) || (React.createElement("img", { className: "avatarImg", src: '../../../assets/medicon/images/doctorIcon.svg', alt: "Medicon Doctor Icon" }))),
                                 React.createElement("div", { className: 'doctorList__item__info' },
                                     React.createElement("h3", null, doctor.name),
-                                    React.createElement("p", null, doctor.field),
+                                    doctor.field && React.createElement("div", { className: 'doctorList__item__info__description' },
+                                        React.createElement("div", { className: 'doctorList__item__info__description--container' },
+                                            React.createElement("p", null, doctor.field))),
+                                    React.createElement("p", { className: 'doctorList__item__info--mobileField' }, doctor.field),
                                     React.createElement(Link_1.default, __assign({}, doctor.clinicUrl, { className: 'doctorList__item__info__link' }), doctor.clinicName),
                                     React.createElement(Button_1.default, { classes: "btn--blueBorder btn--small", url: doctor.doctorUrl }, "v\u00EDce informac\u00ED"))));
                         })),
