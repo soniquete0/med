@@ -70,6 +70,9 @@ var Header = /** @class */ (function (_super) {
             });
         };
         _this.isActivePage = function (url) {
+            if (!url) {
+                return;
+            }
             if (window) {
                 var PARENT_PAGE = url.split('/'); // ["", "medicon", "cs", "home"]
                 var LOCATION_PARENT_PAGE = location.pathname.split('/');

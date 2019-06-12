@@ -31,6 +31,14 @@
                 "paddingBottom": {
                     "type": "boolean",
                     "title": "Add padding bottom?"
+                },
+                "buttonText": {
+                    "type": "text",
+                    "title": "Button text"
+                },
+                "buttonUrl": {
+                    "type": "urlAutocomplete",
+                    "title": "Button URL"
                 }
             }
         }

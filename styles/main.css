@@ -5642,10 +5642,10 @@ cite {
 
 .my-masonry-grid {
   display: flex;
-  margin-left: -30px; }
+  margin-left: -20px; }
 
 .my-masonry-grid_column {
-  border-left: 30px solid transparent;
+  border-left: 20px solid transparent;
   background-clip: padding-box; }
 
 .blog {
@@ -5656,6 +5656,10 @@ cite {
   .blog .searchBar {
     margin-top: 5.5rem;
     margin-bottom: 5.5rem; }
+    @media (max-width: 767px) {
+      .blog .searchBar {
+        margin-top: 3rem;
+        margin-bottom: 3rem; } }
   .blog h1 {
     background: -webkit-linear-gradient(left, #2473ba, #00aad0);
     -webkit-background-clip: text;
@@ -5694,7 +5698,7 @@ cite {
   flex-direction: column;
   justify-content: flex-end;
   background-color: none;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   overflow: hidden;
   height: 300px; }
   @media (min-width: 768px) {
@@ -5748,15 +5752,24 @@ cite {
        object-fit: cover; }
   .blogCard--special {
     height: auto;
-    background-color: #2473ba;
-    transition: 300ms ease; }
+    transition: 300ms ease;
+    background-color: #00aad0; }
     @media (min-width: 768px) {
       .blogCard--special {
         height: auto; }
         .blogCard--special:hover {
-          background-color: #00aad0; } }
+          background-color: #2473ba; } }
     .blogCard--special h3 {
       padding-bottom: 5px; }
+    .blogCard--special ol {
+      color: white;
+      padding-left: 20px;
+      line-height: initial; }
+    .blogCard--special a {
+      transition: .3s ease-in-out;
+      text-decoration: underline; }
+      .blogCard--special a:hover {
+        text-decoration: none; }
     .blogCard--special ul {
       padding: 0;
       margin: 0;
@@ -5766,28 +5779,28 @@ cite {
       .blogCard--special ul li + li {
         margin-top: 0; }
       .blogCard--special ul li {
-        padding-left: 10px;
         color: #fff;
-        padding: 0 5px;
+        padding: 0 .5rem 0 2rem;
         font-size: 1.4rem;
         font-weight: 400;
         line-height: 18px;
-        letter-spacing: 0.89px; }
+        letter-spacing: 0.89px;
+        position: relative; }
         @media (min-width: 768px) {
           .blogCard--special ul li {
             letter-spacing: 0.71px;
             line-height: 23.43px;
             font-size: 1.6rem; } }
-        .blogCard--special ul li span .arrowIcon {
-          -webkit-transform: rotate(-180deg);
-                  transform: rotate(-180deg);
-          margin-right: 8px;
-          height: 10px;
-          width: 10px; }
-          @media (min-width: 768px) {
-            .blogCard--special ul li span .arrowIcon {
-              height: 25px;
-              width: 25px; } }
+        .blogCard--special ul li:before {
+          background-color: white;
+          position: absolute;
+          display: block;
+          content: '';
+          color: white;
+          height: 8px;
+          width: 8px;
+          top: 1.1rem;
+          left: 0; }
 
 .polyclinicBoxes {
   padding: 5rem 0 3rem 0; }
@@ -7673,7 +7686,10 @@ cite {
   .paragraph--paddingBottom {
     padding-bottom: 1rem; }
   .paragraph .container {
-    max-width: 730px; }
+    max-width: 820px; }
+    @media (max-width: 767px) {
+      .paragraph .container {
+        max-width: 540px; } }
   .paragraph h1, .paragraph h2, .paragraph h3, .paragraph h4, .paragraph h5, .paragraph h6 {
     margin: 0;
     padding: 1rem 0;
@@ -7723,12 +7739,23 @@ cite {
       .paragraph .imgWithMarginTop {
         margin-top: 1.5rem; } }
   .paragraph__content {
-    margin: 0 auto;
-    max-width: 730px; }
+    margin: 0 auto; }
+    .paragraph__content .btn {
+      text-align: center;
+      max-width: 400px;
+      margin: 0 auto;
+      margin-top: 2.5rem; }
     .paragraph__content--additionalText {
       order: 3; }
     .paragraph__content__text {
-      margin: 0 auto; }
+      margin: 0 auto;
+      line-height: 2.9rem;
+      font-size: 1.8rem;
+      letter-spacing: 1.6px; }
+      @media (max-width: 767px) {
+        .paragraph__content__text {
+          font-size: 1.6rem;
+          letter-spacing: 1.28px; } }
     .paragraph__content__images {
       width: 100%; }
     @media only screen and (max-width: 992px) {

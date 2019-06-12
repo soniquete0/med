@@ -4,7 +4,6 @@
         "title": "Title",
         "text": "Text",
         "textAlign": "textCenter",
-        "perex": "Perex",
         "image": {
             "recommendedSizes": {
                 "width": "820",
@@ -19,10 +18,6 @@
             "properties": {
                 "title": {
                     "title": "Title",
-                    "type": "text"
-                },
-                "perex": {
-                    "title": "Perex",
                     "type": "text"
                 },
                 "text": {

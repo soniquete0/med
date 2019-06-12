@@ -15,6 +15,7 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
 var react_masonry_css_1 = require("react-masonry-css");
+var ReactMarkdown = require("react-markdown");
 var List_1 = require("../List");
 var searchBar_1 = require("./components/searchBar");
 var blogCard_1 = require("./components/blogCard");
@@ -33,21 +34,32 @@ var Blog = /** @class */ (function (_super) {
     }
     Blog.prototype.render = function () {
         var _this = this;
-        var _a = this.props.data, title = _a.title, displaySearch = _a.displaySearch, articles = _a.articles;
+        var _a = this.props.data, title = _a.title, articles = _a.articles, specialText = _a.specialText, specialTitle = _a.specialTitle, displaySearch = _a.displaySearch;
         return (React.createElement("section", { className: 'blog' },
             React.createElement("div", { className: "container" },
                 title && React.createElement("h1", { style: displaySearch ? { paddingBottom: 0 } : {} }, title),
                 displaySearch &&
-                    React.createElement(searchBar_1.default, { value: this.state.searchQuery, onChange: this.onSearchChange, placeholder: 'Search', barColor: 'gray' }),
+                    React.createElement(searchBar_1.default, { barColor: 'gray', placeholder: 'Search', value: this.state.searchQuery, onChange: this.onSearchChange }),
                 React.createElement(List_1.default, { data: articles, searchedText: this.state.searchQuery }, function (_a) {
                     var getPage = _a.getPage;
                     var _b = getPage(_this.state.numberOfPage, 'infinite', 6), items = _b.items, lastPage = _b.lastPage;
+                    if (items && items.length <= 0) {
+                        return React.createElement("div", { className: 'searchBarResults__noResults' }, "Bohu\u017Eel nebyl nalezen \u017E\u00E1dn\u00FD \u010Dl\u00E1nek.");
+                    }
                     return (React.createElement(React.Fragment, null,
-                        React.createElement(react_masonry_css_1.default, { breakpointCols: { default: 3, 4000: 3, 800: 2, 500: 1 }, className: "my-masonry-grid", columnClassName: "my-masonry-grid_column" }, items.map(function (article, i) { return (React.createElement(blogCard_1.BlogCard, { key: i, url: article.url, title: article.title, text: (article.text && article.text.length > 35
-                                ? article.text.slice(0, 35)
-                                : article.text) + " ..\n                        ", color: '#386fa2', img: article.image, special: false })); })),
+                        React.createElement(react_masonry_css_1.default, { breakpointCols: { default: 3, 4000: 3, 800: 2, 500: 1 }, className: "my-masonry-grid", columnClassName: "my-masonry-grid_column" }, items.map(function (article, i) {
+                            if (i === 1 && specialText && specialTitle) {
+                                return (React.createElement("div", { key: 'special', className: 'blogCard blogCard--special' },
+                                    React.createElement("h3", null, specialTitle),
+                                    React.createElement(ReactMarkdown, { source: specialText, renderers: {
+                                            // tslint:disable-next-line:no-any
+                                            paragraph: function (rProps) { return React.createElement("p", null, rProps.children); },
+                                        } })));
+                            }
+                            return (React.createElement(blogCard_1.BlogCard, { key: i, url: article.url, text: article.text, img: article.image, title: article.title, color: article.color ? article.color : '#386fa2' }));
+                        })),
                         _this.state.numberOfPage < lastPage &&
-                            React.createElement("button", { style: { margin: '0 auto' }, className: 'btn btn--greenBkg btn--fullWidth', onClick: function () { return _this.setState({ numberOfPage: _this.state.numberOfPage + 1 }); } }, "Na\u010D\u00EDst dal\u0161\u00ED")));
+                            React.createElement("button", { style: { margin: '0 auto' }, className: 'btn btn--blueBkg btn--fullWidth', onClick: function () { return _this.setState({ numberOfPage: _this.state.numberOfPage + 1 }); } }, "Na\u010D\u00EDst dal\u0161\u00ED")));
                 }))));
     };
     return Blog;
