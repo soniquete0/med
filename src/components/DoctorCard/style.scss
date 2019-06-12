@@ -132,7 +132,7 @@
         }
       }
 
-      p {
+      a, p {
         padding-left: 10px;
         padding-right: 10px;
         width: 100%;
@@ -147,7 +147,9 @@
         @include xl {
           font-size: 2rem;
         }
+      }
 
+      p {
         span {
           height: 22px;
           color: $darkGray;

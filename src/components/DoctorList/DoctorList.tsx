@@ -64,7 +64,12 @@ export default class DoctorList extends React.Component<DoctorListProps, DoctorL
 
                           <div className={'doctorList__item__info'}>
                             <h3>{doctor.name}</h3>
-                            <p>{doctor.field}</p>
+                            {doctor.field && <div className={'doctorList__item__info__description'}>
+                              <div className={'doctorList__item__info__description--container'}>
+                                <p>{doctor.field}</p>
+                              </div>
+                            </div>}
+                            <p className={'doctorList__item__info--mobileField'}>{doctor.field}</p>
                             <Link {...doctor.clinicUrl} className={'doctorList__item__info__link'}>
                               {doctor.clinicName}
                             </Link>
