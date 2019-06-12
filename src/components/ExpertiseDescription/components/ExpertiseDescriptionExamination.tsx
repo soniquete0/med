@@ -1,6 +1,5 @@
 import * as React from 'react';
 
-import Link from '../../../partials/Link';
 import Examination from './components/Examination';
 
 export interface ExpertiseDescriptionExaminationProps {
@@ -31,19 +30,11 @@ class ExpertiseDescriptionExamination extends React.Component<ExpertiseDescripti
                 key={i}
                 className={`col-12 ${i === 2 ? 'col-md-12' : 'col-md-6'}`}
               >
-                {examination.url ? (
-                  <Link 
-                    {...examination.url}
-                    className={'examination__list__item '}
-                    style={examination.url ? { fontWeight: 500 } : { cursor: 'default' }}
-                  >
-                    {examination.title}
-                  </Link>) : (
-                  <Examination 
-                    title={examination.title}
-                    description={examination.description} 
-                  />
-                )}
+                <Examination 
+                  url={examination.url}
+                  title={examination.title}
+                  description={examination.description} 
+                />
               </div>
             );
           })}

@@ -12,20 +12,8 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
-var Link_1 = require("../../../partials/Link");
 var Examination_1 = require("./components/Examination");
 // tslint:disable-next-line:max-line-length
 var ExpertiseDescriptionExamination = /** @class */ (function (_super) {
@@ -38,7 +26,8 @@ var ExpertiseDescriptionExamination = /** @class */ (function (_super) {
         return (React.createElement("div", { className: 'examination' },
             title && React.createElement("h3", null, title),
             React.createElement("div", { className: 'examination__list row' }, examinations && examinations.map(function (examination, i) {
-                return (React.createElement("div", { key: i, className: "col-12 " + (i === 2 ? 'col-md-12' : 'col-md-6') }, examination.url ? (React.createElement(Link_1.default, __assign({}, examination.url, { className: 'examination__list__item ', style: examination.url ? { fontWeight: 500 } : { cursor: 'default' } }), examination.title)) : (React.createElement(Examination_1.default, { title: examination.title, description: examination.description }))));
+                return (React.createElement("div", { key: i, className: "col-12 " + (i === 2 ? 'col-md-12' : 'col-md-6') },
+                    React.createElement(Examination_1.default, { url: examination.url, title: examination.title, description: examination.description })));
             }))));
     };
     return ExpertiseDescriptionExamination;

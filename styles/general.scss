@@ -77,17 +77,6 @@ body {
   }
 }
 
-.grid {
-  display: grid;
-  grid-gap: 2rem;
-  grid-template-rows: auto;
-  grid-template-columns: auto;
-
-  &--vCenterBlock {
-    align-items: center;
-  }
-}
-
 //LIST STYLES
 ol,
 ul {

@@ -27,7 +27,7 @@ const Benefits = (props: BenefitsProps) => {
             <div className={'benefits__list row'}>
               {data && data.map((benefit, i) => (
                 <div key={i} className="col-12 col-sm-6 col-md-4 col-lg-3">
-
+                
                   <Link {...benefit.url} className={'benefits__list__element'}>
                     {benefit.image && benefit.image.filename && <Media type={'image'} data={benefit.image} />}
                     {benefit.text && <p className={benefit.url && 'elBenefitHover'}>{benefit.text}</p>}

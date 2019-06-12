@@ -31,7 +31,7 @@ class Media extends React.Component<MediaProps, MediaState> {
   }
 
   renderAsImage = data => {
-    const baseUrl = 'http://foxer360-media-library.s3.eu-central-1.amazonaws.com/';
+    const baseUrl = 'https://foxer360-media-library.s3.eu-central-1.amazonaws.com/';
 
     if (data && data.filename) {
       let recommendedSizes = (data && data.recommendedSizes) || null;

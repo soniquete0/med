@@ -10,7 +10,7 @@ var RegistrationBlock = function (props) {
         React.createElement("div", { className: "container" },
             title && React.createElement("h3", null, title),
             text && React.createElement(ReactMarkdown, { source: text }),
-            btnTitle && btnUrl && btnUrl.url && btnUrl.url.length > 0 &&
+            btnTitle && btnUrl &&
                 React.createElement("div", { className: 'registration-block__btn-holder' },
                     React.createElement(Button_1.default, { url: btnUrl, classes: 'btn--blueBorder' }, btnTitle)),
             conditionsFile && conditionsFile.filename &&

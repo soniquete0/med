@@ -259,7 +259,7 @@ class ContactForm extends React.Component<ContactFormProps, ContactFormState> {
                       </div>
 
                       <div className={'flexRow flexAlign--center'}>
-                        <button className="btn--blueBkg" type="submit" disabled={!this.state.formValues.agreement}>
+                        <button className="btn btn--blueBkg" type="submit" disabled={!this.state.formValues.agreement}>
                           Odeslat
                         </button>
                       </div>

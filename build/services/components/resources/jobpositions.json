@@ -6,7 +6,6 @@
             {
                 "name": "Dermatolog",
                 "url": "",
-                "polyclinic": "Polyclinic 1",
                 "image": {
                     "recommendedSizes": {
                         "width": "400",
@@ -17,7 +16,6 @@
             {
                 "name": "Gynekolog",
                 "url": "",
-                "polyclinic": "Polyclinic 2",
                 "image": {
                     "recommendedSizes": {
                         "width": "400",
@@ -28,7 +26,6 @@
             {
                 "name": "Ortoped",
                 "url": "",
-                "polyclinic": "Polyclinic 3",
                 "image": {
                     "recommendedSizes": {
                         "width": "400",
@@ -58,10 +55,6 @@
                             "url": {
                                 "type": "urlAutocomplete",
                                 "title": "URL"
-                            },
-                            "polyclinic": {
-                                "type": "text",
-                                "title": "Polyclinic name"
                             },
                             "image": {
                                 "type": "image"

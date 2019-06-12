@@ -1,9 +1,12 @@
 import * as React from 'react';
 import * as ReactMarkdown from 'react-markdown';
 
+import Link from '../../../../partials/Link';
+
 export interface ExaminationProps {
   title: string;
   description: string;
+  url?: LooseObject;
 }
 
 export interface ExaminationState {
@@ -20,7 +23,7 @@ class Examination extends React.Component<ExaminationProps, ExaminationState> {
   }
 
   public render() {
-    const { title, description } = this.props;
+    const { title, description, url } = this.props;
 
     return (
       <div
@@ -35,6 +38,11 @@ class Examination extends React.Component<ExaminationProps, ExaminationState> {
                 onClick={() => this.setState({ isDescriptionVisible: !this.state.isDescriptionVisible })}
               >{title}
               </p>}
+              
+              {url && <Link 
+                  {...url} 
+                  style={{ width: '100%', height: '100%', position: 'absolute', top: 0, left: 0 }} 
+              />}
 
             {description &&
               <ReactMarkdown

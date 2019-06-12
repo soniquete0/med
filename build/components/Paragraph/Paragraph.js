@@ -124,7 +124,7 @@ var Paragraph = function (props) {
         React.createElement("div", { className: "container" },
             React.createElement("div", { className: "paragraph__content" },
                 renderLayout(layout),
-                buttonText && buttonUrl && buttonUrl.url && buttonUrl.url.length > 0 &&
+                buttonText && buttonUrl &&
                     React.createElement(Button_1.default, { url: buttonUrl, classes: 'btn--blueBorder' }, buttonText)))));
 };
 exports.default = Paragraph;

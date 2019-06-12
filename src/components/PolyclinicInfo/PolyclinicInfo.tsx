@@ -19,23 +19,31 @@ const PolyclinicInfo = (props: ContactsProps) => {
 
   return (
     <div className={'policlinicInfo'}>
-      <DividerCircles />
+      <div className="container">
+        {/* <DividerCircles /> */}
 
-      <div className={'policlinicInfo__wrapper'}>
-        <div className={'policlinicInfo__item'}>
-          <img src={'/assets/medicon/images/geo.svg'} alt="address" />
-          <div>
-            <p style={{ display: 'block' }}>{geo}</p>
-            {clinic && <p style={clinicColor ? {color: `${clinicColor}`} : {}}>{clinic}</p>}
+        <div className="row policlinicInfo__list">
+          <div className="col-12 col-lg-4">
+            <div className={'policlinicInfo__item'}>
+              <img src={'/assets/medicon/images/geo.svg'} alt="address" />
+              <div className={'policlinicInfo__item--content'}>
+                <p style={{ display: 'block' }}>{geo}</p>
+                {clinic && <p style={clinicColor ? {color: `${clinicColor}`} : {}}>{clinic}</p>}
+              </div>
+            </div>  
           </div>
-        </div>
-        <div className={'policlinicInfo__item'}>
-          <img src={'/assets/medicon/images/phone.svg'} alt="phone nubmer" />
-          <p>{phone}</p>
-        </div>
-        <div className={'policlinicInfo__item'}>
-          {transportImage && <Media type={'image'} data={transportImage} />}
-          <p>{transport}</p>
+          <div className="col-12 col-lg-4">
+            <div className={'policlinicInfo__item'}>
+              <img src={'/assets/medicon/images/phone.svg'} alt="phone nubmer" />
+              <p className={'policlinicInfo__item--content'}>{phone}</p>
+            </div>
+          </div>
+          <div className="col-12 col-lg-4">
+            <div className={'policlinicInfo__item'}>
+              {transportImage && <Media type={'image'} data={transportImage} />}
+              <p className={'policlinicInfo__item--content'}>{transport}</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>

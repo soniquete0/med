@@ -387,7 +387,7 @@ export default class CareerForm extends React.Component<CareerFormProps, CareerF
                     </div>
 
                     <div className={'flexRow flexAlign--center'}>
-                      <button className="btn--blueBkg" type="submit" disabled={!this.state.formValues.agreement}>
+                      <button className="btn btn--blueBkg" type="submit" disabled={!this.state.formValues.agreement}>
                         Odeslat
                       </button>
                     </div>

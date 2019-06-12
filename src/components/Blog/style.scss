@@ -141,13 +141,13 @@
     height: auto;
     transition: 300ms ease;
     background-color: $lightBlue;
+    
+    &:hover {
+      background-color: $blue;
+    }
 
     @include md {
       height: auto;
-
-      &:hover {
-        background-color: $blue;
-      }
     }
 
     h3 {
@@ -157,7 +157,7 @@
     ol {
       color: white;
       padding-left: 20px;
-      line-height: initial;
+      line-height: normal;;
     }
 
     a {

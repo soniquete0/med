@@ -1,27 +1,8 @@
 .odbornost {
-  margin-bottom: 50px;
+  margin-bottom: 5rem;
 
-  .odbornost__doctor__imageWrapper {
-    margin-bottom: 30px;
-    height: 192px;
-
-    @include md {
-      justify-self: flex-end;
-      height: 292px;
-      width: 480px;
-      margin-right: 18px;
-      margin-bottom: 0;
-    }
-  }
-
-  .mediaRatio {
-    height: 100%;
-    padding-left: 100% !important;
-    padding-top: 0 !important;
-
-    img {
-      object-fit: contain !important;
-    }
+  @include max-md {
+    margin-bottom: 2.5rem;
   }
 
   p {
@@ -33,26 +14,57 @@
     line-height: inherit;
   }
 
-  &__doctor {
-    display: grid;
-    grid-template-rows: 1fr;
-    grid-template-columns: 1fr 1fr;
+  .mediaRatio {
+    padding-top: 0 !important;
+    height: 290px;
+    width: 420px;
+    float: right;
+
+    @include max-lg {
+      margin: 0 auto;
+      float: inherit;
+    }
+
+    @include max-xs {
+      width: inherit;
+      height: inherit;
+      padding-top: 100% !important;
+    }
   }
 
-  @include max-md {
-    text-align: center;
+  .dividerCircles {
+    margin: 0 auto;
+    padding: 4rem 0;
 
-    .horizontal-line {
-      display: block;
+    @include max-md {
+      padding: 2rem 0;
+    }
+  }
+
+  &__contentWrapper {
+    max-width: 420px;
+    display: table;
+    height: 100%;
+    width: 100%;
+
+    @include max-lg {
+      padding-top: 3rem;
+      max-width: inherit;
+    }
+  }
+
+  &__content {
+    display: table-cell;
+    vertical-align: middle;
+    
+    @include max-lg {
+      text-align: center;
+    }
+  }
+
+  .horizontal-line {
+    @include max-lg {
       margin: 0 auto;
-    }
-    .mediaRatio {
-      justify-self: center;
-    }
-
-    &__doctor {
-      grid-template-rows: auto;
-      grid-template-columns: 1fr;
     }
   }
 }

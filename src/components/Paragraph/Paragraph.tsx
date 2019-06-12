@@ -205,7 +205,7 @@ const Paragraph = (props: ParagraphProps) => {
         <div className={`paragraph__content`}>
           {renderLayout(layout)}
           
-          {buttonText && buttonUrl && buttonUrl.url && buttonUrl.url.length > 0 && 
+          {buttonText && buttonUrl &&
             <Button url={buttonUrl} classes={'btn--blueBorder'}>
               {buttonText}
             </Button>

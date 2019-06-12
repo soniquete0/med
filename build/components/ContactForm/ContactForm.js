@@ -196,7 +196,7 @@ var ContactForm = /** @class */ (function (_super) {
                                     React.createElement(Link_1.default, __assign({}, gdprLink), "zpracov\u00E1n\u00EDm osobn\u00EDch"),
                                     " \u00FAdaj\u016F.")),
                             React.createElement("div", { className: 'flexRow flexAlign--center' },
-                                React.createElement("button", { className: "btn--blueBkg", type: "submit", disabled: !_this.state.formValues.agreement }, "Odeslat"))))));
+                                React.createElement("button", { className: "btn btn--blueBkg", type: "submit", disabled: !_this.state.formValues.agreement }, "Odeslat"))))));
             })));
     };
     return ContactForm;

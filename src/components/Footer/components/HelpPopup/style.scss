@@ -18,7 +18,7 @@
   &--active {
     .helpPopup__main {
       transition: 300ms ease;
-      background-size: 0px;
+      background-size: 30px 40px;
 
       h4 {
         &:after {
@@ -79,7 +79,7 @@
       padding: 18px 45px 18px 67px;
       background-position: 25px center;
       background-repeat: no-repeat;
-      background-size: 30px;
+      background-size: 30px 40px;
 
       p {
         line-height: 1;

@@ -20,15 +20,19 @@ var JobOffers = function (props) {
     return (React.createElement("div", { className: 'container' },
         React.createElement("section", { className: 'jobOffers' },
             title && React.createElement("h3", null, title),
-            React.createElement("div", { className: "offers grid" },
+            React.createElement("div", { className: "jobOffers__list row" },
                 React.createElement(List_1.default, { data: offers }, function (_a) {
                     var data = _a.data;
                     return data &&
-                        data.map(function (offer, index) { return (React.createElement(Link_1.default, __assign({ key: index }, offer.url, { className: 'flexRow offers__element' }),
-                            React.createElement("div", { style: {
-                                    backgroundImage: (offer.image && offer.image.filename) && "url(" + getImageUrl_1.default(offer.image) + ")"
-                                } }, offer.title &&
-                                React.createElement("p", { className: 'hCenterBlock', style: (offer.image && offer.image.filename) ? { paddingLeft: 60 } : {} }, offer.title)))); });
+                        data.map(function (offer, index) {
+                            return (React.createElement("div", { key: index, className: 'col-md-12 col-lg-6' },
+                                React.createElement("div", { className: 'jobOffers__list__item' },
+                                    React.createElement("div", { style: {
+                                            backgroundImage: (offer.image && offer.image.filename) && "url(" + getImageUrl_1.default(offer.image) + ")"
+                                        } }, offer.title &&
+                                        React.createElement("p", { className: 'hCenterBlock', style: (offer.image && offer.image.filename) ? { paddingLeft: 60 } : {} }, offer.title)),
+                                    offer.url && React.createElement(Link_1.default, __assign({}, offer.url, { style: { position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' } })))));
+                        });
                 })))));
 };
 exports.default = JobOffers;

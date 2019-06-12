@@ -31,7 +31,7 @@ var Media = /** @class */ (function (_super) {
             return result;
         };
         _this.renderAsImage = function (data) {
-            var baseUrl = 'http://foxer360-media-library.s3.eu-central-1.amazonaws.com/';
+            var baseUrl = 'https://foxer360-media-library.s3.eu-central-1.amazonaws.com/';
             if (data && data.filename) {
                 var recommendedSizes = (data && data.recommendedSizes) || null;
                 var originalUrl = baseUrl + data.category + data.hash + '_' + data.filename;

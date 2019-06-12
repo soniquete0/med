@@ -5,7 +5,7 @@ import DividerCircles from '../DividerCircles';
 
 export interface OdbornostProps {
   data: {
-    image: LooseObject;
+    image?: LooseObject;
     doctorName: string;
     cite: string;
   };
@@ -19,18 +19,22 @@ const Odbornost = (props: OdbornostProps) => {
       <DividerCircles />
 
       <div className={'container'}>
-        <div className={'odbornost__doctor'}>
-          <div className={'odbornost__doctor__imageWrapper'}>
+        <div className="row">
+
+          <div className="col-md-12 col-lg-6">
             {image && <Media type={'image'} data={image} />}
           </div>
 
-          <div className={'grid grid--vCenterBlock'}>
-            <div>
-              <div className={'horizontal-line'} />
-              <p>{doctorName || ''}</p>
-              <cite>{cite || ''}</cite>
+          <div className="col-md-12 col-lg-6">
+            <div className={'odbornost__contentWrapper'}>
+              <div className={'odbornost__content'}>
+                <div className={'horizontal-line'} />
+                <p>{doctorName || ''}</p>
+                <cite>{cite || ''}</cite>
+              </div>
             </div>
           </div>
+
         </div>
       </div>
     </div>

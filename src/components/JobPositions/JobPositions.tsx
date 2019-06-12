@@ -7,7 +7,7 @@ import getImageUrl from '../../helpers/getImageUrl';
 interface Position {
   name: string;
   url?: LooseObject;
-  polyclinic: string;
+  // polyclinic: string;
   image?: LooseObject;
 }
 
@@ -109,7 +109,7 @@ class JobPositions extends React.Component<JobPositionsProps, JobPositionsState>
               <div className={'actual-positions'}>
                 {title && <h3>{title}</h3>}
 
-                {this.renderSelectInput(items)}
+                {/* {this.renderSelectInput(items)} */}
 
                 <div className={'positions row'}>
                   {items && this.renderPositions(items)}
