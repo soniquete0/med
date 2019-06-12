@@ -64,7 +64,6 @@ var JobPositions = /** @class */ (function (_super) {
             return (React.createElement("div", { className: 'container' },
                 React.createElement("div", { className: 'actual-positions' },
                     title && React.createElement("h3", null, title),
-                    _this.renderSelectInput(items),
                     React.createElement("div", { className: 'positions row' }, items && _this.renderPositions(items)),
                     _this.state.numberOfPage < lastPage &&
                         React.createElement("button", { className: 'btn hCenterBlock btn--blueBkg btn--down btn--fullWidth', onClick: function () { return _this.setState({ numberOfPage: _this.state.numberOfPage + 1 }); } }, "dal\u0161\u00ED pozice"))));

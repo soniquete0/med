@@ -51,12 +51,12 @@ const ComposedQuery = adopt({
 
 interface Link {
   text: string;
-  url: string;
+  url?: LooseObject;
 }
 
 interface Icon {
   name: string;
-  url: string;
+  url?: LooseObject;
 }
 
 export interface FooterProps {
@@ -65,7 +65,7 @@ export interface FooterProps {
     social: string;
     socialIcons: Icon[];
     company: string;
-    url: string;
+    url?: LooseObject;
     text: string;
   };
 }
@@ -169,9 +169,9 @@ class Footer extends React.Component<FooterProps, FooterState> {
 
         <div className="bottom">
           <div className="container">
-            <div className="copyrights grid">
+            <div className="copyrights">
               {company && <p>{company}</p>}
-              {text && <Link {...url}><p>{text}</p></Link>}
+              {text && url && <Link {...url}>{text}</Link>}
             </div>
           </div>
         </div>

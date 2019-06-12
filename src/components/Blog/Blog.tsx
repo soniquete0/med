@@ -97,7 +97,11 @@ export default class Blog extends React.Component<BlogProps, BlogState> {
                           text={article.text}
                           img={article.image}
                           title={article.title}
-                          color={article.color ? article.color : '#386fa2'}
+                          color={
+                            article.color 
+                            && article.color.trim().length > 0 
+                            ? article.color : '#386fa2'
+                          }
                         />);
                     })}
                   </Masonry>

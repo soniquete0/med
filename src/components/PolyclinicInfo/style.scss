@@ -1,67 +1,48 @@
 .policlinicInfo {
-  &__wrapper {
-    @extend .flexRow;
-    justify-content: flex-start;
-    align-items: center;
-    align-content: space-around;
-    margin: 50px auto 0;
-    width: 90%;
-
-    @include md {
-      margin: 50px auto 50px;
-    }
-
-    @include lg {
-      width: 100%;
-      justify-content: center;
-      align-content: space-around;
-    }
+  padding: 5rem 0;
+  @include max-md {
+    padding: 2.5rem 0;
   }
 
-  .dividerCircles {
-    display: none;
+  &__list {
+    max-width: 940px;
+    margin: 0 auto;
   }
 
   &__item {
-    max-width: 100%;
+    width: 100%;
     height: 100%;
     display: table;
-    margin-bottom: 20px;
-    width: 100%;
-    display: flex;
-    align-items: center;
 
-    &:not(:last-of-type) {
-      margin-right: 50px;
+    @include max-lg {
+      padding-bottom: 2rem;
     }
 
-    @include md {
+    &--content {
+      width: 100%;
+      padding-left: 3rem;
+      display: table-cell;
+      vertical-align: middle;
     }
 
-    @include lg {
-      width: auto;
-      margin-bottom: 0;
-    }
-
-    & > img {
+    & > img, .mediaRatio {
+      min-width: 35px;
+      min-height: 35px;
       width: 35px;
       height: 35px;
+      float: left;
 
       @include lg {
-        width: 65px;
-        height: 65px;
+        min-width: 35px;
+        min-height: 35px;
+        width: 50px;
+        height: 50px;
+        float: right;
       }
     }
 
     .mediaRatio {
       padding-top: 0 !important;
-      width: 35px;
-      height: 35px;
-
-      @include lg {
-        width: 65px;
-        height: 65px;
-      }
 
       img {
         object-fit: contain;
@@ -69,35 +50,12 @@
     }
 
     p {
-      display: table-cell;
-      line-height: 20px;
-      padding-left: 20px;
       font-size: 1.8rem;
-      vertical-align: middle;
-    }
-  }
+      line-height: 2rem;
 
-  @include md {
-    padding: 0 20%;
-  }
-
-  @include lg {
-    padding: 0;
-  }
-
-  @include max-xl {
-    margin-bottom: 30px;
-  }
-
-  @include max-sm {
-    justify-content: flex-start;
-
-    &__item {
-      p {
+      @include max-md {
         font-size: 1.6rem;
-      }
-      &:not(:last-of-type) {
-        margin-right: 0;
+        line-height: 24px;
       }
     }
   }

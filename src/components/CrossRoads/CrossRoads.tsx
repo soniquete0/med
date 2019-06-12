@@ -22,21 +22,23 @@ const CrossRoads = (props: CrossRoadsProps) => {
   return (
     <section className={'crossRoads'}>
       <div className={'container'}>
-        <div className={'crossRoads__wrapper'}>
+        <div className={'crossRoads__wrapper row'}>
           <List data={items}>
             {({ data }) => data &&
               data.map((item, index) => {
                 return (
-                  <Link
-                    {...item.link}
-                    className={'crossRoads__card'}
-                    key={index}
-                  >
-                    <div className={'crossRoads__card__img'}>
-                      {item.image && <Media type="image" data={item.image} />}
+                  <div className={'col-md-12 col-lg-4'} key={index}>
+                    <div className={'crossRoads__card'}>
+                      <div className={'crossRoads__card__img'}>
+                        {item.image && <Media type="image" data={item.image} />}
+                      </div>
+                      {item.text && <p>{item.text}</p>}
+                      {item.link && <Link 
+                        {...item.link}
+                        style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }} 
+                      />}
                     </div>
-                    {item.text && <p>{item.text}</p>}
-                  </Link>
+                  </div>
                 );
             })}
           </List>

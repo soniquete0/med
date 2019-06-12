@@ -29,7 +29,7 @@
     &__element {
       width: 100%;
       display: table;
-      min-height: 350px;
+      height: 350px;
       max-height: 400px;
       position: relative;
       margin-bottom: 2.5rem;
@@ -58,7 +58,7 @@
   @include max-lg {
     &__list {
       &__element {
-        min-height: 300px;
+        height: 300px;
       }
     }
   }
@@ -87,7 +87,7 @@
   @include max-md {
     &__list {
       &__element {
-        min-height: 280px;
+        height: 280px;
         background-size: cover;
 
         &__content {

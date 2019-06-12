@@ -39,7 +39,7 @@
           max-height: 600px;
           border-bottom: 1px solid #e6e6e6;
           position: absolute;
-          overflow: unset;
+          overflow: visible;
           text-align: center;
         }
       }
@@ -67,7 +67,7 @@
         width: 95%;
 
         &:hover {
-          overflow: unset;
+          overflow: visible;
           color: $lightBlue;
         }
       }

@@ -23,7 +23,7 @@ const RegistrationBlock = (props: RegistrationBlockProps) => {
         {title && <h3>{title}</h3>}
         {text && <ReactMarkdown source={text} />}
 
-        {btnTitle && btnUrl && btnUrl.url && btnUrl.url.length > 0 &&
+        {btnTitle && btnUrl &&
           <div className={'registration-block__btn-holder'}>
             <Button url={btnUrl} classes={'btn--blueBorder'}>
               {btnTitle}

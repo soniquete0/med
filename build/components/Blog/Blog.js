@@ -56,7 +56,9 @@ var Blog = /** @class */ (function (_super) {
                                             paragraph: function (rProps) { return React.createElement("p", null, rProps.children); },
                                         } })));
                             }
-                            return (React.createElement(blogCard_1.BlogCard, { key: i, url: article.url, text: article.text, img: article.image, title: article.title, color: article.color ? article.color : '#386fa2' }));
+                            return (React.createElement(blogCard_1.BlogCard, { key: i, url: article.url, text: article.text, img: article.image, title: article.title, color: article.color
+                                    && article.color.trim().length > 0
+                                    ? article.color : '#386fa2' }));
                         })),
                         _this.state.numberOfPage < lastPage &&
                             React.createElement("button", { style: { margin: '0 auto' }, className: 'btn btn--blueBkg btn--fullWidth', onClick: function () { return _this.setState({ numberOfPage: _this.state.numberOfPage + 1 }); } }, "Na\u010D\u00EDst dal\u0161\u00ED")));
