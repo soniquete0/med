@@ -1,5 +1,6 @@
 import * as React from 'react';
 import Masonry from 'react-masonry-css';
+import * as ReactMarkdown from 'react-markdown';
 
 import List from '../List';
 import SearchBar from './components/searchBar';
@@ -8,9 +9,11 @@ import { BlogCard } from './components/blogCard';
 export interface BlogProps {
   languageCode?: string;
   data: {
-    title: string;
-    displaySearch: boolean;
     articles: any;
+    title: string;
+    specialText: string;
+    specialTitle: string;
+    displaySearch: boolean;
   };
 }
 
@@ -34,7 +37,13 @@ export default class Blog extends React.Component<BlogProps, BlogState> {
   }
 
   public render() {
-    const { title, displaySearch, articles } = this.props.data;
+    const {
+      title,
+      articles,
+      specialText,
+      specialTitle,
+      displaySearch
+    } = this.props.data;
 
     return (
       <section className={'blog'}>
@@ -43,16 +52,20 @@ export default class Blog extends React.Component<BlogProps, BlogState> {
 
           {displaySearch &&
             <SearchBar
+              barColor={'gray'}
+              placeholder={'Search'}
               value={this.state.searchQuery}
               onChange={this.onSearchChange}
-              placeholder={'Search'}
-              barColor={'gray'}
             />}
 
           <List data={articles} searchedText={this.state.searchQuery}>
             {({ getPage }) => {
               const { items, lastPage } = getPage(this.state.numberOfPage, 'infinite', 6);
 
+              if (items && items.length <= 0) {
+                return <div className={'searchBarResults__noResults'}>Bohužel nebyl nalezen žádný článek.</div>;
+              }
+              
               return (
                 <>
                   <Masonry
@@ -60,26 +73,39 @@ export default class Blog extends React.Component<BlogProps, BlogState> {
                     className="my-masonry-grid"
                     columnClassName="my-masonry-grid_column"
                   >
-                    {items.map((article, i) => (
-                      <BlogCard
-                        key={i}
-                        url={article.url}
-                        title={article.title}
-                        text={`${
-                          article.text && article.text.length > 35 
-                          ? article.text.slice(0, 35) 
-                          : article.text} ..
-                        `}
-                        color={'#386fa2'} 
-                        img={article.image}
-                        special={false}
-                      />))}
+                    {items.map((article, i) => {
+
+                      if (i === 1 && specialText && specialTitle) {
+                        return (
+                          <div key={'special'} className={'blogCard blogCard--special'}>
+                            <h3>{specialTitle}</h3>
+                            <ReactMarkdown
+                              source={specialText}
+                              renderers={{
+                                // tslint:disable-next-line:no-any
+                                paragraph: (rProps: any) => <p>{rProps.children}</p>,
+                              }}
+                            />
+                          </div>
+                        );
+                      }
+
+                      return (
+                        <BlogCard
+                          key={i}
+                          url={article.url}
+                          text={article.text}
+                          img={article.image}
+                          title={article.title}
+                          color={article.color ? article.color : '#386fa2'}
+                        />);
+                    })}
                   </Masonry>
 
                   {this.state.numberOfPage < lastPage &&
                     <button
                       style={{ margin: '0 auto' }}
-                      className={'btn btn--greenBkg btn--fullWidth'}
+                      className={'btn btn--blueBkg btn--fullWidth'}
                       onClick={() => this.setState({ numberOfPage: this.state.numberOfPage + 1 })}
                     >
                       Načíst další

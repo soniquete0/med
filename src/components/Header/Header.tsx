@@ -104,7 +104,9 @@ class Header extends React.Component<HeaderProps, HeaderState> {
     this.getVertex();
   }
 
-  isActivePage = (url: string) => {    
+  isActivePage = (url: string) => {
+    if (!url) { return; }
+
     if (window) {
       const PARENT_PAGE = url.split('/'); // ["", "medicon", "cs", "home"]
       const LOCATION_PARENT_PAGE = location.pathname.split('/');

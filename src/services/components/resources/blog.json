@@ -3,10 +3,13 @@
   "data": {
     "title": "",
     "displaySearch": false,
+    "specialTitle": "Special title",
+    "specialText": "Special text",
     "articles": [
       {
         "title": "",
         "text": "",
+        "color": "",
         "image": {
           "recommendedSizes": {
             "height": "295",
@@ -29,6 +32,14 @@
           "type": "boolean",
           "title": "Display Search?"
         },
+        "specialTitle": {
+          "type": "text",
+          "title": "Special title"
+        },
+        "specialText": {
+          "type": "markdown",
+          "title": "Special text"
+        },
         "articles": {
           "type": "array",
           "title": "Articles",
@@ -41,6 +52,10 @@
               "text": {
                 "type": "text",
                 "title": "Text"
+              },
+              "color": {
+                "type": "text",
+                "title": "color (HEX)"
               },
               "image": {
                 "type": "image"
