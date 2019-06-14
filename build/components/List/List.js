@@ -116,7 +116,7 @@ var List = /** @class */ (function (_super) {
             };
             return getPage;
         };
-        _this.datasourcesList = function (data, searchedFragments) {
+        _this.datasourcesList = function (data, searchedFragments, searchKeys) {
             return (React.createElement(react_apollo_1.Query, { query: DATASOURCE, variables: {
                     id: data.datasourceId
                 } }, function (queryData) {
@@ -124,7 +124,17 @@ var List = /** @class */ (function (_super) {
                 var datasourceItems = ((queryData.data.datasource && queryData.data.datasource.datasourceItems) || []);
                 if (searchedFragments && searchedFragments.length > 0) {
                     datasourceItems = searchedFragments.reduce(function (filteredItems, fragment) {
-                        return filteredItems.filter(function (page) { return JSON.stringify(page).toLowerCase().includes(fragment.toLowerCase()); });
+                        return filteredItems.filter(function (item) {
+                            if (!searchKeys) {
+                                return JSON.stringify(item).toLowerCase().includes(fragment.toLowerCase());
+                            }
+                            var flattenItem = _this.flatten(item, '', '');
+                            return searchKeys.reduce(function (acc, key) {
+                                return acc || ("" + flattenItem[key])
+                                    .toLowerCase()
+                                    .includes(("" + fragment).toLowerCase());
+                            }, false);
+                        });
                     }, datasourceItems);
                 }
                 // Map datasourceItem data to placeholders
@@ -229,7 +239,7 @@ var List = /** @class */ (function (_super) {
             origin = window.origin;
         }
         var _a = this.props, data = _a.data, location = _a.location;
-        var searchedText = this.props.searchedText;
+        var _b = this.props, searchedText = _b.searchedText, searchKeys = _b.searchKeys;
         var fulltextFilter = data && data.fulltextFilter;
         var regex = /^\[([a-z]*)\]$/;
         var searchParams = typeof window !== 'undefined' && new URLSearchParams(location && location.search || '');
@@ -252,7 +262,7 @@ var List = /** @class */ (function (_super) {
         }
         // In case that data isn't array and contain datasourceId try to fetch datasource with his items
         if (data && data.datasourceId) {
-            return this.datasourcesList(data, searchedFragments);
+            return this.datasourcesList(data, searchedFragments, this.props.searchKeys);
         }
         if (data && data.sourceType === 'pages') {
             return (React.createElement(AllPagesComposedQuery, { origin: process.env.REACT_APP_ORIGIN || origin, url: location.pathname }, function (_a) {
@@ -269,7 +279,17 @@ var List = /** @class */ (function (_super) {
                 if (searchedFragments && searchedFragments.length > 0) {
                     pages = searchedFragments.reduce(function (filteredPages, fragment) {
                         return filteredPages
-                            .filter(function (page) { return JSON.stringify(page).toLowerCase().includes(fragment.toLowerCase()); });
+                            .filter(function (page) {
+                            if (!searchKeys) {
+                                return JSON.stringify(page).toLowerCase().includes(fragment.toLowerCase());
+                            }
+                            var flattenPage = _this.flatten(page, '', '');
+                            return searchKeys.reduce(function (acc, key) {
+                                return acc || ("" + flattenPage[key])
+                                    .toLowerCase()
+                                    .includes(("" + fragment).toLowerCase());
+                            }, false);
+                        });
                     }, pages);
                 }
                 var pagesWithTag = pages
@@ -405,6 +425,43 @@ var List = /** @class */ (function (_super) {
             }
         }
         return replaced;
+    };
+    /**
+     * Recursively flattens a JSON object using dot notation.
+     *
+     * NOTE: input must be an object as described by JSON spec. Arbitrary
+     * JS objects (e.g. {a: () => 42}) may result in unexpected output.
+     * MOREOVER, it removes keys with empty objects/arrays as value (see
+     * examples bellow).
+     *
+     * @example
+     * // returns {a:1, 'b.0.c': 2, 'b.0.d.e': 3, 'b.1': 4}
+     * flatten({a: 1, b: [{c: 2, d: {e: 3}}, 4]})
+     * // returns {a:1, 'b.0.c': 2, 'b.0.d.e.0': true, 'b.0.d.e.1': false, 'b.0.d.e.2.f': 1}
+     * flatten({a: 1, b: [{c: 2, d: {e: [true, false, {f: 1}]}}]})
+     * // return {a: 1}
+     * flatten({a: 1, b: [], c: {}})
+     *
+     * @param obj item to be flattened
+     * @param {Array.string} [prefix=[]] chain of prefix joined with a dot and prepended to key
+     * @param {Object} [current={}] result of flatten during the recursion
+     *
+     * @see https://docs.mongodb.com/manual/core/document/#dot-notation
+     */
+    List.prototype.flatten = function (obj, prefix, current) {
+        var _this = this;
+        prefix = prefix || [];
+        current = current || {};
+        // Remember kids, null is also an object!
+        if (typeof (obj) === 'object' && obj !== null) {
+            Object.keys(obj).forEach(function (key) {
+                _this.flatten(obj[key], prefix.concat(key), current);
+            });
+        }
+        else {
+            current[prefix.join('.')] = obj;
+        }
+        return current;
     };
     return List;
 }(React.Component));

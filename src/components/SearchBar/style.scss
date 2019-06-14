@@ -259,7 +259,6 @@
           width: 100%;
           padding: 0;
           text-align-last: left;
-          margin-bottom: 12px;
         }
 
         &:before {
@@ -267,10 +266,17 @@
         }
 
         p {
+          margin-top: 1.2rem;
           color: #c5c5c5;
           font-size: 1.4rem;
         }
       }
+    }
+  }
+
+  .noTimetable {
+    &:after {
+      display: none !important;
     }
   }
 }

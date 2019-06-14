@@ -22,6 +22,7 @@ export interface Properties extends RouteComponentProps<LooseObject> {
   data?: any;
   children: (data: QueryResult) => React.ReactNode;
   searchedText?: string;
+  searchKeys?: Array<string>;
 }
 
 const FRONTEND = gql`
@@ -257,7 +258,7 @@ class List extends React.Component<Properties, {}> {
     }
     
     const { data, location } = this.props;
-    let { searchedText } = this.props;
+    let { searchedText, searchKeys } = this.props;
 
     const fulltextFilter = data && data.fulltextFilter;
 
@@ -284,9 +285,10 @@ class List extends React.Component<Properties, {}> {
     if (Array.isArray(data)) {
       return this.props.children({ data, getPage: this.getPaginatingFunction(data) });
     }
+
     // In case that data isn't array and contain datasourceId try to fetch datasource with his items
     if (data && data.datasourceId) {
-      return this.datasourcesList(data, searchedFragments);
+      return this.datasourcesList(data, searchedFragments, this.props.searchKeys);
     }
 
     if (data && data.sourceType === 'pages') {
@@ -314,11 +316,27 @@ class List extends React.Component<Properties, {}> {
                 pages = searchedFragments.reduce(
                 (filteredPages, fragment) => {
                   return filteredPages
-                    .filter(page => JSON.stringify(page).toLowerCase().includes(fragment.toLowerCase())); 
+                    .filter(page => {
+                      if (!searchKeys) {
+                        return JSON.stringify(page).toLowerCase().includes(fragment.toLowerCase());
+                      }
+
+                      const flattenPage = this.flatten(page, '', '');
+                      return searchKeys.reduce(
+                        (acc, key) => {
+                          return acc || `${flattenPage[key]}`
+                            .toLowerCase()
+                            .includes(
+                              `${fragment}`.toLowerCase()
+                            );
+                        }, 
+                        false
+                      );
+                    }); 
                 },                                       
                 pages);
               }
-          
+
               const pagesWithTag = pages
                 .filter(p => {
   
@@ -453,7 +471,7 @@ class List extends React.Component<Properties, {}> {
     return replaced;
   }
 
-  datasourcesList = (data, searchedFragments) => {
+  datasourcesList = (data, searchedFragments, searchKeys?) => {
     return (
       <Query 
         query={DATASOURCE}
@@ -469,7 +487,24 @@ class List extends React.Component<Properties, {}> {
         if (searchedFragments && searchedFragments.length > 0) {
           datasourceItems = searchedFragments.reduce(
           (filteredItems, fragment) => {
-            return filteredItems.filter(page => JSON.stringify(page).toLowerCase().includes(fragment.toLowerCase())); 
+            return filteredItems.filter(item => {
+              if (!searchKeys) {
+                return JSON.stringify(item).toLowerCase().includes(fragment.toLowerCase());
+              }
+
+              const flattenItem = this.flatten(item, '', '');
+
+              return searchKeys.reduce(
+                (acc, key) => {
+                  return acc || `${flattenItem[key]}`
+                    .toLowerCase()
+                    .includes(
+                      `${fragment}`.toLowerCase()
+                    );
+                }, 
+                false
+              );
+            }); 
           },                                       
           datasourceItems);
         }
@@ -564,6 +599,44 @@ class List extends React.Component<Properties, {}> {
         });
       }}
       </Query>);
+  }
+
+  /**
+   * Recursively flattens a JSON object using dot notation.
+   *
+   * NOTE: input must be an object as described by JSON spec. Arbitrary
+   * JS objects (e.g. {a: () => 42}) may result in unexpected output.
+   * MOREOVER, it removes keys with empty objects/arrays as value (see
+   * examples bellow).
+   *
+   * @example
+   * // returns {a:1, 'b.0.c': 2, 'b.0.d.e': 3, 'b.1': 4}
+   * flatten({a: 1, b: [{c: 2, d: {e: 3}}, 4]})
+   * // returns {a:1, 'b.0.c': 2, 'b.0.d.e.0': true, 'b.0.d.e.1': false, 'b.0.d.e.2.f': 1}
+   * flatten({a: 1, b: [{c: 2, d: {e: [true, false, {f: 1}]}}]})
+   * // return {a: 1}
+   * flatten({a: 1, b: [], c: {}})
+   *
+   * @param obj item to be flattened
+   * @param {Array.string} [prefix=[]] chain of prefix joined with a dot and prepended to key
+   * @param {Object} [current={}] result of flatten during the recursion
+   *
+   * @see https://docs.mongodb.com/manual/core/document/#dot-notation
+   */
+  flatten (obj: Object, prefix: any, current: any) {
+    prefix = prefix || [];
+    current = current || {};
+
+    // Remember kids, null is also an object!
+    if (typeof (obj) === 'object' && obj !== null) {
+      Object.keys(obj).forEach(key => {
+        this.flatten(obj[key], prefix.concat(key), current);
+      })
+    } else {
+      current[prefix.join('.')] = obj;
+    }
+
+    return current;
   }
 }
 
