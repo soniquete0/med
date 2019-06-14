@@ -56,7 +56,8 @@ var SearchBar = /** @class */ (function (_super) {
         };
         _this.state = {
             query: '',
-            focused: false
+            focused: false,
+            noResults: true
         };
         _this.input = React.createRef();
         _this.searchBar = React.createRef();
@@ -107,10 +108,9 @@ var SearchBar = /** @class */ (function (_super) {
                         var data = _a.data;
                         if (data.length > 0) {
                             return (React.createElement("ul", { className: 'searchBarResults__blog' }, data.map(function (blogItem, i) { return (React.createElement("li", { key: i },
-                                console.log(blogItem),
                                 React.createElement(Link_1.default, __assign({}, blogItem.link),
                                     React.createElement("div", null,
-                                        React.createElement("h4", null, blogItem.title),
+                                        React.createElement("h4", null, blogItem.name || blogItem.title),
                                         React.createElement("p", null, blogItem.perex))))); })));
                         }
                         else {
@@ -154,7 +154,9 @@ var SearchBar = /** @class */ (function (_super) {
                             })));
                         }
                         else {
-                            return (React.createElement("div", { className: 'searchBarResults__noResults' }, "Bohu\u017Eel jsme nena\u0161li \u017E\u00E1dn\u00E9 v\u00FDsledeky."));
+                            return (
+                            // TODO: display only if: !doctorSearchResults && !blogSearchResults
+                            React.createElement("div", { className: 'searchBarResults__noResults' }, "Bohu\u017Eel jsme nena\u0161li \u017E\u00E1dn\u00E9 v\u00FDsledeky."));
                         }
                     }))));
     };

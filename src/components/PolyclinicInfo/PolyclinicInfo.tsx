@@ -29,8 +29,6 @@ const PolyclinicInfo = (props: ContactsProps) => {
     transportImage,
   } = props.data;
 
-  console.log(props.data);
-
   return (
     <div className={'policlinicInfo'}>
       <div className="container">

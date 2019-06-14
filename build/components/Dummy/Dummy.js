@@ -1,29 +1,14 @@
 "use strict";
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
-var Dummy = /** @class */ (function (_super) {
-    __extends(Dummy, _super);
-    function Dummy() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    Dummy.prototype.render = function () {
-        return (React.createElement("div", { className: 'container' },
-            React.createElement("div", { className: 'dummy' }, this.props.data.text || '')));
-    };
-    return Dummy;
-}(React.Component));
+function Dummy(props) {
+    var _a = props.data, marginTop = _a.marginTop, marginBottom = _a.marginBottom;
+    console.log(props.data);
+    return (React.createElement("div", { className: "dividerCircles", style: {
+            marginTop: parseInt(marginTop, 10) > 0 ? parseInt(marginTop, 10) : 0,
+            marginBottom: parseInt(marginBottom, 10) > 0 ? parseInt(marginBottom, 10) : 0
+        } },
+        React.createElement("div", null)));
+}
 exports.default = Dummy;
 //# sourceMappingURL=Dummy.js.map

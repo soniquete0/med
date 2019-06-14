@@ -17,7 +17,6 @@ var Link_1 = require("../../partials/Link");
 var Media_1 = require("../../partials/Media");
 var PolyclinicInfo = function (props) {
     var _a = props.data, geo = _a.geo, clinic = _a.clinic, transport = _a.transport, clinicColor = _a.clinicColor, geoUrl = _a.geoUrl, transportUrl = _a.transportUrl, phone = _a.phone, transportImage = _a.transportImage;
-    console.log(props.data);
     return (React.createElement("div", { className: 'policlinicInfo' },
         React.createElement("div", { className: "container" },
             React.createElement("div", { className: "row policlinicInfo__list" },

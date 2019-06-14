@@ -16,6 +16,7 @@ export interface SearchBarProps {
 export interface SearchBarState {
   focused: boolean;
   query: string;
+  noResults: boolean;
 }
 
 const doctorSearchResultsTemplate: LooseObject = {
@@ -45,7 +46,8 @@ class SearchBar extends React.Component<SearchBarProps, SearchBarState> {
 
     this.state = {
       query: '',
-      focused: false
+      focused: false,
+      noResults: true
     };
 
     this.input = React.createRef();
@@ -136,10 +138,9 @@ class SearchBar extends React.Component<SearchBarProps, SearchBarState> {
                       <ul className={'searchBarResults__blog'}>
                         {data.map((blogItem, i) => (
                           <li key={i}>
-                            {console.log(blogItem)}
                             <Link {...blogItem.link}>
                               <div>
-                                <h4>{blogItem.title}</h4>
+                                <h4>{blogItem.name || blogItem.title}</h4>
                                 <p>{blogItem.perex}</p>
                               </div>
                             </Link>
@@ -227,6 +228,7 @@ class SearchBar extends React.Component<SearchBarProps, SearchBarState> {
                   );
                 } else {
                   return (
+                    // TODO: display only if: !doctorSearchResults && !blogSearchResults
                     <div className={'searchBarResults__noResults'}>Bohužel jsme nenašli žádné výsledeky.</div>
                   );
                 }
