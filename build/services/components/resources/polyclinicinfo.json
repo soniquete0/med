@@ -2,8 +2,9 @@
     "name": "PolyclinicInfo",
     "data": {
         "geo": "Antala Staška 1670/80 140 00 Praha 4",
-        "phone": "+420 261 006 111",
+        "geoUrl": "",
         "transport": "Metro C stanice Budějovická",
+        "transportUrl": "",
         "transportImage": {
             "recommendedSizes": {
                 "width": "50",
@@ -21,13 +22,21 @@
                     "type": "text",
                     "title": "Address"
                 },
+                "geoUrl": {
+                    "type": "urlAutocomplete",
+                    "title": "Address URL"
+                },
                 "phone": {
-                    "type": "text",
-                    "title": "Phone number"
+                    "type": "markdown",
+                    "title": "Contacts"
                 },
                 "transport": {
                     "type": "text",
                     "title": "Transport"
+                },
+                "transportUrl": {
+                    "type": "urlAutocomplete",
+                    "title": "Transport URL"
                 },
                 "transportImage": {
                     "type": "image"

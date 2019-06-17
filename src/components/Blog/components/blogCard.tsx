@@ -17,7 +17,7 @@ export function BlogCard(props: BlogCardProps) {
   return (
     <Link className={'blogCard'} {...url}>
       <h3>{title}</h3>
-      <p>{text && text.length > 50 ? text.slice(0, 50) + ' ..' : text}</p>
+      <p>{text && text.length > 80 ? text.slice(0, 80) + ' ..' : text}</p>
 
       {img && <Media type={'image'} data={img} />}
       <div

@@ -32,9 +32,30 @@ var Blog = /** @class */ (function (_super) {
         };
         return _this;
     }
+    Blog.prototype.renderBlogCards = function (items) {
+        if (!items) {
+            return [];
+        }
+        var _a = this.props.data, specialText = _a.specialText, specialTitle = _a.specialTitle;
+        var resultBlogCards = [];
+        for (var i = 0; i < items.length; i++) {
+            if (i === 1 && specialText && specialTitle) {
+                resultBlogCards.push(React.createElement("div", { key: 'special', className: 'blogCard blogCard--special' },
+                    React.createElement("h3", null, specialTitle),
+                    React.createElement(ReactMarkdown, { source: specialText, renderers: {
+                            // tslint:disable-next-line:no-any
+                            paragraph: function (rProps) { return React.createElement("p", null, rProps.children); },
+                        } })));
+            }
+            resultBlogCards.push((React.createElement(blogCard_1.BlogCard, { key: i, url: items[i].url, text: items[i].text, img: items[i].image, title: items[i].title, color: items[i].color
+                    && items[i].color.trim().length > 0
+                    ? items[i].color : '#386fa2' })));
+        }
+        return resultBlogCards;
+    };
     Blog.prototype.render = function () {
         var _this = this;
-        var _a = this.props.data, title = _a.title, articles = _a.articles, specialText = _a.specialText, specialTitle = _a.specialTitle, displaySearch = _a.displaySearch;
+        var _a = this.props.data, title = _a.title, articles = _a.articles, displaySearch = _a.displaySearch;
         return (React.createElement("section", { className: 'blog' },
             React.createElement("div", { className: "container" },
                 title && React.createElement("h1", { style: displaySearch ? { paddingBottom: 0 } : {} }, title),
@@ -47,19 +68,7 @@ var Blog = /** @class */ (function (_super) {
                         return React.createElement("div", { className: 'searchBarResults__noResults' }, "Bohu\u017Eel nebyl nalezen \u017E\u00E1dn\u00FD \u010Dl\u00E1nek.");
                     }
                     return (React.createElement(React.Fragment, null,
-                        React.createElement(react_masonry_css_1.default, { breakpointCols: { default: 3, 4000: 3, 800: 2, 500: 1 }, className: "my-masonry-grid", columnClassName: "my-masonry-grid_column" }, items.map(function (article, i) {
-                            if (i === 1 && specialText && specialTitle) {
-                                return (React.createElement("div", { key: 'special', className: 'blogCard blogCard--special' },
-                                    React.createElement("h3", null, specialTitle),
-                                    React.createElement(ReactMarkdown, { source: specialText, renderers: {
-                                            // tslint:disable-next-line:no-any
-                                            paragraph: function (rProps) { return React.createElement("p", null, rProps.children); },
-                                        } })));
-                            }
-                            return (React.createElement(blogCard_1.BlogCard, { key: i, url: article.url, text: article.text, img: article.image, title: article.title, color: article.color
-                                    && article.color.trim().length > 0
-                                    ? article.color : '#386fa2' }));
-                        })),
+                        React.createElement(react_masonry_css_1.default, { breakpointCols: { default: 3, 4000: 3, 800: 2, 500: 1 }, className: "my-masonry-grid", columnClassName: "my-masonry-grid_column" }, _this.renderBlogCards(items)),
                         _this.state.numberOfPage < lastPage &&
                             React.createElement("button", { style: { margin: '0 auto' }, className: 'btn btn--blueBkg btn--fullWidth', onClick: function () { return _this.setState({ numberOfPage: _this.state.numberOfPage + 1 }); } }, "Na\u010D\u00EDst dal\u0161\u00ED")));
                 }))));

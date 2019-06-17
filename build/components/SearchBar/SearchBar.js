@@ -56,10 +56,12 @@ var SearchBar = /** @class */ (function (_super) {
         };
         _this.state = {
             query: '',
-            focused: false
+            focused: false,
+            noResults: true
         };
         _this.input = React.createRef();
         _this.searchBar = React.createRef();
+        _this.clearData = lodash_1.debounce(_this.clearData, 300).bind(_this);
         _this.handleClick = _this.handleClick.bind(_this);
         _this.changeSearchQuery = lodash_1.debounce(_this.changeSearchQuery, 300).bind(_this);
         return _this;
@@ -69,7 +71,6 @@ var SearchBar = /** @class */ (function (_super) {
     };
     SearchBar.prototype.componentWillUnmount = function () {
         document.removeEventListener('click', this.handleClick, false);
-        // this.setState = () => {};
     };
     // tslint:disable-next-line:typedef
     SearchBar.prototype.changeSearchQuery = function (query) {
@@ -85,6 +86,10 @@ var SearchBar = /** @class */ (function (_super) {
             this.changeSearchQuery('');
         }
     };
+    SearchBar.prototype.clearData = function () {
+        this.setState({ focused: false, query: '' });
+        this.input.current.value = '';
+    };
     SearchBar.prototype.render = function () {
         var _this = this;
         var _a = this.props, placeholder = _a.placeholder, barColor = _a.barColor;
@@ -94,12 +99,30 @@ var SearchBar = /** @class */ (function (_super) {
         }
         return (React.createElement("div", { className: "searchBar " + (this.state.focused ? 'searchBar--focused' : '') + " searchBar--" + barColor, ref: this.searchBar },
             React.createElement("div", { className: 'searchBar__input' },
-                React.createElement("input", { type: "text", placeholder: placeholder, onFocus: function () { return _this.handleFocus(); }, onBlur: function () { return _this.handleFocus(); }, onChange: function (e) { return _this.changeSearchQuery(e.target.value); }, ref: this.input }),
+                React.createElement("input", { type: "text", ref: this.input, placeholder: placeholder, onFocus: function () { return _this.handleFocus(); }, onBlur: function () { return _this.handleFocus(); }, onChange: function (e) { return _this.changeSearchQuery(e.target.value); } }),
                 React.createElement(SvgIcon_1.default, { name: 'search', type: barColor })),
             React.createElement("div", { className: "searchBar__bar" }),
             this.state.query.length > 2 &&
                 React.createElement("div", { className: "searchBarResults " + (this.state.query.length > 2 ? 'active' : '') },
-                    React.createElement(List_1.default, { data: doctorSearchResults, searchedText: this.state.query }, function (_a) {
+                    this.props.blogSearchResults && this.state.query.length > 2 && (React.createElement(List_1.default, { data: this.props.blogSearchResults, searchedText: this.state.query, searchKeys: ['translations.0.name'] }, function (_a) {
+                        var data = _a.data;
+                        if (data.length > 0) {
+                            return (React.createElement("ul", { className: 'searchBarResults__blog' }, data.map(function (blogItem, i) { return (React.createElement("li", { key: i },
+                                React.createElement(Link_1.default, __assign({}, blogItem.link),
+                                    React.createElement("div", null,
+                                        React.createElement("h4", null, blogItem.name || blogItem.title),
+                                        React.createElement("p", null, blogItem.perex))))); })));
+                        }
+                        else {
+                            return (React.createElement(React.Fragment, null));
+                        }
+                    })),
+                    React.createElement(List_1.default, { data: doctorSearchResults, searchedText: this.state.query, searchKeys: [
+                            'content.doctorPersonalInformation.firstName',
+                            'content.doctorPersonalInformation.lastName',
+                            'content.doctorPersonalInformation.expertises.0.name',
+                            'content.doctorPersonalInformation.polyclinic.name'
+                        ] }, function (_a) {
                         var data = _a.data;
                         if (data.length > 0) {
                             return (React.createElement("ul", { className: 'searchBarResults__doctors' }, data
@@ -115,37 +138,27 @@ var SearchBar = /** @class */ (function (_super) {
                             })
                                 .sort(function (a, b) { return (a.isDoctorActive === true ? -1 : 1); })
                                 .map(function (doctor, i) {
-                                return (React.createElement("li", { key: i, className: doctor.isDoctorActive ? 'active' : '' },
+                                return (React.createElement("li", { key: i, className: (doctor.isDoctorActive === true || doctor.isDoctorActive === null)
+                                        ? 'active' : '', onClick: _this.clearData },
                                     React.createElement(Link_1.default, __assign({}, doctor.link),
                                         React.createElement("span", null,
                                             React.createElement("p", null,
-                                                React.createElement("span", null, doctor.name),
-                                                React.createElement("span", { style: doctor.isDoctorActive ?
-                                                        { color: '#31a031' } :
-                                                        { color: '#c23636' } }, doctor.isDoctorActive ? 'ordinuje' : 'Dnes již neordinuje')),
+                                                React.createElement("span", { className: doctor.isDoctorActive === null ? 'noTimetable' : '' }, doctor.name),
+                                                doctor.isDoctorActive !== null &&
+                                                    React.createElement(React.Fragment, null,
+                                                        React.createElement("span", { style: doctor.isDoctorActive ?
+                                                                { color: '#31a031' } :
+                                                                { color: '#c23636' } }, doctor.isDoctorActive ? 'ordinuje' : 'dnes již neordinuje'))),
                                             React.createElement("p", null, doctor.speciality)),
                                         React.createElement("span", null, doctor.clinic))));
                             })));
                         }
                         else {
-                            return (React.createElement("div", { className: 'searchBarResults__noResults' }, "Bohu\u017Eel jsme nena\u0161li \u017E\u00E1dn\u00E9 v\u00FDsledeky."));
+                            return (
+                            // TODO: display only if: !doctorSearchResults && !blogSearchResults
+                            React.createElement("div", { className: 'searchBarResults__noResults' }, "Bohu\u017Eel jsme nena\u0161li \u017E\u00E1dn\u00E9 v\u00FDsledeky."));
                         }
-                    }),
-                    this.props.blogSearchResults && this.state.query.length > 2 && (React.createElement(List_1.default, { data: this.props.blogSearchResults, searchedText: this.state.query }, function (_a) {
-                        var data = _a.data;
-                        if (data.length > 0) {
-                            return (React.createElement("ul", { className: 'searchBarResults__blog' },
-                                React.createElement("label", null, "Mo\u017En\u00E1 jste hledali:"),
-                                data.map(function (blogItem, i) { return (React.createElement("li", { key: i },
-                                    React.createElement(Link_1.default, __assign({}, blogItem.link),
-                                        React.createElement("div", null,
-                                            React.createElement("h4", null, blogItem.title),
-                                            React.createElement("p", null, blogItem.perex))))); })));
-                        }
-                        else {
-                            return (React.createElement(React.Fragment, null));
-                        }
-                    })))));
+                    }))));
     };
     SearchBar.prototype.getWeekDayKey = function () {
         var day;
@@ -209,7 +222,7 @@ var SearchBar = /** @class */ (function (_super) {
                 return false;
             });
         }
-        return false;
+        return null;
     };
     return SearchBar;
 }(React.Component));

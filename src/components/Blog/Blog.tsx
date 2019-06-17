@@ -36,12 +36,51 @@ export default class Blog extends React.Component<BlogProps, BlogState> {
     this.setState({ searchQuery: e.target.value });
   }
 
+  renderBlogCards(items: any) {
+    if (!items) { return []; }
+  
+    const { specialText, specialTitle } = this.props.data;
+    let resultBlogCards = [];
+    
+    for (let i = 0; i < items.length; i++) {
+      if (i === 1 && specialText && specialTitle) {
+        resultBlogCards.push(
+          <div key={'special'} className={'blogCard blogCard--special'}>
+            <h3>{specialTitle}</h3>
+            <ReactMarkdown
+              source={specialText}
+              renderers={{
+                // tslint:disable-next-line:no-any
+                paragraph: (rProps: any) => <p>{rProps.children}</p>,
+              }}
+            />
+          </div>
+        );
+      }
+      
+      resultBlogCards.push((
+        <BlogCard
+          key={i}
+          url={items[i].url}
+          text={items[i].text}
+          img={items[i].image}
+          title={items[i].title}
+          color={
+            items[i].color 
+            && items[i].color.trim().length > 0 
+            ? items[i].color : '#386fa2'
+          }
+        />
+      ));
+    }
+
+    return resultBlogCards;
+  }
+
   public render() {
     const {
       title,
       articles,
-      specialText,
-      specialTitle,
       displaySearch
     } = this.props.data;
 
@@ -73,37 +112,7 @@ export default class Blog extends React.Component<BlogProps, BlogState> {
                     className="my-masonry-grid"
                     columnClassName="my-masonry-grid_column"
                   >
-                    {items.map((article, i) => {
-
-                      if (i === 1 && specialText && specialTitle) {
-                        return (
-                          <div key={'special'} className={'blogCard blogCard--special'}>
-                            <h3>{specialTitle}</h3>
-                            <ReactMarkdown
-                              source={specialText}
-                              renderers={{
-                                // tslint:disable-next-line:no-any
-                                paragraph: (rProps: any) => <p>{rProps.children}</p>,
-                              }}
-                            />
-                          </div>
-                        );
-                      }
-
-                      return (
-                        <BlogCard
-                          key={i}
-                          url={article.url}
-                          text={article.text}
-                          img={article.image}
-                          title={article.title}
-                          color={
-                            article.color 
-                            && article.color.trim().length > 0 
-                            ? article.color : '#386fa2'
-                          }
-                        />);
-                    })}
+                    {this.renderBlogCards(items)}
                   </Masonry>
 
                   {this.state.numberOfPage < lastPage &&

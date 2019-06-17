@@ -1,15 +1,20 @@
 {
   "name": "Dummy",
   "data": {
-    "text": "Default Dummy Text"
+    "marginTop": "40",
+    "marginBottom": "40"
   },
   "form": {
     "schema": {
       "type": "object",
       "properties": {
-        "text": {
-          "type": "text",
-          "title": "Dummy Text"
+        "marginTop": {
+          "type": "number",
+          "title": "Margin top (px)"
+        },
+        "marginBottom": {
+          "type": "number",
+          "title": "Margin bottom (px)"
         }
       }
     }

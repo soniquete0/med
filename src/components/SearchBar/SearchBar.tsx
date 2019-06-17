@@ -16,6 +16,7 @@ export interface SearchBarProps {
 export interface SearchBarState {
   focused: boolean;
   query: string;
+  noResults: boolean;
 }
 
 const doctorSearchResultsTemplate: LooseObject = {
@@ -45,12 +46,14 @@ class SearchBar extends React.Component<SearchBarProps, SearchBarState> {
 
     this.state = {
       query: '',
-      focused: false
+      focused: false,
+      noResults: true
     };
 
     this.input = React.createRef();
     this.searchBar = React.createRef();
 
+    this.clearData = debounce(this.clearData, 300).bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.changeSearchQuery = debounce(this.changeSearchQuery, 300).bind(this);
   }
@@ -61,7 +64,6 @@ class SearchBar extends React.Component<SearchBarProps, SearchBarState> {
 
   componentWillUnmount() {
     document.removeEventListener('click', this.handleClick, false);
-    // this.setState = () => {};
   }
 
   handleFocus = () => {
@@ -83,6 +85,11 @@ class SearchBar extends React.Component<SearchBarProps, SearchBarState> {
     } else {
       this.changeSearchQuery('');
     }
+  }
+
+  clearData() {
+    this.setState({ focused: false, query: '' });
+    this.input.current.value = '';
   }
 
   public render() {
@@ -107,11 +114,11 @@ class SearchBar extends React.Component<SearchBarProps, SearchBarState> {
         <div className={'searchBar__input'}>
           <input
             type="text"
+            ref={this.input}
             placeholder={placeholder}
             onFocus={() => this.handleFocus()}
             onBlur={() => this.handleFocus()}
             onChange={e => this.changeSearchQuery(e.target.value)}
-            ref={this.input}
           />
           <SvgIcon name={'search'} type={barColor} />
         </div>
@@ -119,7 +126,45 @@ class SearchBar extends React.Component<SearchBarProps, SearchBarState> {
         <div className={`searchBar__bar`} />
         {this.state.query.length > 2 &&
           <div className={`searchBarResults ${this.state.query.length > 2 ? 'active' : ''}`}>
-            <List data={doctorSearchResults} searchedText={this.state.query}>
+            {this.props.blogSearchResults && this.state.query.length > 2 && (
+              <List
+                data={this.props.blogSearchResults}
+                searchedText={this.state.query}
+                searchKeys={['translations.0.name']}
+              >
+                {({ data }) => {
+                  if (data.length > 0) {
+                    return (
+                      <ul className={'searchBarResults__blog'}>
+                        {data.map((blogItem, i) => (
+                          <li key={i}>
+                            <Link {...blogItem.link}>
+                              <div>
+                                <h4>{blogItem.name || blogItem.title}</h4>
+                                <p>{blogItem.perex}</p>
+                              </div>
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    );
+                  } else {
+                    return (<></>);
+                  }
+                }}
+              </List>
+            )}
+
+            <List
+              data={doctorSearchResults}
+              searchedText={this.state.query}
+              searchKeys={[
+                'content.doctorPersonalInformation.firstName',
+                'content.doctorPersonalInformation.lastName',
+                'content.doctorPersonalInformation.expertises.0.name',
+                'content.doctorPersonalInformation.polyclinic.name'
+              ]}
+            >
               {({ data }) => {
                 if (data.length > 0) {
                   return (
@@ -143,20 +188,34 @@ class SearchBar extends React.Component<SearchBarProps, SearchBarState> {
                         .sort((a, b) => (a.isDoctorActive === true ? -1 : 1))
                         .map((doctor, i) => {
                           return (
-                            <li key={i} className={doctor.isDoctorActive ? 'active' : ''}>
+                            <li 
+                              key={i} 
+                              className={
+                                (doctor.isDoctorActive === true || doctor.isDoctorActive === null)
+                                ? 'active' : ''
+                              }
+                              onClick={this.clearData}
+                            >
                               <Link {...doctor.link}>
                                 <span>
                                   <p>
-                                    <span>{doctor.name}</span>
-                                    <span 
-                                      style={
-                                        doctor.isDoctorActive ? 
-                                        {color: '#31a031'} : 
-                                        {color: '#c23636'} 
-                                      }
-                                    >
-                                      {doctor.isDoctorActive ? 'ordinuje' : 'Dnes již neordinuje'}
+                                    <span className={doctor.isDoctorActive === null ? 'noTimetable' : ''}>
+                                      {doctor.name}
                                     </span>
+
+                                    {doctor.isDoctorActive !== null && 
+                                      <>
+                                        <span 
+                                          style={
+                                            doctor.isDoctorActive ? 
+                                            {color: '#31a031'} : 
+                                            {color: '#c23636'} 
+                                          }
+                                        >
+                                          {doctor.isDoctorActive ? 'ordinuje' : 'dnes již neordinuje'}
+                                        </span>
+                                      </>
+                                    }
                                   </p>
                                   <p>{doctor.speciality}</p>
                                 </span>
@@ -169,38 +228,12 @@ class SearchBar extends React.Component<SearchBarProps, SearchBarState> {
                   );
                 } else {
                   return (
+                    // TODO: display only if: !doctorSearchResults && !blogSearchResults
                     <div className={'searchBarResults__noResults'}>Bohužel jsme nenašli žádné výsledeky.</div>
                   );
                 }
               }}
             </List>
-
-            {this.props.blogSearchResults && this.state.query.length > 2 && (
-              <List data={this.props.blogSearchResults} searchedText={this.state.query}>
-                {({ data }) => {
-                  if (data.length > 0) {
-                    return (
-                      <ul className={'searchBarResults__blog'}>
-                        <label>Možná jste hledali:</label>
-
-                        {data.map((blogItem, i) => (
-                          <li key={i}>
-                            <Link {...blogItem.link}>
-                              <div>
-                                <h4>{blogItem.title}</h4>
-                                <p>{blogItem.perex}</p>
-                              </div>
-                            </Link>
-                          </li>
-                        ))}
-                      </ul>
-                    );
-                  } else {
-                    return (<></>);
-                  }
-                }}
-              </List>
-            )}
         </div>
       }
       </div>
@@ -278,7 +311,7 @@ class SearchBar extends React.Component<SearchBarProps, SearchBarState> {
       });
     }
 
-    return false;
+    return null;
   }
 }
 

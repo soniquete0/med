@@ -3971,13 +3971,15 @@ cite {
           width: 100%;
           padding: 0;
           -moz-text-align-last: left;
-               text-align-last: left;
-          margin-bottom: 12px; }
+               text-align-last: left; }
         .searchBarResults__blog li:before {
           display: none; }
         .searchBarResults__blog li p {
+          margin-top: 1.2rem;
           color: #c5c5c5;
           font-size: 1.4rem; }
+  .searchBar .noTimetable:after {
+    display: none !important; }
 
 .crossRoads {
   padding: 5rem 0 3rem 0; }
@@ -5498,15 +5500,19 @@ cite {
   .policlinicInfo__item {
     width: 100%;
     height: 100%;
-    display: table; }
+    display: table;
+    position: relative; }
     @media (max-width: 991px) {
       .policlinicInfo__item {
         padding-bottom: 2rem; } }
+    .policlinicInfo__item a:hover {
+      color: #00aad0; }
     .policlinicInfo__item--content {
       width: 100%;
       padding-left: 3rem;
       display: table-cell;
-      vertical-align: middle; }
+      vertical-align: middle;
+      position: relative; }
     .policlinicInfo__item > img, .policlinicInfo__item .mediaRatio {
       min-width: 35px;
       min-height: 35px;

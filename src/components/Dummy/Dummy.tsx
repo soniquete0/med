@@ -1,19 +1,25 @@
 import * as React from 'react';
 
-interface IProperties {
+interface DummyProps {
   data: {
-    text: string;
+    marginTop: string;
+    marginBottom: string;
   };
 }
 
-class Dummy extends React.Component<IProperties, {}> {
-  render() {
-    return (
-      <div className={'container'}>
-        <div className={'dummy'}>{this.props.data.text || ''}</div>
-      </div>
-    );
-  }
-}
+export default function Dummy(props: DummyProps) {
+  const { marginTop, marginBottom } = props.data;
 
-export default Dummy;
+  console.log(props.data);
+  return (
+    <div 
+      className="dividerCircles"
+      style={{
+        marginTop: parseInt(marginTop, 10) > 0 ? parseInt(marginTop, 10) : 0,
+        marginBottom: parseInt(marginBottom, 10) > 0 ? parseInt(marginBottom, 10) : 0
+      }}
+    >
+      <div />
+    </div>
+  );
+}
