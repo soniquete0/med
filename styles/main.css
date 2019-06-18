@@ -3880,7 +3880,7 @@ cite {
     z-index: 200; }
     @media (min-width: 768px) {
       .searchBarResults {
-        top: 73px;
+        top: 71px;
         padding: 0; } }
     .searchBarResults__noResults {
       padding: 25px 25px;

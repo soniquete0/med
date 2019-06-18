@@ -99,8 +99,6 @@ var SearchBar = /** @class */ (function (_super) {
         this.input.current.value = '';
     };
     SearchBar.prototype.renderNoResults = function () {
-        console.log("this.state.doctorResults " + this.state.doctorResults);
-        console.log("this.state.blogResults " + this.state.blogResults);
         if (this.state.doctorResults === null && this.state.blogResults === null) {
             return (React.createElement("div", { className: 'searchBarResults__noResults' }, "Bohu\u017Eel jsme nena\u0161li \u017E\u00E1dn\u00E9 vysledky."));
         }

@@ -105,9 +105,6 @@ class SearchBar extends React.Component<SearchBarProps, SearchBarState> {
   }
   
   renderNoResults() {
-    console.log(`this.state.doctorResults ${this.state.doctorResults}`);
-    console.log(`this.state.blogResults ${this.state.blogResults}`);
-
     if (this.state.doctorResults === null && this.state.blogResults === null) {
       return (
         <div className={'searchBarResults__noResults'}>
