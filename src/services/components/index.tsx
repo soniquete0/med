@@ -2,7 +2,7 @@ import * as React from 'react';
 import { isObjectLike } from 'lodash';
 
 import {
-  Devider,
+  Divider,
   AlertNotFound,
   Hero,
   Header,
@@ -49,7 +49,7 @@ import * as resources from './resources';
  */
 class ComponentsService {
   Types: LooseObject<string> = {
-    DEVIDER: 'Devider',
+    DIVIDER: 'Divider',
     HERO: 'Hero',
     HEADER: 'Header',
     CROSSROADS: 'CrossRoads',
@@ -101,8 +101,8 @@ class ComponentsService {
   /***/
   getComponent(type: string) {
     switch (type) {
-      case this.Types.DEVIDER:
-        return Devider;
+      case this.Types.DIVIDER:
+        return Divider;
       case this.Types.HEADER:
         return Header;
       case this.Types.HERO:

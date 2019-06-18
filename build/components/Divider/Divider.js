@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
 var isBackoffice_1 = require("../../helpers/isBackoffice");
-function Devider(props) {
+function Divider(props) {
     var _a = props.data, marginTop = _a.marginTop, marginBottom = _a.marginBottom, displayDots = _a.displayDots;
     return (isBackoffice_1.default() || displayDots) ? (React.createElement("div", { className: "dividerCircles", style: {
             marginTop: parseInt(marginTop, 10) > 0 ? parseInt(marginTop, 10) : 0,
@@ -10,5 +10,5 @@ function Devider(props) {
         } },
         React.createElement("div", null))) : React.createElement(React.Fragment, null);
 }
-exports.default = Devider;
-//# sourceMappingURL=Devider.js.map
+exports.default = Divider;
+//# sourceMappingURL=Divider.js.map

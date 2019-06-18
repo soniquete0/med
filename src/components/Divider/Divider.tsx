@@ -1,7 +1,7 @@
 import * as React from 'react';
 import isBackoffice from '../../helpers/isBackoffice';
 
-interface DeviderProps {
+interface DividerProps {
   data: {
     marginTop: string;
     marginBottom: string;
@@ -9,7 +9,7 @@ interface DeviderProps {
   };
 }
 
-export default function Devider(props: DeviderProps) {
+export default function Divider(props: DividerProps) {
   const { marginTop, marginBottom, displayDots } = props.data;
 
   return (isBackoffice() || displayDots) ? (
