@@ -104,35 +104,6 @@ class Header extends React.Component<HeaderProps, HeaderState> {
     this.getVertex();
   }
 
-  isActivePage = (url: string) => {
-    if (!url) { return; }
-
-    if (window) {
-      const PARENT_PAGE = url.split('/'); // ["", "medicon", "cs", "home"]
-      const LOCATION_PARENT_PAGE = location.pathname.split('/');
-      
-      if (!PARENT_PAGE || !LOCATION_PARENT_PAGE) {
-        return false;
-      }
-
-      const PARENT_PAGE_SIZE = PARENT_PAGE.length;
-      const LOCATION_PARENT_PAGE_SIZE = LOCATION_PARENT_PAGE.length;
-
-      for (let i = PARENT_PAGE_SIZE - 1; i > 2; i--) {
-        for (let j = LOCATION_PARENT_PAGE_SIZE - 1; j > 2; j--) {
-          if (PARENT_PAGE_SIZE > j && LOCATION_PARENT_PAGE_SIZE > j) {
-            return PARENT_PAGE[j] === LOCATION_PARENT_PAGE[j] && true;
-          }
-        }
-      }
-
-      // HOME PAGE
-      if (PARENT_PAGE.length === 3 && LOCATION_PARENT_PAGE.length === 3) {
-        return PARENT_PAGE[2] === LOCATION_PARENT_PAGE[2] ? true : false;
-      } else { return false; }
-    }
-  }
-
   public render() {
     this.state.menuActive ? (document.body.style.position = 'fixed') : (document.body.style.position = 'static');
 
@@ -181,10 +152,7 @@ class Header extends React.Component<HeaderProps, HeaderState> {
                       {mainNavItems &&
                         mainNavItems.map((navItem, i) => (
                           <li key={i}>
-                            <Link 
-                              {...navItem.url}
-                              className={`${navItem.url && this.isActivePage(navItem.url.url) && 'navItemActive'}`}
-                            >
+                            <Link {...navItem.url}>
                               {navItem.name || navItem.title}
                             </Link>
                           </li>

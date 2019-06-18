@@ -273,9 +273,8 @@
       }
     }
   }
-
   .noTimetable {
-    &:after {
+    &::after {
       display: none !important;
     }
   }
