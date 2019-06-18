@@ -1,8 +1,9 @@
 {
-  "name": "Dummy",
+  "name": "Devider",
   "data": {
     "marginTop": "40",
-    "marginBottom": "40"
+    "marginBottom": "40",
+    "displayDots": true
   },
   "form": {
     "schema": {
@@ -15,6 +16,10 @@
         "marginBottom": {
           "type": "number",
           "title": "Margin bottom (px)"
+        },
+        "displayDots": {
+          "type": "boolean",
+          "title": "Display dots?"
         }
       }
     }

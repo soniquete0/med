@@ -1,17 +1,18 @@
 import * as React from 'react';
+import isBackoffice from '../../helpers/isBackoffice';
 
-interface DummyProps {
+interface DeviderProps {
   data: {
     marginTop: string;
     marginBottom: string;
+    displayDots: boolean;
   };
 }
 
-export default function Dummy(props: DummyProps) {
-  const { marginTop, marginBottom } = props.data;
+export default function Devider(props: DeviderProps) {
+  const { marginTop, marginBottom, displayDots } = props.data;
 
-  console.log(props.data);
-  return (
+  return (isBackoffice() || displayDots) ? (
     <div 
       className="dividerCircles"
       style={{
@@ -21,5 +22,5 @@ export default function Dummy(props: DummyProps) {
     >
       <div />
     </div>
-  );
+  ) : <></>;
 }

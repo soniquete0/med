@@ -1,7 +1,7 @@
 import * as benefits from './benefits.json';
 import * as crossroads from './crossroads.json';
 import * as def from './default.json';
-import * as dummy from './dummy.json';
+import * as devider from './devider.json';
 import * as footer from './footer.json';
 import * as header from './header.json';
 import * as hero from './hero.json';
@@ -43,7 +43,7 @@ export {
   benefits,
   crossroads,
   doctorlist,
-  dummy,
+  devider,
   footer,
   header,
   hero,
