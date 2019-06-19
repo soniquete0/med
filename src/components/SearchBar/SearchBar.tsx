@@ -1,10 +1,9 @@
 import * as React from 'react';
-import * as moment from 'moment';
 import { debounce } from 'lodash';
 
-import Link from '../../partials/Link';
-import List from '../../components/List';
 import SvgIcon from '../../partials/SvgIcon';
+import BlogSearchResults from './components/BlogSearchResults';
+import DoctorSearchResults from './components/DoctorSearchResults';
 
 export interface SearchBarProps {
   placeholder: string;
@@ -16,7 +15,8 @@ export interface SearchBarProps {
 export interface SearchBarState {
   focused: boolean;
   query: string;
-  noResults: boolean;
+  doctorResults: null | number;
+  blogResults: null | number;
 }
 
 const doctorSearchResultsTemplate: LooseObject = {
@@ -47,14 +47,18 @@ class SearchBar extends React.Component<SearchBarProps, SearchBarState> {
     this.state = {
       query: '',
       focused: false,
-      noResults: true
+      doctorResults: null,
+      blogResults: null
     };
 
     this.input = React.createRef();
     this.searchBar = React.createRef();
 
-    this.clearData = debounce(this.clearData, 300).bind(this);
+    this.checkDoctorResults = debounce(this.checkDoctorResults, 10).bind(this);
+    this.checkBlogResults = debounce(this.checkBlogResults, 10).bind(this);
+
     this.handleClick = this.handleClick.bind(this);
+    this.clearData = debounce(this.clearData, 300).bind(this);
     this.changeSearchQuery = debounce(this.changeSearchQuery, 300).bind(this);
   }
 
@@ -64,6 +68,14 @@ class SearchBar extends React.Component<SearchBarProps, SearchBarState> {
 
   componentWillUnmount() {
     document.removeEventListener('click', this.handleClick, false);
+  }
+
+  checkDoctorResults(value: number | null) {
+    return this.setState({ doctorResults: value });
+  }
+
+  checkBlogResults(value: number | null) {
+    return this.setState({ blogResults: value });
   }
 
   handleFocus = () => {
@@ -91,11 +103,22 @@ class SearchBar extends React.Component<SearchBarProps, SearchBarState> {
     this.setState({ focused: false, query: '' });
     this.input.current.value = '';
   }
+  
+  renderNoResults() {
+    if (this.state.doctorResults === null && this.state.blogResults === null) {
+      return (
+        <div className={'searchBarResults__noResults'}>
+          Bohužel jsme nenašli žádné vysledky.
+        </div>
+      );
+    } else { return <></>; }
+  }
 
   public render() {
     const { placeholder, barColor } = this.props;
+   
     let doctorSearchResults = { ...doctorSearchResultsTemplate };
-
+    
     if (this.props.doctorsLink) {
       doctorSearchResults = {
         ...doctorSearchResults,
@@ -108,8 +131,8 @@ class SearchBar extends React.Component<SearchBarProps, SearchBarState> {
 
     return (
       <div
-        className={`searchBar ${this.state.focused ? 'searchBar--focused' : ''} searchBar--${barColor}`}
         ref={this.searchBar}
+        className={`searchBar ${this.state.focused ? 'searchBar--focused' : ''} searchBar--${barColor}`}
       >
         <div className={'searchBar__input'}>
           <input
@@ -127,191 +150,34 @@ class SearchBar extends React.Component<SearchBarProps, SearchBarState> {
         {this.state.query.length > 2 &&
           <div className={`searchBarResults ${this.state.query.length > 2 ? 'active' : ''}`}>
             {this.props.blogSearchResults && this.state.query.length > 2 && (
-              <List
-                data={this.props.blogSearchResults}
-                searchedText={this.state.query}
+              <BlogSearchResults
+                query={this.state.query}
                 searchKeys={['translations.0.name']}
-              >
-                {({ data }) => {
-                  if (data.length > 0) {
-                    return (
-                      <ul className={'searchBarResults__blog'}>
-                        {data.map((blogItem, i) => (
-                          <li key={i}>
-                            <Link {...blogItem.link}>
-                              <div>
-                                <h4>{blogItem.name || blogItem.title}</h4>
-                                <p>{blogItem.perex}</p>
-                              </div>
-                            </Link>
-                          </li>
-                        ))}
-                      </ul>
-                    );
-                  } else {
-                    return (<></>);
-                  }
-                }}
-              </List>
+                searchResults={this.props.blogSearchResults}
+                checkBlogResults={this.checkBlogResults}
+              />
+            )}
+            
+            {doctorSearchResults && this.state.query.length > 2 && (
+              <DoctorSearchResults
+                searchResults={doctorSearchResults}
+                query={this.state.query}
+                searchKeys={[
+                  'content.doctorPersonalInformation.firstName',
+                  'content.doctorPersonalInformation.lastName',
+                  'content.doctorPersonalInformation.expertises.0.name',
+                  'content.doctorPersonalInformation.polyclinic.name'
+                ]}
+                clearData={this.clearData}
+                checkDoctorResults={this.checkDoctorResults}
+              />
             )}
 
-            <List
-              data={doctorSearchResults}
-              searchedText={this.state.query}
-              searchKeys={[
-                'content.doctorPersonalInformation.firstName',
-                'content.doctorPersonalInformation.lastName',
-                'content.doctorPersonalInformation.expertises.0.name',
-                'content.doctorPersonalInformation.polyclinic.name'
-              ]}
-            >
-              {({ data }) => {
-                if (data.length > 0) {
-                  return (
-                    <ul className={'searchBarResults__doctors'}>
-                      {data
-                        .map(
-                          (item): LooseObject => {
-                            let workingHours = null;
-                            try {
-                              workingHours = JSON.parse(item.workingHours);
-                            } catch (e) {
-                              console.log('error', e);
-                            }
-
-                            return {
-                              ...item,
-                              isDoctorActive: this.isDoctorActive(workingHours),
-                            };
-                          }
-                        )
-                        .sort((a, b) => (a.isDoctorActive === true ? -1 : 1))
-                        .map((doctor, i) => {
-                          return (
-                            <li 
-                              key={i} 
-                              className={
-                                (doctor.isDoctorActive === true || doctor.isDoctorActive === null)
-                                ? 'active' : ''
-                              }
-                              onClick={this.clearData}
-                            >
-                              <Link {...doctor.link}>
-                                <span>
-                                  <p>
-                                    <span className={doctor.isDoctorActive === null ? 'noTimetable' : ''}>
-                                      {doctor.name}
-                                    </span>
-
-                                    {doctor.isDoctorActive !== null && 
-                                      <>
-                                        <span 
-                                          style={
-                                            doctor.isDoctorActive ? 
-                                            {color: '#31a031'} : 
-                                            {color: '#c23636'} 
-                                          }
-                                        >
-                                          {doctor.isDoctorActive ? 'ordinuje' : 'dnes již neordinuje'}
-                                        </span>
-                                      </>
-                                    }
-                                  </p>
-                                  <p>{doctor.speciality}</p>
-                                </span>
-                                <span>{doctor.clinic}</span>
-                              </Link>
-                            </li>
-                          );
-                        })}
-                    </ul>
-                  );
-                } else {
-                  return (
-                    // TODO: display only if: !doctorSearchResults && !blogSearchResults
-                    <div className={'searchBarResults__noResults'}>Bohužel jsme nenašli žádné výsledeky.</div>
-                  );
-                }
-              }}
-            </List>
+            {this.renderNoResults()}
         </div>
       }
       </div>
     );
-  }
-
-  public getWeekDayKey() {
-    let day;
-
-    switch (moment().isoWeekday()) {
-      case 1:
-        day = 'mo';
-        break;
-      case 2:
-        day = 'tu';
-        break;
-      case 3:
-        day = 'we';
-        break;
-      case 4:
-        day = 'th';
-        break;
-      case 5:
-        day = 'fr';
-        break;
-      case 6:
-        day = 'st';
-        break;
-      case 7:
-        day = 'su';
-        break;
-      default:
-        day = 'mo';
-        break;
-    }
-
-    return day;
-  }
-
-  public isDoctorActive(workingHours: LooseObject) {
-    const weekDayKey = this.getWeekDayKey();
-
-    if (
-      workingHours &&
-      workingHours.weeks &&
-      workingHours.weeks[0] &&
-      workingHours.weeks[0].days &&
-      workingHours.weeks[0].days[weekDayKey] &&
-      workingHours.weeks[0].days[weekDayKey] &&
-      workingHours.weeks[0].days[weekDayKey] &&
-      workingHours.weeks[0].days[weekDayKey].length > 0 &&
-      workingHours.weeks[0].days[weekDayKey].length > 0
-    ) {
-      return workingHours.weeks[0].days[weekDayKey].some(doctorWorkingHours => {
-        const regex = /^\s*([0-9]{2}):([0-9]{2})\s*$/;
-        const from = regex.exec(doctorWorkingHours.from);
-        const to = regex.exec(doctorWorkingHours.to);
-
-        if (from && from[1] && from[2] && to && to[1] && to[2]) {
-          const startOfShift = moment()
-            .startOf('day')
-            .add(from[1], 'hours')
-            .add(from[2], 'minutes');
-          const endOfShift = moment()
-            .startOf('day')
-            .add(to[1], 'hours')
-            .add(to[2], 'minutes');
-          const now = moment();
-
-          if (now.isSameOrBefore(endOfShift) && now.isSameOrAfter(startOfShift)) {
-            return true;
-          }
-        }
-        return false;
-      });
-    }
-
-    return null;
   }
 }
 

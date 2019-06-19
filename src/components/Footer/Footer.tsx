@@ -49,11 +49,6 @@ const ComposedQuery = adopt({
   },
 });
 
-interface Link {
-  text: string;
-  url?: LooseObject;
-}
-
 interface Icon {
   name: string;
   url?: LooseObject;
@@ -61,12 +56,11 @@ interface Icon {
 
 export interface FooterProps {
   data: {
-    links: Link[];
     social: string;
-    socialIcons: Icon[];
+    text: string;
     company: string;
     url?: LooseObject;
-    text: string;
+    socialIcons: Icon[];
   };
 }
 
@@ -78,7 +72,7 @@ class Footer extends React.Component<FooterProps, FooterState> {
   }
 
   public render() {
-    const { links, social, socialIcons, company, url, text } = this.props.data;
+    const { social, socialIcons, company, url, text } = this.props.data;
 
     return (
       <footer className={'footer'}>

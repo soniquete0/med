@@ -2,7 +2,7 @@ import * as React from 'react';
 import gql from 'graphql-tag';
 import { adopt } from 'react-adopt';
 import { Query } from 'react-apollo';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
 import Loader from '../Loader';
 
@@ -79,9 +79,14 @@ const ComposerLink = props => {
           );
         } else {
           return (
-            <Link style={props.style} to={(dynamic && url) || (pageUrlObj ? pageUrlObj.url : '#')} {...args}>
+            <NavLink 
+              activeClassName={'navItemActive'} 
+              to={(dynamic && url) || (pageUrlObj ? pageUrlObj.url : '#')}
+              style={props.style}
+              {...args}
+            >
               {children}
-            </Link>
+            </NavLink>
           );
         }
       }}
