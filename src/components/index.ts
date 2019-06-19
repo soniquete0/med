@@ -1,7 +1,7 @@
 import AlertNotFound from './AlertNotFound';
 import Benefits from './Benefits';
 import CrossRoads from './CrossRoads';
-import Dummy from './Dummy';
+import Divider from './Divider';
 import Footer from './Footer';
 import Header from './Header';
 import Hero from './Hero';
@@ -42,7 +42,7 @@ export {
   AlertNotFound,
   Benefits,
   CrossRoads,
-  Dummy,
+  Divider,
   Footer,
   Header,
   Hero,
