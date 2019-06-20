@@ -39,7 +39,7 @@ const authLink = context.default.setContext((_, { headers }) => {
   return {
     headers: {
       ...headers,
-      authorization: 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6Ik1UQTVRVVJDTlVWRk1ERXdPRE5HTlRBd1FqSTRORGd4TlRRMlFqTkJOMFF4TWtFM056YzNNUSJ9.eyJpc3MiOiJodHRwczovL2ZveGVyMzYwLmV1LmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHw1YzgxMTU0NTZkM2Q3MzJlNmFhOWQ2YjgiLCJhdWQiOlsiZm94ZXIzNjAtc2VydmVyIiwiaHR0cHM6Ly9mb3hlcjM2MC5ldS5hdXRoMC5jb20vdXNlcmluZm8iXSwiaWF0IjoxNTU5ODE2MTIyLCJleHAiOjE1NTk5MDI1MjIsImF6cCI6IkFEMjZwUzFyVG42ZEhjNkRPbVVoeFE5MDRPM2xHN2JzIiwic2NvcGUiOiJvcGVuaWQgcHJvZmlsZSBlbWFpbCJ9.s4mxsB2VypN6WeRRvO8LU_TEfP05FEnK950t0Rc0jeHqaDOta091Lq3GYTQ54KfIapbGV71nCM-ukd5pVJ3EYscDF0o_yR-epETooRRwuTdMiEWxPKM-uTFLqnKWfpChWyMnpnnpacqmdWk-VK3b04pGWYYt_sloiWLPUbIWtlnYSfOtg2b4e7_bTRWGawB5oj7BsAJvwKZqB_M6YNUxmsfzg_H4nxosqiVN0DesvNxsH2omFky6cPuJdUa1uh9Z3vRU6AyWL402zO6qKTY1k0cOh69lc5RNYIPXg-tegRqQk9bcIW59cBG2_6pIn3xOqRPEc8xuuEBZtg0IJPdC0A'
+      authorization: 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6Ik1UQTVRVVJDTlVWRk1ERXdPRE5HTlRBd1FqSTRORGd4TlRRMlFqTkJOMFF4TWtFM056YzNNUSJ9.eyJpc3MiOiJodHRwczovL2ZveGVyMzYwLmV1LmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHw1YzgxMTU0NTZkM2Q3MzJlNmFhOWQ2YjgiLCJhdWQiOlsiZm94ZXIzNjAtc2VydmVyIiwiaHR0cHM6Ly9mb3hlcjM2MC5ldS5hdXRoMC5jb20vdXNlcmluZm8iXSwiaWF0IjoxNTYwOTQzNjcyLCJleHAiOjE1NjEwMzAwNzIsImF6cCI6IkFEMjZwUzFyVG42ZEhjNkRPbVVoeFE5MDRPM2xHN2JzIiwic2NvcGUiOiJvcGVuaWQgcHJvZmlsZSBlbWFpbCJ9.BShhuxn3ShrlpjwXQrVLWy1VHYgRlGYp9mI8pWwuVNJQj9fjoYWhLa5FvsW-WvJ55Cp5UIhgqDCryQnLVGPzbOTUUkfj7riCM16ievODEsaRSguDLkw0OpecCLMMuYrHd3mIu17dchqUDw_saN585NbhdgV2yL1gM65DP30XoERC66qOiNNF9tFsSpJ2FI6sT0jcYOqFWS2oZi8K384vLtEGT10b88uQsD0dWRbLXWrRN3omZjK5NmbUOI1T96M9Bwdy9ncRNs_QZlu5Z0qZsH506lz1u2B9c0woGXmvPnR0ae69MtT8uWHpTMsXLVLhFMrIq1GMTvUP5UfALoqUUw'
     }
   }
 });
@@ -226,9 +226,11 @@ const deleteItem = function (id) {
 
             const transformedDoctor = { doctorPersonalInformation: {
               ...doctor,
+              phoneForOrders: doctor.phoneForOrders || doctor.phone,
               order: `${doctor.profession.id === 16 ? 'A' : 'N'} ${doctor.lastName} ${doctor.firstName}`,
             }, nurses };
             
+            console.log(transformedDoctor.doctorPersonalInformation.phoneForOrders);
             // const valid = validate(transformedDoctor);
             const existingDoctorItem = datasource.datasourceItems
               .find(item => item.content.doctorPersonalInformation.id === doctor.id);
