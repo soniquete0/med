@@ -120,7 +120,7 @@ var SearchBar = /** @class */ (function (_super) {
             React.createElement("div", { className: "searchBar__bar" }),
             this.state.query.length > 2 &&
                 React.createElement("div", { className: "searchBarResults " + (this.state.query.length > 2 ? 'active' : '') },
-                    this.props.blogSearchResults && this.state.query.length > 2 && (React.createElement(BlogSearchResults_1.default, { query: this.state.query, searchKeys: ['translations.0.name'], searchResults: this.props.blogSearchResults, checkBlogResults: this.checkBlogResults })),
+                    this.props.blogSearchResults && this.state.query.length > 2 && (React.createElement(BlogSearchResults_1.default, { query: this.state.query, searchKeys: ['translations.0.name', 'annotations.perex', 'annotations.title'], searchResults: this.props.blogSearchResults, checkBlogResults: this.checkBlogResults })),
                     doctorSearchResults && this.state.query.length > 2 && (React.createElement(DoctorSearchResults_1.default, { searchResults: doctorSearchResults, query: this.state.query, searchKeys: [
                             'content.doctorPersonalInformation.firstName',
                             'content.doctorPersonalInformation.lastName',

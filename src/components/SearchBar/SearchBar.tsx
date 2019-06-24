@@ -152,7 +152,7 @@ class SearchBar extends React.Component<SearchBarProps, SearchBarState> {
             {this.props.blogSearchResults && this.state.query.length > 2 && (
               <BlogSearchResults
                 query={this.state.query}
-                searchKeys={['translations.0.name']}
+                searchKeys={['translations.0.name', 'annotations.perex', 'annotations.title']}
                 searchResults={this.props.blogSearchResults}
                 checkBlogResults={this.checkBlogResults}
               />

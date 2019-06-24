@@ -283,7 +283,14 @@ var List = /** @class */ (function (_super) {
                             if (!searchKeys) {
                                 return JSON.stringify(page).toLowerCase().includes(fragment.toLowerCase());
                             }
-                            var flattenPage = _this.flatten(page, '', '');
+                            var flattenPage = _this.flatten(__assign({}, page, { 
+                                // adding annotations as data to page object
+                                annotations: (page.translations && page.translations[0] &&
+                                    page.translations[0].annotations && Array.isArray(page.translations[0].annotations)
+                                    && page.translations[0].annotations.reduce(function (acc, a) {
+                                        acc[a.key] = a.value;
+                                        return acc;
+                                    }, {})) || {} }), '', '');
                             return searchKeys.reduce(function (acc, key) {
                                 return acc || ("" + flattenPage[key])
                                     .toLowerCase()

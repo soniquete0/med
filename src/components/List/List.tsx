@@ -311,7 +311,6 @@ class List extends React.Component<Properties, {}> {
               }
   
               let { pages } = allPagesData;
-
               if (searchedFragments && searchedFragments.length > 0) {
                 pages = searchedFragments.reduce(
                 (filteredPages, fragment) => {
@@ -321,7 +320,23 @@ class List extends React.Component<Properties, {}> {
                         return JSON.stringify(page).toLowerCase().includes(fragment.toLowerCase());
                       }
 
-                      const flattenPage = this.flatten(page, '', '');
+                      const flattenPage = this.flatten(
+                        {
+                          ...page,
+                          // adding annotations as data to page object
+                          annotations: (
+                            page.translations && page.translations[0] && 
+                            page.translations[0].annotations && Array.isArray(page.translations[0].annotations)
+                              && page.translations[0].annotations.reduce(
+                              (acc, a) => {
+                                acc[a.key] = a.value;
+                                return acc;
+                              }, 
+                              {})) || {},
+                        },
+                        '',
+                        '');
+
                       return searchKeys.reduce(
                         (acc, key) => {
                           return acc || `${flattenPage[key]}`
