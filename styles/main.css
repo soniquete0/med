@@ -3426,13 +3426,6 @@ cite {
     left: -20px;
     top: -3px; }
 
-.dummy {
-  background-color: red;
-  color: #fff;
-  padding: 50px;
-  text-align: center;
-  font-size: 3.6rem; }
-
 .hero {
   background-position: top center;
   background-size: cover;
@@ -3623,6 +3616,14 @@ cite {
     @media (min-width: 768px) {
       .header__wrapper {
         padding: 2rem 0; } }
+    .header__wrapper .navItemActive:after {
+      content: "";
+      display: block;
+      position: absolute;
+      min-width: 100%;
+      right: auto;
+      opacity: 1;
+      left: 0; }
   .header__logo {
     min-width: 55px; }
     @media (min-width: 768px) {
@@ -3697,15 +3698,6 @@ cite {
           width: 100%;
           right: auto;
           left: 0; }
-
-.navItemActive:after {
-  content: "";
-  display: block;
-  position: absolute;
-  min-width: 100%;
-  right: auto;
-  opacity: 1;
-  left: 0; }
 
 .menuActive {
   padding-right: 8px; }
@@ -3881,7 +3873,7 @@ cite {
     z-index: 200; }
     @media (min-width: 768px) {
       .searchBarResults {
-        top: 73px;
+        top: 71px;
         padding: 0; } }
     .searchBarResults__noResults {
       padding: 25px 25px;
@@ -3978,7 +3970,7 @@ cite {
           margin-top: 1.2rem;
           color: #c5c5c5;
           font-size: 1.4rem; }
-  .searchBar .noTimetable:after {
+  .searchBar .noTimetable::after {
     display: none !important; }
 
 .crossRoads {

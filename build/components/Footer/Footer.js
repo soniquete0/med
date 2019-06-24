@@ -66,7 +66,7 @@ var Footer = /** @class */ (function (_super) {
     }
     Footer.prototype.render = function () {
         var _this = this;
-        var _a = this.props.data, links = _a.links, social = _a.social, socialIcons = _a.socialIcons, company = _a.company, url = _a.url, text = _a.text;
+        var _a = this.props.data, social = _a.social, socialIcons = _a.socialIcons, company = _a.company, url = _a.url, text = _a.text;
         return (React.createElement("footer", { className: 'footer' },
             React.createElement("div", { className: "container" },
                 React.createElement("div", { className: "flexRow flexAlign--space-between" },

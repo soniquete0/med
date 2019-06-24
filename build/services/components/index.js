@@ -21,7 +21,7 @@ var resources = require("./resources");
 var ComponentsService = /** @class */ (function () {
     function ComponentsService() {
         this.Types = {
-            DUMMY: 'Dummy',
+            DIVIDER: 'Divider',
             HERO: 'Hero',
             HEADER: 'Header',
             CROSSROADS: 'CrossRoads',
@@ -72,8 +72,8 @@ var ComponentsService = /** @class */ (function () {
     /***/
     ComponentsService.prototype.getComponent = function (type) {
         switch (type) {
-            case this.Types.DUMMY:
-                return components_1.Dummy;
+            case this.Types.DIVIDER:
+                return components_1.Divider;
             case this.Types.HEADER:
                 return components_1.Header;
             case this.Types.HERO:
