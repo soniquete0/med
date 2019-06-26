@@ -180,6 +180,10 @@ var List = /** @class */ (function (_super) {
                     return res;
                 })
                     .filter(function (item) {
+                    if (_this.props.exclude && item[_this.props.exclude.key]
+                        && item[_this.props.exclude.key] === _this.props.exclude.value) {
+                        return false;
+                    }
                     return !item.filters ||
                         !item.filters
                             .some(function (filter) {

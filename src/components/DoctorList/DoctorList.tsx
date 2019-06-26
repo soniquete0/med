@@ -17,6 +17,7 @@ export interface DoctorListProps {
   languageCode?: string;
   data: {
     title: string;
+    excludedDoctor: string;
     doctors: Doctors[];
   };
 }
@@ -35,10 +36,10 @@ export default class DoctorList extends React.Component<DoctorListProps, DoctorL
   }
 
   render() {
-    const { doctors, title } = this.props.data;
+    const { doctors, title, excludedDoctor } = this.props.data;
 
     return (
-      <List data={doctors}>
+      <List data={doctors} exclude={{ key: 'name', value: excludedDoctor }}>
         {({ getPage }) => {
           const { items, lastPage } = getPage(this.state.numberOfPage, 'infinite', 9);
 

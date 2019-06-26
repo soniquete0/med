@@ -65,6 +65,10 @@
                     "type": "text",
                     "title": "Title"
                 },
+                "excludedDoctor": {
+                    "type": "string",
+                    "title": "Excluded doctor (data context)"
+                },
                 "doctors": {
                     "type": "array",
                     "title": "Doctors",

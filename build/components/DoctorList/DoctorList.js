@@ -40,8 +40,8 @@ var DoctorList = /** @class */ (function (_super) {
     }
     DoctorList.prototype.render = function () {
         var _this = this;
-        var _a = this.props.data, doctors = _a.doctors, title = _a.title;
-        return (React.createElement(List_1.default, { data: doctors }, function (_a) {
+        var _a = this.props.data, doctors = _a.doctors, title = _a.title, excludedDoctor = _a.excludedDoctor;
+        return (React.createElement(List_1.default, { data: doctors, exclude: { key: 'name', value: excludedDoctor } }, function (_a) {
             var getPage = _a.getPage;
             var _b = getPage(_this.state.numberOfPage, 'infinite', 9), items = _b.items, lastPage = _b.lastPage;
             return (React.createElement("section", { className: 'doctorList' },

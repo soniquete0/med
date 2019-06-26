@@ -96,7 +96,6 @@ const getScheduleTitle = (regularity, oddWeekTitle, evenWeekTitle, regularWeekTi
 };
 
 const getAbsenceLink = (data, alternate) => {
-  console.log(data, alternate);
   if (alternate && data) {
     const { firstName, lastName, id } = alternate;
     
@@ -107,7 +106,7 @@ const getAbsenceLink = (data, alternate) => {
 
     return link;
   }
-
+  
   return null;
 };
 

@@ -65,7 +65,6 @@ var getScheduleTitle = function (regularity, oddWeekTitle, evenWeekTitle, regula
     return null;
 };
 var getAbsenceLink = function (data, alternate) {
-    console.log(data, alternate);
     if (alternate && data) {
         var firstName = alternate.firstName, lastName = alternate.lastName, id = alternate.id;
         var doctorSlug = urlize_1.urlize(firstName + "-" + lastName + "-" + id);
