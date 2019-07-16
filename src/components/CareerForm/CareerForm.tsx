@@ -42,6 +42,7 @@ export interface CareerFormState {
 
 const GET_CONTEXT = gql`
   {
+    languageData @client
     pageData @client
   }
 `;
@@ -226,7 +227,8 @@ export default class CareerForm extends React.Component<CareerFormProps, CareerF
               return 'Error...';
             }
 
-            const { pageData } = data;
+            const { pageData, languageData } = data;
+            const { code } = languageData;
 
             return (
               <section className={'careerForm form'} ref={this.topRef}>
@@ -304,24 +306,6 @@ export default class CareerForm extends React.Component<CareerFormProps, CareerF
                     </div>
 
                     <div className={'form__row form__row--second'}>
-                      {/* <div className={'form__selectInput'}>
-                        <select
-                          onChange={e => this.changeInputValue(e)}
-                          value={location}
-                          name="location"
-                          defaultValue={''}
-                        >
-                          <option value={''} disabled={true}>
-                            Lokalita kde chcete pracovat
-                          </option>
-                          <option value={'1'}>1</option>
-                          <option value={'2'}>2</option>
-                          <option value={'3'}>3</option>
-                          <option value={'4'}>4</option>
-                        </select>
-
-                        <div className={'form__input__bar'} />
-                      </div>*/}
                       <div className={'form__inputBtn'} style={{ marginLeft: '0px', width: '50%' }}>
                         <button
                           onClick={e => {
@@ -359,13 +343,19 @@ export default class CareerForm extends React.Component<CareerFormProps, CareerF
                     >
                       {formStatus === 'error' && (
                         <div className={'form__message form__message--error'}>
-                          <p>There was an error.</p>
+                          <p>{code === 'en' ? 'There was an error.' : 'Byla tam chyba.'}</p>
                           {this.state.formErrorMessage && <p>{this.state.formErrorMessage}</p>}
                         </div>
                       )}
 
                       {formStatus === 'success' && (
-                        <div className={'form__message form__message--success'}>Thank You for contacting us.</div>
+                        <div className={'form__message form__message--success'}>
+                          { 
+                            code === 'en' 
+                            ? 'Thank You for contacting us.'
+                            : 'Děkujeme za odeslání formuláře. Brzy se Vám ozveme.'
+                          }
+                        </div>
                       )}
                     </div>
 
