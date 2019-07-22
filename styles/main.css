@@ -7566,18 +7566,26 @@ cite {
   .unionStructure h5 {
     text-align: left;
     padding: 3.5rem 0 2.5rem 0; }
-  .unionStructure__list__item__container {
-    position: relative;
-    padding-left: 4rem; }
-    .unionStructure__list__item__container:before {
-      position: absolute;
-      content: '';
-      top: 0;
-      left: 0;
-      width: 6px;
-      height: 100%;
-      display: block;
-      background: linear-gradient(to top, #2473ba 0%, #00aad0 100%); }
+  .unionStructure__item {
+    width: 100%;
+    box-sizing: border-box; }
+    .unionStructure__item__container {
+      position: relative;
+      padding-left: 4rem;
+      padding-right: 2rem; }
+      @media (max-width: 767px) {
+        .unionStructure__item__container {
+          padding-right: 0;
+          padding-left: 2rem; } }
+      .unionStructure__item__container:before {
+        position: absolute;
+        content: '';
+        top: 0;
+        left: 0;
+        width: 6px;
+        height: 100%;
+        display: block;
+        background: linear-gradient(to top, #2473ba 0%, #00aad0 100%); }
 
 button:disabled {
   opacity: 0.5 !important;

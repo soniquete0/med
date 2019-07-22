@@ -1,5 +1,8 @@
 import * as React from 'react';
+import Masonry from 'react-masonry-css';
 import * as ReactMarkdown from 'react-markdown';
+
+import List from '../List';
 
 interface UnionItem {
   title: string;
@@ -21,21 +24,25 @@ function UnionStructure(props: UnionStructureProps) {
       <div className="unionStructure">
         {title && <h3>{title}</h3>}
 
-        <div className="unionStructure__list">
-          <div className="row">
-            {items && items.map((item, i) => (
-              <div key={i} className="col-12 col-md-4">
-                <div className="unionStructure__list__item">
+        <List data={items}>
+          {({ data }) => (
+            <Masonry
+              className="my-masonry-grid"
+              columnClassName="my-masonry-grid_column"
+              breakpointCols={{ default: 3, 4000: 3, 993: 2, 769: 1 }}
+            >
+                {data && data.map((item, i) => (
+                <div key={i} className="unionStructure__list__item">
                   <h5>{item.title}</h5>
                   <ReactMarkdown
                     source={item.text}
                     className={'unionStructure__list__item__container'}
                   />
                 </div>
-              </div>
-            ))}
-          </div>
-        </div>
+              ))}
+            </Masonry>
+          )}
+        </List>
       </div>
     </div>
   );
