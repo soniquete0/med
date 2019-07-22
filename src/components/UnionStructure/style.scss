@@ -1,0 +1,42 @@
+.unionStructure {
+  padding: 5rem 0;
+  @include max-md {
+    padding: 2.5rem 0;
+  }
+
+  h3, h5 {
+    @include webkitGradientText;
+  }
+
+  h3 {
+    padding: 0 0 2rem 0;
+  }
+  
+  h5 {
+    text-align: left;
+    padding: 3.5rem 0 2.5rem 0;
+  }
+
+  &__list {
+    padding: 0 6rem;
+    
+    &__item {
+
+      &__container {
+        position: relative;
+        padding-left: 4rem;
+
+        &:before {
+          position: absolute;
+          content: '';
+          top: 0;
+          left: 0;
+          width: 6px;
+          height: 100%;
+          display: block;
+          background: linear-gradient(to top, $blue 0%, $lightBlue 100%);
+        }
+      }
+    }
+  }
+}

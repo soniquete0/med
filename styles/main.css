@@ -7551,6 +7551,34 @@ cite {
         .paragraph__content .textAllContent {
           padding-top: 1.5rem; } }
 
+.unionStructure {
+  padding: 5rem 0; }
+  @media (max-width: 767px) {
+    .unionStructure {
+      padding: 2.5rem 0; } }
+  .unionStructure h3, .unionStructure h5 {
+    background: -webkit-linear-gradient(left, #2473ba, #00aad0);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 700; }
+  .unionStructure h3 {
+    padding: 0 0 2rem 0; }
+  .unionStructure h5 {
+    text-align: left;
+    padding: 3.5rem 0 2.5rem 0; }
+  .unionStructure__list__item__container {
+    position: relative;
+    padding-left: 4rem; }
+    .unionStructure__list__item__container:before {
+      position: absolute;
+      content: '';
+      top: 0;
+      left: 0;
+      width: 6px;
+      height: 100%;
+      display: block;
+      background: linear-gradient(to top, #2473ba 0%, #00aad0 100%); }
+
 button:disabled {
   opacity: 0.5 !important;
   cursor: not-allowed; }
