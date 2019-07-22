@@ -144,7 +144,7 @@ export default function DoctorSearchResults (props: DoctorSearchResultsProps) {
                                     {color: '#c23636'} 
                                   }
                                 >
-                                  {doctor.isDoctorActive ? 'ordinuje' : 'dnes již neordinuje'}
+                                  {doctor.isDoctorActive ? 'ordinuje' : 'v tuto chvíli neordinuje'}
                                 </span>
                               </>
                             }
