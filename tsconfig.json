@@ -36,6 +36,7 @@
     "strict": false,
     "skipLibCheck": true,
     "resolveJsonModule": true,
+    "downlevelIteration": true,
     "paths": {
       "@source/*": ["./src/*"]
     },
