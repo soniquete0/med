@@ -124,6 +124,7 @@ var List = /** @class */ (function (_super) {
                 var datasourceItems = ((queryData.data.datasource && queryData.data.datasource.datasourceItems) || []);
                 if (searchedFragments && searchedFragments.length > 0) {
                     datasourceItems = searchedFragments.reduce(function (filteredItems, fragment) {
+                        // console.log(filteredItems); // log this to see doctors props
                         return filteredItems.filter(function (item) {
                             if (!searchKeys) {
                                 return JSON.stringify(item).toLowerCase().includes(fragment.toLowerCase());

@@ -125,7 +125,9 @@ var SearchBar = /** @class */ (function (_super) {
                             'content.doctorPersonalInformation.firstName',
                             'content.doctorPersonalInformation.lastName',
                             'content.doctorPersonalInformation.expertises.0.name',
-                            'content.doctorPersonalInformation.polyclinic.name'
+                            'content.doctorPersonalInformation.polyclinic.name',
+                            'content.doctorPersonalInformation.prenominal',
+                            'content.doctorPersonalInformation.postnominal'
                         ], clearData: this.clearData, checkDoctorResults: this.checkDoctorResults })),
                     this.renderNoResults())));
     };

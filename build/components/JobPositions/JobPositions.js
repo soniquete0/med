@@ -22,27 +22,10 @@ var JobPositions = /** @class */ (function (_super) {
     function JobPositions(props) {
         var _this = _super.call(this, props) || this;
         _this.state = {
-            numberOfPage: 1,
-            filter: 'Všechny polikliniky'
+            numberOfPage: 1
         };
         return _this;
     }
-    JobPositions.prototype.getPolyclinics = function (positions) {
-        var polyclinics = [];
-        for (var i = 0; i < positions.length; i++) {
-            polyclinics.push(positions[i].polyclinic);
-        }
-        return polyclinics.filter(function (v, i, a) { return a.indexOf(v) === i; });
-    };
-    JobPositions.prototype.renderSelectInput = function (items) {
-        var _this = this;
-        var polyclinics = this.getPolyclinics(items);
-        return polyclinics && polyclinics.length > 0 && (React.createElement("div", { className: 'select-btn hCenterBlock' },
-            React.createElement("select", { value: this.state.filter, onChange: function (event) { return _this.setState({ filter: event.target.value }); } },
-                React.createElement("option", { value: "V\u0161echny polikliniky" }, "V\u0161echny polikliniky"),
-                polyclinics && polyclinics.map(function (polyclinic, i) { return (React.createElement("option", { key: i, value: polyclinic }, polyclinic)); })),
-            React.createElement("span", { className: "arrow" })));
-    };
     JobPositions.prototype.renderPositions = function (items) {
         var _this = this;
         return items.map(function (position, index) {
