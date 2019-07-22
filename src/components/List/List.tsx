@@ -503,6 +503,8 @@ class List extends React.Component<Properties, {}> {
         if (searchedFragments && searchedFragments.length > 0) {
           datasourceItems = searchedFragments.reduce(
           (filteredItems, fragment) => {
+            // console.log(filteredItems);
+            
             return filteredItems.filter(item => {
               if (!searchKeys) {
                 return JSON.stringify(item).toLowerCase().includes(fragment.toLowerCase());
