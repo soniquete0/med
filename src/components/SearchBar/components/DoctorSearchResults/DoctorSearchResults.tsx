@@ -89,6 +89,8 @@ function getWeekDayKey() {
 export default function DoctorSearchResults (props: DoctorSearchResultsProps) {
   const { searchResults, query, searchKeys, clearData, checkDoctorResults } = props;
 
+  console.log(query);
+  
   return (
     <List
       data={searchResults}

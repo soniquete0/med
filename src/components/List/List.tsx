@@ -503,7 +503,7 @@ class List extends React.Component<Properties, {}> {
         if (searchedFragments && searchedFragments.length > 0) {
           datasourceItems = searchedFragments.reduce(
           (filteredItems, fragment) => {
-            // console.log(filteredItems);
+            // console.log(filteredItems); // log this to see doctors props
             
             return filteredItems.filter(item => {
               if (!searchKeys) {
