@@ -41,6 +41,14 @@ class DoctorList extends React.Component<RouteComponentProps<{}> & DoctorListPro
     this.handleChangeSelect = this.handleChangeSelect.bind(this);
   }
 
+  componentDidMount() {
+    // ?clinic=Vysocany
+    const { search } = this.props.location;
+    if (search.length > 0) {
+      this.setFilterBySerchParam(search.split('=')[1]);
+    }
+  }
+
   handleChangeSelect(event: React.ChangeEvent<HTMLSelectElement>) {
     const { history } = this.props;
 
@@ -53,14 +61,6 @@ class DoctorList extends React.Component<RouteComponentProps<{}> & DoctorListPro
 
   getUniquePolyclinicNames(items: LooseObject<any>[]) {
     return [...new Set(items.map(item => item.clinicName.replace(/Poliklinika/, '').trim()))];
-  }
-
-  componentDidMount() {
-    // ?clinic=Vysocany
-    const { search } = this.props.location;
-    if (search.length > 0) {
-      this.setFilterBySerchParam(search.split('=')[1]);
-    }
   }
 
   transformSearchParamToClinicName(param: string) {
@@ -108,7 +108,7 @@ class DoctorList extends React.Component<RouteComponentProps<{}> & DoctorListPro
         {({ getPage }) => {
           const { items, lastPage } = getPage(this.state.numberOfPage, 'infinite', 6);
           
-          return (
+          return items && items.length > 0 ? (
             <section className={'doctorList'}>
               <div className={'container'}>
                 {title && <h3>{title}</h3>}
@@ -165,7 +165,7 @@ class DoctorList extends React.Component<RouteComponentProps<{}> & DoctorListPro
                 </div>}
               </div>
             </section>
-          );
+          ) : <></>;
         }}
       </List>
     );
