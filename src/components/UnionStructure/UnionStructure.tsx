@@ -32,11 +32,11 @@ function UnionStructure(props: UnionStructureProps) {
               breakpointCols={{ default: 3, 4000: 3, 993: 2, 769: 1 }}
             >
                 {data && data.map((item, i) => (
-                <div key={i} className="unionStructure__list__item">
+                <div key={i} className="unionStructure__item">
                   <h5>{item.title}</h5>
                   <ReactMarkdown
                     source={item.text}
-                    className={'unionStructure__list__item__container'}
+                    className={'unionStructure__item__container'}
                   />
                 </div>
               ))}
