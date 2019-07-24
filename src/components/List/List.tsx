@@ -21,6 +21,8 @@ export interface Properties extends RouteComponentProps<LooseObject> {
   // tslint:disable-next-line:no-any
   data?: any;
   children: (data: QueryResult) => React.ReactNode;
+  // exclude by object { key, value } - key is property of Datasourceitem, value is value that should be excluded
+  exclude?: LooseObject;
   searchedText?: string;
   searchKeys?: Array<string>;
 }
@@ -498,10 +500,11 @@ class List extends React.Component<Properties, {}> {
         const { data: dataShape, error, loading } = data;
 
         let datasourceItems = ((queryData.data.datasource && queryData.data.datasource.datasourceItems) || []);
-
         if (searchedFragments && searchedFragments.length > 0) {
           datasourceItems = searchedFragments.reduce(
           (filteredItems, fragment) => {
+            // console.log(filteredItems); // log this to see doctors props
+            
             return filteredItems.filter(item => {
               if (!searchKeys) {
                 return JSON.stringify(item).toLowerCase().includes(fragment.toLowerCase());
@@ -575,6 +578,11 @@ class List extends React.Component<Properties, {}> {
             return res;
           })
             .filter(item => {
+              if (this.props.exclude && item[this.props.exclude.key]
+                && item[this.props.exclude.key] === this.props.exclude.value) {
+                  return false;
+                }
+
               return  !item.filters || 
                 !item.filters
                   .some(filter => 

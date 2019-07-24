@@ -120,55 +120,6 @@
       }
     }
 
-    .form__selectInput {
-      margin: 0px 0 15px;
-      @include md {
-        margin: 0px 0 40px;
-      }
-
-      select {
-        color: $darkGray;
-        font-size: 1.8rem;
-        font-weight: 400;
-        letter-spacing: 0.72px;
-        padding: 25px 0 15px;
-        width: 100%;
-        z-index: 10;
-        outline: none;
-        border: none;
-        opacity: 0.6;
-        appearance: none;
-        -webkit-appearance: none;
-        -moz-appearance: none;
-
-        @include md {
-          font-size: 2rem;
-          font-weight: 400;
-          letter-spacing: 0.89px;
-        }
-
-        &:-ms-expand {
-          display: none; /* hide the default arrow in ie10 and ie11 */
-        }
-
-        option {
-          color: $darkGray;
-
-          &:first-of-type {
-            opacity: 0.6;
-          }
-        }
-
-        &:focus {
-          & ~ .form__input__bar {
-            &:after {
-              width: 100%;
-            }
-          }
-        }
-      }
-    }
-
     .form__inputBtn {
       @include md {
         margin-left: 34px;

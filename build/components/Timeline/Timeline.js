@@ -14,7 +14,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
-var react_swipeable_1 = require("react-swipeable");
+var Swipeable = require("react-swipeable");
 var List_1 = require("../List");
 var Media_1 = require("../../partials/Media");
 var Timeline = /** @class */ (function (_super) {
@@ -105,8 +105,8 @@ var Timeline = /** @class */ (function (_super) {
                     !this.state.limitLeft && (React.createElement("div", { className: 'timeline__arrow  timeline__arrow--left', onClick: function (e) { return _this.arrowClick(e, 'left'); } })),
                     React.createElement("div", { className: 'timeline__blur  timeline__blur--left' }),
                     React.createElement("div", { className: 'timeline__cont', onMouseDown: function (e) { return _this.handleDrag(e); } },
-                        React.createElement(react_swipeable_1.default, { trackMouse: true, preventDefaultTouchmoveEvent: true, onSwipedLeft: function (e, deltaX, velocity) { return _this.handleSwipe(e, 'left', deltaX, velocity); }, onSwipedRight: function (e, deltaX, velocity) { return _this.handleSwipe(e, 'right', deltaX, velocity); } },
-                            React.createElement("div", { className: 'timeline__holder', ref: this.timeline, style: { transform: "translate3d(" + (this.state.x + 'px') + ",-7px,0)" } },
+                        React.createElement(Swipeable, { trackMouse: true, preventDefaultTouchmoveEvent: true, onSwipedLeft: function (e, deltaX, velocity) { return _this.handleSwipe(e, 'left', deltaX, velocity); }, onSwipedRight: function (e, deltaX, velocity) { return _this.handleSwipe(e, 'right', deltaX, velocity); } },
+                            React.createElement("div", { ref: this.timeline, className: 'timeline__holder', style: { transform: "translate3d(" + (this.state.x + 'px') + ",-7px,0)" } },
                                 React.createElement(List_1.default, { data: items }, function (_a) {
                                     var data = _a.data;
                                     return React.createElement(React.Fragment, null, _this.renderPoints(data));

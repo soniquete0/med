@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Swipeable from 'react-swipeable';
+import * as Swipeable from 'react-swipeable';
 
 import List from '../List';
 import Media from '../../partials/Media';
@@ -129,7 +129,6 @@ class Timeline extends React.Component<TimelineProps, TimelineState> {
         points.push(point);
       }
     }
-
     return points;
   }
 
@@ -156,8 +155,8 @@ class Timeline extends React.Component<TimelineProps, TimelineState> {
                 onSwipedRight={(e, deltaX, velocity) => this.handleSwipe(e, 'right', deltaX, velocity)}
               >
                 <div
-                  className={'timeline__holder'}
                   ref={this.timeline}
+                  className={'timeline__holder'}
                   style={{ transform: `translate3d(${this.state.x + 'px'},-7px,0)` }}
                 >
                   <List data={items}>{({ data }) => <>{this.renderPoints(data)}</>}</List>

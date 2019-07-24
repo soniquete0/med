@@ -97,16 +97,16 @@ const getScheduleTitle = (regularity, oddWeekTitle, evenWeekTitle, regularWeekTi
 
 const getAbsenceLink = (data, alternate) => {
   if (alternate && data) {
-    const { firstName, lastName } = alternate;
-
-    let doctorSlug = urlize(`${firstName}-${lastName}`);
+    const { firstName, lastName, id } = alternate;
+    
+    let doctorSlug = urlize(`${firstName}-${lastName}-${id}`);
 
     let link = `/${data.websiteData && data.websiteData.title.toLowerCase()}/${data.languageData &&
       data.languageData.code}/${doctorSlug}`;
 
     return link;
   }
-
+  
   return null;
 };
 
