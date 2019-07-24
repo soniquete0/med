@@ -233,7 +233,11 @@ class ContactForm extends React.Component<ContactFormProps, ContactFormState> {
                       >
                         {formStatus === 'error' && (
                           <div className={'form__message form__message--error'}>
-                            <p>{code === 'en' ? 'There was an error.' : 'Byla tam chyba.'}</p>
+                            <p>{
+                              code === 'en' 
+                              ? 'There was an error.' 
+                              : 'Během odesílání formuláře se vyskytla chyba.'
+                              }</p>
                             {this.state.formErrorMessage && <p>{this.state.formErrorMessage}</p>}
                           </div>
                         )}

@@ -239,7 +239,9 @@ var CareerForm = /** @class */ (function (_super) {
                                 React.createElement("textarea", { name: "message", onChange: function (e) { return _this.changeInputValue(e); }, value: message })),
                             React.createElement("div", { className: 'form__messageHolder', style: formStatus !== null ? { padding: '4rem 0' } : {} },
                                 formStatus === 'error' && (React.createElement("div", { className: 'form__message form__message--error' },
-                                    React.createElement("p", null, code === 'en' ? 'There was an error.' : 'Byla tam chyba.'),
+                                    React.createElement("p", null, code === 'en'
+                                        ? 'There was an error.'
+                                        : 'Během odesílání formuláře se vyskytla chyba.'),
                                     _this.state.formErrorMessage && React.createElement("p", null, _this.state.formErrorMessage))),
                                 formStatus === 'success' && (React.createElement("div", { className: 'form__message form__message--success' }, code === 'en'
                                     ? 'Thank You for contacting us.'
