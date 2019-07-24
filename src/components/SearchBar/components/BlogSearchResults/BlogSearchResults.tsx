@@ -29,7 +29,6 @@ export default function BlogSearchResults({ searchResults, query, searchKeys, ch
                   <Link {...blogItem.link}>
                     <div>
                       <h4>{blogItem.name || blogItem.title}</h4>
-                      <p>{blogItem.perex}</p>
                     </div>
                   </Link>
                 </li>

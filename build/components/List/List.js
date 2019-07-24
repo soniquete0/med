@@ -34,6 +34,7 @@ var react_apollo_1 = require("react-apollo");
 var react_adopt_1 = require("react-adopt");
 var graphql_tag_1 = require("graphql-tag");
 var R = require("ramda");
+var removeAccents = require("remove-accents");
 var Loader_1 = require("../../partials/Loader");
 var escape = function (str) {
     // TODO: escape %x75 4HEXDIG ?? chars
@@ -131,9 +132,10 @@ var List = /** @class */ (function (_super) {
                             }
                             var flattenItem = _this.flatten(item, '', '');
                             return searchKeys.reduce(function (acc, key) {
-                                return acc || ("" + flattenItem[key])
-                                    .toLowerCase()
-                                    .includes(("" + fragment).toLowerCase());
+                                // Remove letter accents
+                                var Key = removeAccents(("" + flattenItem[key]).toLowerCase());
+                                var Fragment = removeAccents(("" + fragment).toLowerCase());
+                                return acc || Key.includes(Fragment);
                             }, false);
                         });
                     }, datasourceItems);
@@ -297,9 +299,10 @@ var List = /** @class */ (function (_super) {
                                         return acc;
                                     }, {})) || {} }), '', '');
                             return searchKeys.reduce(function (acc, key) {
-                                return acc || ("" + flattenPage[key])
-                                    .toLowerCase()
-                                    .includes(("" + fragment).toLowerCase());
+                                // Remove letter accents
+                                var Key = removeAccents(("" + flattenPage[key]).toLowerCase());
+                                var Fragment = removeAccents(("" + fragment).toLowerCase());
+                                return acc || Key.includes(Fragment);
                             }, false);
                         });
                     }, pages);
