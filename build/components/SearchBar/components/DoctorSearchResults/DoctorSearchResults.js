@@ -108,7 +108,7 @@ function DoctorSearchResults(props) {
                                     React.createElement(React.Fragment, null,
                                         React.createElement("span", { style: doctor.isDoctorActive ?
                                                 { color: '#31a031' } :
-                                                { color: '#c23636' } }, doctor.isDoctorActive ? 'ordinuje' : 'dnes již neordinuje'))),
+                                                { color: '#c23636' } }, doctor.isDoctorActive ? 'ordinuje' : 'v tuto chvíli neordinuje'))),
                             React.createElement("p", null, doctor.speciality)),
                         React.createElement("span", null, doctor.clinic))));
             })));

@@ -37,6 +37,7 @@ import DoctorSchedule from './DoctorSchedule';
 import WorkingHours from './WorkingHours';
 import RegistrationBlock from './RegistrationBlock';
 import Paragraph from './Paragraph';
+import UnionStructure from './UnionStructure';
 
 export {
   AlertNotFound,
@@ -77,5 +78,6 @@ export {
   DoctorSchedule,
   WorkingHours,
   RegistrationBlock,
-  Paragraph
+  Paragraph,
+  UnionStructure
 };

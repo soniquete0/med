@@ -29,39 +29,8 @@ class JobPositions extends React.Component<JobPositionsProps, JobPositionsState>
     super(props);
 
     this.state = {
-      numberOfPage: 1,
-      filter: 'Všechny polikliniky'
+      numberOfPage: 1
     };
-  }
-
-  getPolyclinics(positions: any) {
-    let polyclinics = [];
-    for (let i = 0; i < positions.length; i++) {
-      polyclinics.push(positions[i].polyclinic);
-    }
-    return polyclinics.filter((v, i, a) => a.indexOf(v) === i);
-  }
-
-  renderSelectInput(items: any) {
-    const polyclinics = this.getPolyclinics(items);
-
-    return polyclinics && polyclinics.length > 0 && (
-      <div className={'select-btn hCenterBlock'}>
-        <select
-          value={this.state.filter}
-          onChange={(event) => this.setState({ filter: event.target.value })}
-        >
-          <option value="Všechny polikliniky">Všechny polikliniky</option>
-          {polyclinics && polyclinics.map((polyclinic, i) => (
-            <option key={i} value={polyclinic}>
-              {polyclinic}
-            </option>
-          ))}
-        </select>
-        
-        <span className="arrow" />
-      </div>
-    );
   }
 
   renderPositions(items: any) {
@@ -108,8 +77,6 @@ class JobPositions extends React.Component<JobPositionsProps, JobPositionsState>
             <div className={'container'}>
               <div className={'actual-positions'}>
                 {title && <h3>{title}</h3>}
-
-                {/* {this.renderSelectInput(items)} */}
 
                 <div className={'positions row'}>
                   {items && this.renderPositions(items)}

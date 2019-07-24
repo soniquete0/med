@@ -304,24 +304,6 @@ export default class CareerForm extends React.Component<CareerFormProps, CareerF
                     </div>
 
                     <div className={'form__row form__row--second'}>
-                      {/* <div className={'form__selectInput'}>
-                        <select
-                          onChange={e => this.changeInputValue(e)}
-                          value={location}
-                          name="location"
-                          defaultValue={''}
-                        >
-                          <option value={''} disabled={true}>
-                            Lokalita kde chcete pracovat
-                          </option>
-                          <option value={'1'}>1</option>
-                          <option value={'2'}>2</option>
-                          <option value={'3'}>3</option>
-                          <option value={'4'}>4</option>
-                        </select>
-
-                        <div className={'form__input__bar'} />
-                      </div>*/}
                       <div className={'form__inputBtn'} style={{ marginLeft: '0px', width: '50%' }}>
                         <button
                           onClick={e => {

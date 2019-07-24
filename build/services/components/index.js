@@ -58,7 +58,8 @@ var ComponentsService = /** @class */ (function () {
             DOCTORSCHEDULE: 'DoctorSchedule',
             WORKINGHOURS: 'WorkingHours',
             REGISTRATIONBLOCK: 'RegistrationBlock',
-            PARAGRAPH: 'Paragraph'
+            PARAGRAPH: 'Paragraph',
+            UNIONSTRUCTURE: 'UnionStructure'
         };
     }
     /***/
@@ -148,6 +149,8 @@ var ComponentsService = /** @class */ (function () {
                 return components_1.RegistrationBlock;
             case this.Types.PARAGRAPH:
                 return components_1.Paragraph;
+            case this.Types.UNIONSTRUCTURE:
+                return components_1.UnionStructure;
             default:
                 return function () { return React.createElement(components_1.AlertNotFound, { type: "component" }); };
         }

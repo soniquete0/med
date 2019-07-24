@@ -78,4 +78,6 @@ var registrationblock = require("./registrationblock.json");
 exports.registrationblock = registrationblock;
 var paragraph = require("./paragraph.json");
 exports.paragraph = paragraph;
+var unionstructure = require("./unionstructure.json");
+exports.unionstructure = unionstructure;
 //# sourceMappingURL=index.js.map
