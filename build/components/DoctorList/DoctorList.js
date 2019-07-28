@@ -51,6 +51,7 @@ var Link_1 = require("../../partials/Link");
 var Media_1 = require("../../partials/Media");
 var Select_1 = require("../../partials/Select");
 var Button_1 = require("../../partials/Button");
+var removeAccents = require("remove-accents");
 var DoctorList = /** @class */ (function (_super) {
     __extends(DoctorList, _super);
     function DoctorList(props) {
@@ -63,7 +64,6 @@ var DoctorList = /** @class */ (function (_super) {
         return _this;
     }
     DoctorList.prototype.componentDidMount = function () {
-        // ?clinic=Vysocany
         var search = this.props.location.search;
         if (search.length > 0) {
             this.setFilterBySerchParam(search.split('=')[1]);
@@ -71,35 +71,30 @@ var DoctorList = /** @class */ (function (_super) {
     };
     DoctorList.prototype.handleChangeSelect = function (event) {
         var history = this.props.history;
-        this.setState({ filter: event.target.value });
+        var slug = removeAccents(event.target.value).toLowerCase().replace(/[\W_]+/g, '-');
+        this.setFilterBySerchParam(slug);
         history.push({
-            search: "?clinic=" + this.transformSearchParamToClinicName(event.target.value)
+            search: "?clinic=" + slug
         });
     };
     DoctorList.prototype.getUniquePolyclinicNames = function (items) {
         return __spread(new Set(items.map(function (item) { return item.clinicName.trim(); })));
     };
-    DoctorList.prototype.transformSearchParamToClinicName = function (param) {
-        switch (param) {
-            case 'Vysočany': return 'Vysocany';
-            case 'Budějovická': return 'Budejovicka';
-            case 'Zelený pruh': return 'ZelenyPruh';
-            case 'Holešovice': return 'Holesovice';
-            default: return '';
-        }
-    };
     DoctorList.prototype.setFilterBySerchParam = function (param) {
-        switch (param) {
-            case 'Vysocany':
+        switch (true) {
+            case /(vysocany)/.test(param):
                 this.setState({ filter: 'Vysočany' });
                 break;
-            case 'Budejovicka':
+            case /(benesov)/.test(param):
+                this.setState({ filter: 'Benešov' });
+                break;
+            case /(budejovicka)/.test(param):
                 this.setState({ filter: 'Budějovická' });
                 break;
-            case 'ZelenyPruh':
+            case /(zeleny-pruh)/.test(param):
                 this.setState({ filter: 'Zelený pruh' });
                 break;
-            case 'Holesovice':
+            case /holesovice/.test(param):
                 this.setState({ filter: 'Holešovice' });
                 break;
             default:

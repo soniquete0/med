@@ -6,6 +6,7 @@ import Link from '../../partials/Link';
 import Media from '../../partials/Media';
 import Select from '../../partials/Select';
 import Button from '../../partials/Button';
+import * as removeAccents from 'remove-accents';
 
 interface Doctors {
   name: string;
@@ -42,7 +43,6 @@ class DoctorList extends React.Component<RouteComponentProps<{}> & DoctorListPro
   }
 
   componentDidMount() {
-    // ?clinic=Vysocany
     const { search } = this.props.location;
     if (search.length > 0) {
       this.setFilterBySerchParam(search.split('=')[1]);
@@ -51,44 +51,36 @@ class DoctorList extends React.Component<RouteComponentProps<{}> & DoctorListPro
 
   handleChangeSelect(event: React.ChangeEvent<HTMLSelectElement>) {
     const { history } = this.props;
+    const slug = removeAccents(event.target.value).toLowerCase().replace(/[\W_]+/g, '-');
 
-    this.setState({ filter: event.target.value });
+    this.setFilterBySerchParam(slug);
     history.push({
-      search: `?clinic=${this.transformSearchParamToClinicName(event.target.value)}`
+      search: `?clinic=${slug}`
     });
     
   }
 
-  getUniquePolyclinicNames(items: LooseObject<LooseObject>[]) {
+  getUniquePolyclinicNames(items: LooseObject<any>[]) {
     return [...new Set(items.map(item => item.clinicName.trim()))];
   }
 
-  transformSearchParamToClinicName(param: string) {
-    switch (param) {
-      case 'Vysočany':      return 'Vysocany';
-      case 'Budějovická':   return 'Budejovicka';
-      case 'Zelený pruh':   return 'ZelenyPruh';
-      case 'Holešovice':    return 'Holesovice';
-
-      default:              return '';
-    }
-  }
-
   setFilterBySerchParam(param: string) {
-    switch (param) {
-      case 'Vysocany':
+    switch (true) {
+      case /(vysocany)/.test(param):
         this.setState({ filter: 'Vysočany' });
         break;
-      case 'Budejovicka':
+      case /(benesov)/.test(param):
+        this.setState({ filter: 'Benešov' });
+        break;
+      case /(budejovicka)/.test(param):
         this.setState({ filter: 'Budějovická' });
         break;
-      case 'ZelenyPruh':
+      case /(zeleny-pruh)/.test(param):
         this.setState({ filter: 'Zelený pruh' });
         break;
-      case 'Holesovice':
+      case /holesovice/.test(param):
         this.setState({ filter: 'Holešovice' });
         break;
-
       default:
         this.setState({ filter: '' });
         break;
@@ -107,7 +99,6 @@ class DoctorList extends React.Component<RouteComponentProps<{}> & DoctorListPro
       >
         {({ getPage }) => {
           const { items, lastPage, allItems } = getPage(this.state.numberOfPage, 'infinite', 6);
-          
           return items && items.length > 0 ? (
             <section className={'doctorList'}>
               <div className={'container'}>
