@@ -59,8 +59,8 @@ class DoctorList extends React.Component<RouteComponentProps<{}> & DoctorListPro
     
   }
 
-  getUniquePolyclinicNames(items: LooseObject<any>[]) {
-    return [...new Set(items.map(item => item.clinicName.replace(/Poliklinika/, '').trim()))];
+  getUniquePolyclinicNames(items: LooseObject<LooseObject>[]) {
+    return [...new Set(items.map(item => item.clinicName.trim()))];
   }
 
   transformSearchParamToClinicName(param: string) {
@@ -106,7 +106,7 @@ class DoctorList extends React.Component<RouteComponentProps<{}> & DoctorListPro
         searchKeys={['content.doctorPersonalInformation.polyclinic.name']}
       >
         {({ getPage }) => {
-          const { items, lastPage } = getPage(this.state.numberOfPage, 'infinite', 6);
+          const { items, lastPage, allItems } = getPage(this.state.numberOfPage, 'infinite', 6);
           
           return items && items.length > 0 ? (
             <section className={'doctorList'}>
@@ -118,7 +118,7 @@ class DoctorList extends React.Component<RouteComponentProps<{}> & DoctorListPro
                   className={'hCenterBlock'}
                   onChange={this.handleChangeSelect}
                   defaultValue={'Všechny polikliniky'}
-                  items={this.getUniquePolyclinicNames(items)}
+                  items={this.getUniquePolyclinicNames(allItems)}
                 />
 
                 <div className="doctorList__wrapper">

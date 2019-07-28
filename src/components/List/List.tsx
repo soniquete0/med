@@ -103,7 +103,7 @@ export interface GetPage {
     numberOfPage: number,
     paginationType: 'pagination' | 'infinite',
     pageSize: number
-  ): { items: Array<LooseObject>, lastPage: number } ;
+  ): { items: Array<LooseObject>, lastPage: number, allItems: Array<LooseObject> } ;
 }
 
 export interface GetPaginatingFunction {
@@ -247,7 +247,8 @@ class List extends React.Component<Properties, {}> {
         return { items: items.slice(
           paginationType === 'pagination' ? cutFrom : 0, 
           cutTo),
-          lastPage
+          lastPage,
+          allItems: items
         };
       };
     return getPage;
