@@ -4,6 +4,7 @@ import { Query, ApolloConsumer } from 'react-apollo';
 import { adopt } from 'react-adopt';
 import gql from 'graphql-tag';
 import * as R from 'ramda';
+import * as removeAccents from 'remove-accents';
 
 import Loader from '../../partials/Loader';
 
@@ -341,11 +342,11 @@ class List extends React.Component<Properties, {}> {
 
                       return searchKeys.reduce(
                         (acc, key) => {
-                          return acc || `${flattenPage[key]}`
-                            .toLowerCase()
-                            .includes(
-                              `${fragment}`.toLowerCase()
-                            );
+                          // Remove letter accents
+                          const Key = removeAccents(`${flattenPage[key]}`.toLowerCase());
+                          const Fragment = removeAccents(`${fragment}`.toLowerCase());
+
+                          return acc || Key.includes(Fragment);
                         }, 
                         false
                       );
@@ -514,11 +515,11 @@ class List extends React.Component<Properties, {}> {
 
               return searchKeys.reduce(
                 (acc, key) => {
-                  return acc || `${flattenItem[key]}`
-                    .toLowerCase()
-                    .includes(
-                      `${fragment}`.toLowerCase()
-                    );
+                  // Remove letter accents
+                  const Key = removeAccents(`${flattenItem[key]}`.toLowerCase());
+                  const Fragment = removeAccents(`${fragment}`.toLowerCase());
+
+                  return acc || Key.includes(Fragment);
                 }, 
                 false
               );
@@ -654,7 +655,7 @@ class List extends React.Component<Properties, {}> {
     if (typeof (obj) === 'object' && obj !== null) {
       Object.keys(obj).forEach(key => {
         this.flatten(obj[key], prefix.concat(key), current);
-      })
+      });
     } else {
       current[prefix.join('.')] = obj;
     }
