@@ -20,12 +20,11 @@ function isDoctorActive(workingHours) {
     if (workingHours &&
         workingHours.weeks &&
         workingHours.weeks[0] &&
-        workingHours.weeks[0].days &&
-        workingHours.weeks[0].days[weekDayKey] &&
-        workingHours.weeks[0].days[weekDayKey] &&
-        workingHours.weeks[0].days[weekDayKey] &&
-        workingHours.weeks[0].days[weekDayKey].length > 0 &&
-        workingHours.weeks[0].days[weekDayKey].length > 0) {
+        workingHours.weeks[0].days) {
+        if (!workingHours.weeks[0].days[weekDayKey] &&
+            workingHours.weeks[0].days[weekDayKey].length > 0) {
+            return false;
+        }
         return workingHours.weeks[0].days[weekDayKey].some(function (doctorWorkingHours) {
             var regex = /^\s*([0-9]{2}):([0-9]{2})\s*$/;
             var from = regex.exec(doctorWorkingHours.from);
