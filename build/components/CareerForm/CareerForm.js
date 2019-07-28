@@ -46,7 +46,7 @@ var Link_1 = require("../../partials/Link");
 var Loader_1 = require("../../partials/Loader");
 var SvgIcon_1 = require("../../partials/SvgIcon");
 var testEmail_1 = require("../../helpers/testEmail");
-var GET_CONTEXT = graphql_tag_1.default(templateObject_1 || (templateObject_1 = __makeTemplateObject(["\n  {\n    pageData @client\n  }\n"], ["\n  {\n    pageData @client\n  }\n"])));
+var GET_CONTEXT = graphql_tag_1.default(templateObject_1 || (templateObject_1 = __makeTemplateObject(["\n  {\n    languageData @client\n    pageData @client\n  }\n"], ["\n  {\n    languageData @client\n    pageData @client\n  }\n"])));
 var CareerForm = /** @class */ (function (_super) {
     __extends(CareerForm, _super);
     function CareerForm(props) {
@@ -192,7 +192,8 @@ var CareerForm = /** @class */ (function (_super) {
                 if (error) {
                     return 'Error...';
                 }
-                var pageData = data.pageData;
+                var pageData = data.pageData, languageData = data.languageData;
+                var code = languageData.code;
                 return (React.createElement("section", { className: 'careerForm form', ref: _this.topRef },
                     React.createElement("div", { className: 'container' },
                         React.createElement("h3", { className: 'gradientHeading' }, title),
@@ -238,9 +239,13 @@ var CareerForm = /** @class */ (function (_super) {
                                 React.createElement("textarea", { name: "message", onChange: function (e) { return _this.changeInputValue(e); }, value: message })),
                             React.createElement("div", { className: 'form__messageHolder', style: formStatus !== null ? { padding: '4rem 0' } : {} },
                                 formStatus === 'error' && (React.createElement("div", { className: 'form__message form__message--error' },
-                                    React.createElement("p", null, "There was an error."),
+                                    React.createElement("p", null, code === 'en'
+                                        ? 'There was an error.'
+                                        : 'Během odesílání formuláře se vyskytla chyba.'),
                                     _this.state.formErrorMessage && React.createElement("p", null, _this.state.formErrorMessage))),
-                                formStatus === 'success' && (React.createElement("div", { className: 'form__message form__message--success' }, "Thank You for contacting us."))),
+                                formStatus === 'success' && (React.createElement("div", { className: 'form__message form__message--success' }, code === 'en'
+                                    ? 'Thank You for contacting us.'
+                                    : 'Děkujeme za odeslání formuláře. Brzy se Vám ozveme.'))),
                             React.createElement("div", { className: 'form__terms' },
                                 React.createElement("div", null,
                                     React.createElement("input", { className: 'checkbox', id: "styled-checkbox-1", type: "checkbox", checked: agreement, onChange: function (e) { return _this.toggleAgreement(); } }),

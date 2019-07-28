@@ -35,6 +35,7 @@ export interface ContactFormState {
 const GET_CONTEXT = gql`
   {
     pageData @client
+    languageData @client
   }
 `;
 
@@ -181,7 +182,8 @@ class ContactForm extends React.Component<ContactFormProps, ContactFormState> {
               return 'Error...';
             }
 
-            const { pageData } = data;
+            const { pageData, languageData } = data;
+            const { code } = languageData;
 
             return (
               <section className={'contactForm form'}>
@@ -231,13 +233,23 @@ class ContactForm extends React.Component<ContactFormProps, ContactFormState> {
                       >
                         {formStatus === 'error' && (
                           <div className={'form__message form__message--error'}>
-                            <p>There was an error.</p>
+                            <p>{
+                              code === 'en' 
+                              ? 'There was an error.' 
+                              : 'Během odesílání formuláře se vyskytla chyba.'
+                              }</p>
                             {this.state.formErrorMessage && <p>{this.state.formErrorMessage}</p>}
                           </div>
                         )}
 
                         {formStatus === 'success' && (
-                          <div className={'form__message form__message--success'}>Thank You for contacting us.</div>
+                          <div className={'form__message form__message--success'}>
+                            { 
+                              code === 'en' 
+                              ? 'Thank You for contacting us.'
+                              : 'Děkujeme za odeslání formuláře. Brzy se Vám ozveme.'
+                            }
+                          </div>
                         )}
                       </div>
                       

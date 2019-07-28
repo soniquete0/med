@@ -42,6 +42,7 @@ export interface CareerFormState {
 
 const GET_CONTEXT = gql`
   {
+    languageData @client
     pageData @client
   }
 `;
@@ -226,7 +227,8 @@ export default class CareerForm extends React.Component<CareerFormProps, CareerF
               return 'Error...';
             }
 
-            const { pageData } = data;
+            const { pageData, languageData } = data;
+            const { code } = languageData;
 
             return (
               <section className={'careerForm form'} ref={this.topRef}>
@@ -325,7 +327,7 @@ export default class CareerForm extends React.Component<CareerFormProps, CareerF
                           style={{ display: 'none' }}
                         />
 
-                        <div className={'form__input__bar'} style={{ textOverflow: 'auto' }}/>
+                        <div className={'form__input__bar'} style={{ textOverflow: 'auto' }} />
                         {file && file.name && <p>{file.name}</p>}
                       </div>
                     </div>
@@ -335,19 +337,29 @@ export default class CareerForm extends React.Component<CareerFormProps, CareerF
                       <textarea name="message" onChange={e => this.changeInputValue(e)} value={message} />
                     </div>
 
-                    <div 
-                      className={'form__messageHolder'} 
+                    <div
+                      className={'form__messageHolder'}
                       style={formStatus !== null ? { padding: '4rem 0' } : {}}
                     >
                       {formStatus === 'error' && (
                         <div className={'form__message form__message--error'}>
-                          <p>There was an error.</p>
+                          <p>{
+                            code === 'en'
+                              ? 'There was an error.'
+                              : 'Během odesílání formuláře se vyskytla chyba.'
+                          }</p>
                           {this.state.formErrorMessage && <p>{this.state.formErrorMessage}</p>}
                         </div>
                       )}
 
                       {formStatus === 'success' && (
-                        <div className={'form__message form__message--success'}>Thank You for contacting us.</div>
+                        <div className={'form__message form__message--success'}>
+                          {
+                            code === 'en'
+                              ? 'Thank You for contacting us.'
+                              : 'Děkujeme za odeslání formuláře. Brzy se Vám ozveme.'
+                          }
+                        </div>
                       )}
                     </div>
 
