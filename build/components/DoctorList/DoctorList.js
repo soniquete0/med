@@ -77,7 +77,7 @@ var DoctorList = /** @class */ (function (_super) {
         });
     };
     DoctorList.prototype.getUniquePolyclinicNames = function (items) {
-        return __spread(new Set(items.map(function (item) { return item.clinicName.replace(/Poliklinika/, '').trim(); })));
+        return __spread(new Set(items.map(function (item) { return item.clinicName.trim(); })));
     };
     DoctorList.prototype.transformSearchParamToClinicName = function (param) {
         switch (param) {
@@ -112,11 +112,11 @@ var DoctorList = /** @class */ (function (_super) {
         var _a = this.props.data, doctors = _a.doctors, title = _a.title, excludedDoctor = _a.excludedDoctor;
         return (React.createElement(List_1.default, { data: doctors, searchedText: this.state.filter, exclude: { key: 'name', value: excludedDoctor }, searchKeys: ['content.doctorPersonalInformation.polyclinic.name'] }, function (_a) {
             var getPage = _a.getPage;
-            var _b = getPage(_this.state.numberOfPage, 'infinite', 6), items = _b.items, lastPage = _b.lastPage;
+            var _b = getPage(_this.state.numberOfPage, 'infinite', 6), items = _b.items, lastPage = _b.lastPage, allItems = _b.allItems;
             return items && items.length > 0 ? (React.createElement("section", { className: 'doctorList' },
                 React.createElement("div", { className: 'container' },
                     title && React.createElement("h3", null, title),
-                    React.createElement(Select_1.default, { value: _this.state.filter, className: 'hCenterBlock', onChange: _this.handleChangeSelect, defaultValue: 'Všechny polikliniky', items: _this.getUniquePolyclinicNames(items) }),
+                    React.createElement(Select_1.default, { value: _this.state.filter, className: 'hCenterBlock', onChange: _this.handleChangeSelect, defaultValue: 'Všechny polikliniky', items: _this.getUniquePolyclinicNames(allItems) }),
                     React.createElement("div", { className: "doctorList__wrapper" }, items &&
                         items.map(function (doctor, index) {
                             return (React.createElement("div", { className: 'doctorList__item', key: index },

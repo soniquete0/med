@@ -112,7 +112,8 @@ var List = /** @class */ (function (_super) {
                 var cutFrom = (numberOfPage) * pageSize < numberOfItems ?
                     cutTo - pageSize : (((numberOfPage - 1) && ((numberOfPage - 1) * pageSize)) || 0);
                 return { items: items.slice(paginationType === 'pagination' ? cutFrom : 0, cutTo),
-                    lastPage: lastPage
+                    lastPage: lastPage,
+                    allItems: items
                 };
             };
             return getPage;
