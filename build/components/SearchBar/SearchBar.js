@@ -61,11 +61,11 @@ var SearchBar = /** @class */ (function (_super) {
         };
         _this.input = React.createRef();
         _this.searchBar = React.createRef();
-        _this.checkDoctorResults = lodash_1.debounce(_this.checkDoctorResults, 10).bind(_this);
-        _this.checkBlogResults = lodash_1.debounce(_this.checkBlogResults, 10).bind(_this);
+        _this.checkDoctorResults = lodash_1.debounce(_this.checkDoctorResults, 50).bind(_this);
+        _this.checkBlogResults = lodash_1.debounce(_this.checkBlogResults, 50).bind(_this);
         _this.handleClick = _this.handleClick.bind(_this);
-        _this.clearData = lodash_1.debounce(_this.clearData, 300).bind(_this);
-        _this.changeSearchQuery = lodash_1.debounce(_this.changeSearchQuery, 300).bind(_this);
+        _this.clearData = lodash_1.debounce(_this.clearData, 600).bind(_this);
+        _this.changeSearchQuery = lodash_1.debounce(_this.changeSearchQuery, 600).bind(_this);
         return _this;
     }
     SearchBar.prototype.componentDidMount = function () {
@@ -74,11 +74,15 @@ var SearchBar = /** @class */ (function (_super) {
     SearchBar.prototype.componentWillUnmount = function () {
         document.removeEventListener('click', this.handleClick, false);
     };
-    SearchBar.prototype.checkDoctorResults = function (value) {
-        return this.setState({ doctorResults: value });
+    SearchBar.prototype.checkDoctorResults = function (doctorResults) {
+        if (doctorResults !== this.state.doctorResults) {
+            return this.setState({ doctorResults: doctorResults });
+        }
     };
-    SearchBar.prototype.checkBlogResults = function (value) {
-        return this.setState({ blogResults: value });
+    SearchBar.prototype.checkBlogResults = function (blogResults) {
+        if (blogResults !== this.state.blogResults) {
+            return this.setState({ blogResults: blogResults });
+        }
     };
     // tslint:disable-next-line:typedef
     SearchBar.prototype.changeSearchQuery = function (query) {
@@ -99,7 +103,7 @@ var SearchBar = /** @class */ (function (_super) {
         this.input.current.value = '';
     };
     SearchBar.prototype.renderNoResults = function () {
-        if (this.state.doctorResults === null && this.state.blogResults === null) {
+        if (!this.state.doctorResults && !this.state.blogResults) {
             return (React.createElement("div", { className: 'searchBarResults__noResults' }, "Bohu\u017Eel jsme nena\u0161li \u017E\u00E1dn\u00E9 vysledky."));
         }
         else {
@@ -118,16 +122,20 @@ var SearchBar = /** @class */ (function (_super) {
                 React.createElement("input", { type: "text", ref: this.input, placeholder: placeholder, onFocus: function () { return _this.handleFocus(); }, onBlur: function () { return _this.handleFocus(); }, onChange: function (e) { return _this.changeSearchQuery(e.target.value); } }),
                 React.createElement(SvgIcon_1.default, { name: 'search', type: barColor })),
             React.createElement("div", { className: "searchBar__bar" }),
-            this.state.query.length > 2 &&
-                React.createElement("div", { className: "searchBarResults " + (this.state.query.length > 2 ? 'active' : '') },
-                    this.props.blogSearchResults && this.state.query.length > 2 && (React.createElement(BlogSearchResults_1.default, { query: this.state.query, searchKeys: ['translations.0.name', 'annotations.perex', 'annotations.title'], searchResults: this.props.blogSearchResults, checkBlogResults: this.checkBlogResults })),
-                    doctorSearchResults && this.state.query.length > 2 && (React.createElement(DoctorSearchResults_1.default, { searchResults: doctorSearchResults, query: this.state.query, searchKeys: [
-                            'content.doctorPersonalInformation.firstName',
-                            'content.doctorPersonalInformation.lastName',
-                            'content.doctorPersonalInformation.expertises.0.name',
-                            'content.doctorPersonalInformation.polyclinic.name',
-                            'content.doctorPersonalInformation.prenominal',
-                            'content.doctorPersonalInformation.postnominal'
+            this.state.query.length > 1 &&
+                React.createElement("div", { className: "searchBarResults " + (this.state.query.length > 1 ? 'active' : '') },
+                    this.props.blogSearchResults && this.state.query.length > 1 && (React.createElement(BlogSearchResults_1.default, { query: this.state.query, searchKeys: [
+                            'pi.page.name',
+                            'pi.page.annotations.perex',
+                            'pi.page.annotations.title'
+                        ], searchResults: this.props.blogSearchResults, checkBlogResults: this.checkBlogResults })),
+                    doctorSearchResults && this.state.query.length > 1 && (React.createElement(DoctorSearchResults_1.default, { searchResults: doctorSearchResults, query: this.state.query, searchKeys: [
+                            'di.doctorPersonalInformation.firstName',
+                            'di.doctorPersonalInformation.lastName',
+                            'di.doctorPersonalInformation.expertises.0.name',
+                            'di.doctorPersonalInformation.polyclinic.name',
+                            'di.doctorPersonalInformation.prenominal',
+                            'di.doctorPersonalInformation.postnominal'
                         ], clearData: this.clearData, checkDoctorResults: this.checkDoctorResults })),
                     this.renderNoResults())));
     };

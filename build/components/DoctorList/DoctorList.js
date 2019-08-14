@@ -77,6 +77,14 @@ var DoctorList = /** @class */ (function (_super) {
             search: "?clinic=" + slug
         });
     };
+    DoctorList.prototype.getCurrentPolyclinic = function (current, items) {
+        var polyclinics = this.getUniquePolyclinicNames(items);
+        if (Array.isArray(polyclinics) && current.length > 0) {
+            var polyclinic = polyclinics.find(function (pol) { return pol.indexOf(current) > -1; }) || '';
+            return polyclinic;
+        }
+        return undefined;
+    };
     DoctorList.prototype.getUniquePolyclinicNames = function (items) {
         return __spread(new Set(items.map(function (item) { return item.clinicName.trim(); })));
     };
@@ -105,13 +113,13 @@ var DoctorList = /** @class */ (function (_super) {
     DoctorList.prototype.render = function () {
         var _this = this;
         var _a = this.props.data, doctors = _a.doctors, title = _a.title, excludedDoctor = _a.excludedDoctor;
-        return (React.createElement(List_1.default, { data: doctors, searchedText: this.state.filter, exclude: { key: 'name', value: excludedDoctor }, searchKeys: ['content.doctorPersonalInformation.polyclinic.name'] }, function (_a) {
-            var getPage = _a.getPage;
+        return (React.createElement(List_1.default, { data: doctors, searchedText: this.state.filter, exclude: { key: 'name', value: excludedDoctor }, searchKeys: ['clinicName'] }, function (_a) {
+            var getPage = _a.getPage, allData = _a.allData;
             var _b = getPage(_this.state.numberOfPage, 'infinite', 6), items = _b.items, lastPage = _b.lastPage, allItems = _b.allItems;
             return items && items.length > 0 ? (React.createElement("section", { className: 'doctorList' },
                 React.createElement("div", { className: 'container' },
                     title && React.createElement("h3", null, title),
-                    React.createElement(Select_1.default, { value: _this.state.filter, className: 'hCenterBlock', onChange: _this.handleChangeSelect, defaultValue: 'Všechny polikliniky', items: _this.getUniquePolyclinicNames(allItems) }),
+                    React.createElement(Select_1.default, { value: _this.getCurrentPolyclinic(_this.state.filter, allData), className: 'hCenterBlock', onChange: _this.handleChangeSelect, defaultValue: 'Všechny polikliniky', items: _this.getUniquePolyclinicNames(allData) }),
                     React.createElement("div", { className: "doctorList__wrapper" }, items &&
                         items.map(function (doctor, index) {
                             return (React.createElement("div", { className: 'doctorList__item', key: index },
@@ -123,7 +131,9 @@ var DoctorList = /** @class */ (function (_super) {
                                             React.createElement("p", null, doctor.field))),
                                     React.createElement("p", { className: 'doctorList__item__info--mobileField' }, doctor.field),
                                     React.createElement(Link_1.default, __assign({}, doctor.clinicUrl, { className: 'doctorList__item__info__link' }), doctor.clinicName),
-                                    React.createElement(Button_1.default, { classes: "btn--blueBorder btn--small", url: doctor.doctorUrl }, "v\u00EDce informac\u00ED"))));
+                                    doctor.doctorUrl
+                                        && doctor.doctorUrl.url
+                                        && React.createElement(Button_1.default, { classes: "btn--blueBorder btn--small", url: doctor.doctorUrl }, "v\u00EDce informac\u00ED"))));
                         })),
                     _this.state.numberOfPage < lastPage && React.createElement("div", { className: "doctorList__btnHolder" },
                         React.createElement("button", { className: 'btn btn--blueBkg', onClick: function () { return _this.setState({ numberOfPage: lastPage }); } }, "zobrazit v\u00EDce"))))) : React.createElement(React.Fragment, null);

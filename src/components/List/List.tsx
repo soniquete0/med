@@ -114,6 +114,7 @@ export interface GetPaginatingFunction {
 
 export interface QueryResult {
   getPage: GetPage;
+  allData: Array<LooseObject>;
   data: Array<LooseObject>;
 }
 
@@ -209,20 +210,18 @@ const AllPagesComposedQuery = adopt({
     }
 
     return (
-      <>  
-        <Query 
-          query={GET_ALL_PAGES}
-          variables={{ 
-            languageId,
-            websiteId,
-          }}
-        >
-          {data => {
-            const { fetchMore} = data;
-            return render(data);
-          }}
-        </Query>
-      </> 
+      <Query 
+        query={GET_ALL_PAGES}
+        variables={{ 
+          languageId,
+          websiteId,
+        }}
+      >
+        {data => {
+          const { fetchMore } = data;
+          return render(data);
+        }}
+      </Query>
     );
   },
 });
@@ -277,7 +276,7 @@ class List extends React.Component<Properties, {}> {
         const textFromSearchParams = searchParams && searchParams.get(res[1]);
 
         if (!textFromSearchParams) {
-          return this.props.children({ data: [], getPage: this.getPaginatingFunction([]) });
+          return this.props.children({ data: [], allData: [], getPage: this.getPaginatingFunction([]) });
         }
         searchedText = `${searchedText ? searchedText : ''} ${textFromSearchParams ? textFromSearchParams  : '' }`;
       } else {
@@ -287,7 +286,7 @@ class List extends React.Component<Properties, {}> {
 
     const searchedFragments = searchedText && searchedText.trim().split(' ').map(fragment => fragment.trim());
     if (Array.isArray(data)) {
-      return this.props.children({ data, getPage: this.getPaginatingFunction(data) });
+      return this.props.children({ data, allData: [], getPage: this.getPaginatingFunction(data) });
     }
 
     // In case that data isn't array and contain datasourceId try to fetch datasource with his items
@@ -315,50 +314,9 @@ class List extends React.Component<Properties, {}> {
               }
   
               let { pages } = allPagesData;
-              if (searchedFragments && searchedFragments.length > 0) {
-                pages = searchedFragments.reduce(
-                (filteredPages, fragment) => {
-                  return filteredPages
-                    .filter(page => {
-                      if (!searchKeys) {
-                        return JSON.stringify(page).toLowerCase().includes(fragment.toLowerCase());
-                      }
-
-                      const flattenPage = this.flatten(
-                        {
-                          ...page,
-                          // adding annotations as data to page object
-                          annotations: (
-                            page.translations && page.translations[0] && 
-                            page.translations[0].annotations && Array.isArray(page.translations[0].annotations)
-                              && page.translations[0].annotations.reduce(
-                              (acc, a) => {
-                                acc[a.key] = a.value;
-                                return acc;
-                              }, 
-                              {})) || {},
-                        },
-                        '',
-                        '');
-
-                      return searchKeys.reduce(
-                        (acc, key) => {
-                          // Remove letter accents
-                          const Key = removeAccents(`${flattenPage[key]}`.toLowerCase());
-                          const Fragment = removeAccents(`${fragment}`.toLowerCase());
-
-                          return acc || Key.includes(Fragment);
-                        }, 
-                        false
-                      );
-                    }); 
-                },                                       
-                pages);
-              }
-
+              
               const pagesWithTag = pages
                 .filter(p => {
-  
                   if (!(p.translations && p.translations.length > 0)) {
                     return false;
                   }
@@ -407,7 +365,11 @@ class List extends React.Component<Properties, {}> {
                       let replaced = this.replaceWithSourceItemValues(res[key], item);
                       res[key] = replaced;
                     } else if (res[key].pageSourcedUrl) {
-                      res[key] = { pageId: p.id };
+                        const queryParams = typeof window !== 'undefined'
+                          && /^([\w-]+(=[\w-]*)(&[\w-]+(=[\w-]*)?)*)$/.test(res[key].url)
+                          && new URLSearchParams(res[key] && res[key].url || '').toString() || undefined;
+
+                        res[key] = { pageId: p.id, query: queryParams };
                     } else if (res[key].dynamiclySourcedImage) {
                       let image;
                       try {
@@ -419,7 +381,7 @@ class List extends React.Component<Properties, {}> {
                       res[key] = image || {};
                     }
                   });
-                  return res;
+                  return { ...res, pi: item };
                 })
                 .filter(item => {
                   return  !item.filters || 
@@ -430,9 +392,50 @@ class List extends React.Component<Properties, {}> {
                       );
                 })
                 .filter((item, i) => !data.limit || i < data.limit);
+              
+              let pagesWithFilter = pagesWithTag;
+              if (searchedFragments && searchedFragments.length > 0) {
+                pagesWithFilter = searchedFragments.reduce(
+                (filteredPages, fragment) => {
+                  return filteredPages
+                    .filter(page => {
+                      if (!searchKeys) {
+                        return JSON.stringify(page).toLowerCase().includes(fragment.toLowerCase());
+                      }
 
+                      const flattenPage = this.flatten(
+                        {
+                          ...page,
+                          // adding annotations as data to page object
+                          annotations: (
+                            page.translations && page.translations[0] && 
+                            page.translations[0].annotations && Array.isArray(page.translations[0].annotations)
+                              && page.translations[0].annotations.reduce(
+                              (acc, a) => {
+                                acc[a.key] = a.value;
+                                return acc;
+                              }, 
+                              {})) || {},
+                        },
+                        '',
+                        '');
+
+                      return searchKeys.reduce(
+                        (acc, key) => {
+                          // Remove letter accents
+                          const Key = removeAccents(`${flattenPage[key]}`.toLowerCase());
+                          const Fragment = removeAccents(`${fragment}`.toLowerCase());
+                          
+                          return acc || Key.includes(Fragment);
+                        }, 
+                        false
+                      );
+                    }); 
+                },                                       
+                pagesWithTag);
+              }
               pages = data.orderBy ? 
-                pagesWithTag
+                pagesWithFilter
                   .sort((a, b) => {
                     if (data.order === 'DESC') {
                       if (a.orderBy > b.orderBy) { return -1; }
@@ -449,15 +452,19 @@ class List extends React.Component<Properties, {}> {
                     return item;
                   })  
                 :
-                pagesWithTag;
- 
-              return this.props.children({ data: pages, getPage: this.getPaginatingFunction(pages) });
+                pagesWithFilter;
+
+              return this.props.children({
+                  data: pagesWithFilter,
+                  allData: pagesWithTag,
+                  getPage: this.getPaginatingFunction(pages)
+              });
             }}
           </AllPagesComposedQuery>
       ); 
     }
 
-    return this.props.children({ data: [], getPage: this.getPaginatingFunction([]) });
+    return this.props.children({ data: [], allData: [], getPage: this.getPaginatingFunction([]) });
   }
 
   replaceWithSourceItemValues(source: string, item: LooseObject, isImage?: boolean) {
@@ -502,40 +509,12 @@ class List extends React.Component<Properties, {}> {
         const { data: dataShape, error, loading } = data;
 
         let datasourceItems = ((queryData.data.datasource && queryData.data.datasource.datasourceItems) || []);
-        if (searchedFragments && searchedFragments.length > 0) {
-          datasourceItems = searchedFragments.reduce(
-          (filteredItems, fragment) => {
-            // console.log(filteredItems); // log this to see doctors props
-            
-            return filteredItems.filter(item => {
-              if (!searchKeys) {
-                return JSON.stringify(item).toLowerCase().includes(fragment.toLowerCase());
-              }
-
-              const flattenItem = this.flatten(item, '', '');
-
-              return searchKeys.reduce(
-                (acc, key) => {
-                  // Remove letter accents
-                  const Key = removeAccents(`${flattenItem[key]}`.toLowerCase());
-                  const Fragment = removeAccents(`${fragment}`.toLowerCase());
-
-                  return acc || Key.includes(Fragment);
-                }, 
-                false
-              );
-            }); 
-          },                                       
-          datasourceItems);
-        }
         // Map datasourceItem data to placeholders
         datasourceItems = datasourceItems
           .map((item) => {
-
             // Iterate through dataShape 
             // in case that value inside some of keys is string
             // try to find key inside item and replace value with it
-
             const res = { ...dataShape };
 
             if (data.orderBy) {
@@ -561,6 +540,7 @@ class List extends React.Component<Properties, {}> {
                 let replaced = this.replaceWithSourceItemValues(res[key], item.content);
                 res[key] = replaced;
               } else if (res[key].url) {
+                
                 const regex = /ds\:(\w+)/g;
 
                 let result;
@@ -577,7 +557,7 @@ class List extends React.Component<Properties, {}> {
               }
             });
 
-            return res;
+            return { ...res, di: item.content };
           })
             .filter(item => {
               if (this.props.exclude && item[this.props.exclude.key]
@@ -598,7 +578,7 @@ class List extends React.Component<Properties, {}> {
 
         if (loading) { return <Loader />; }
 
-        const items = data.orderBy ? 
+        const allData = data.orderBy ? 
         datasourceItems
           .sort((a, b) => {
             if (data.order === 'DESC') {
@@ -618,8 +598,33 @@ class List extends React.Component<Properties, {}> {
         :
         datasourceItems;
 
+        let items = allData;
+        if (searchedFragments && searchedFragments.length > 0) {
+          items = searchedFragments.reduce(
+          (filteredItems, fragment) => {
+            return filteredItems.filter(item => {
+              if (!searchKeys) {
+                return JSON.stringify(item).toLowerCase().includes(fragment.toLowerCase());
+              }
+
+              const flattenItem = this.flatten(item, '', '');
+              return searchKeys.reduce(
+                (acc, key) => {
+                  // Remove letter accents
+                  const Key = removeAccents(`${flattenItem[key]}`.toLowerCase());
+                  const Fragment = removeAccents(`${fragment}`.toLowerCase());
+                  return acc || Key.includes(Fragment);
+                }, 
+                false
+              );
+            }); 
+          },                                       
+          allData);
+        }
+
         return this.props.children({
           data: items,
+          allData,
           getPage: this.getPaginatingFunction(items)
         });
       }}

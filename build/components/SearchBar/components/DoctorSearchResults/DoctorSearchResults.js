@@ -16,6 +16,7 @@ var moment = require("moment");
 var List_1 = require("../../../List");
 var Link_1 = require("../../../../partials/Link");
 function isDoctorActive(workingHours) {
+    var i = Math.random();
     var weekDayKey = getWeekDayKey();
     if (workingHours &&
         workingHours.weeks &&
@@ -23,7 +24,7 @@ function isDoctorActive(workingHours) {
         workingHours.weeks[0].days) {
         if (!workingHours.weeks[0].days[weekDayKey] &&
             workingHours.weeks[0].days[weekDayKey].length > 0) {
-            return false;
+            return -1;
         }
         return workingHours.weeks[0].days[weekDayKey].some(function (doctorWorkingHours) {
             var regex = /^\s*([0-9]{2}):([0-9]{2})\s*$/;
@@ -40,13 +41,13 @@ function isDoctorActive(workingHours) {
                     .add(to[2], 'minutes');
                 var now = moment();
                 if (now.isSameOrBefore(endOfShift) && now.isSameOrAfter(startOfShift)) {
-                    return true;
+                    return 1;
                 }
             }
-            return false;
+            return 0;
         });
     }
-    return null;
+    return -1;
 }
 function getWeekDayKey() {
     var day;
@@ -83,7 +84,8 @@ function DoctorSearchResults(props) {
     return (React.createElement(List_1.default, { data: searchResults, searchedText: query, searchKeys: searchKeys }, function (_a) {
         var data = _a.data;
         if (data.length > 0) {
-            checkDoctorResults(data.length);
+            checkDoctorResults(true);
+            // const doctors = 
             return (React.createElement("ul", { className: 'searchBarResults__doctors' }, data
                 .map(function (item) {
                 var workingHours = null;
@@ -95,25 +97,36 @@ function DoctorSearchResults(props) {
                 }
                 return __assign({}, item, { isDoctorActive: isDoctorActive(workingHours) });
             })
-                .sort(function (a, b) { return (a.isDoctorActive === true ? -1 : 1); })
+                .sort(function (a, b) {
+                if (a.isDoctorActive === b.isDoctorActive) {
+                    if (a.name < b.name) {
+                        return -1;
+                    }
+                    if (a.name > b.name) {
+                        return 1;
+                    }
+                    return 0;
+                }
+                return b.isDoctorActive - a.isDoctorActive;
+            })
                 .map(function (doctor, i) {
-                return (React.createElement("li", { key: i, className: (doctor.isDoctorActive === true || doctor.isDoctorActive === null)
+                return (React.createElement("li", { key: i, className: ([-1, 1].includes(doctor.isDoctorActive))
                         ? 'active' : '', onClick: function () { return clearData(); } },
                     React.createElement(Link_1.default, __assign({}, doctor.link),
                         React.createElement("span", null,
                             React.createElement("p", null,
-                                React.createElement("span", { className: doctor.isDoctorActive === null ? 'noTimetable' : '' }, doctor.name),
-                                doctor.isDoctorActive !== null &&
+                                React.createElement("span", { className: doctor.isDoctorActive === -1 ? 'noTimetable' : '' }, doctor.name),
+                                doctor.isDoctorActive > -1 &&
                                     React.createElement(React.Fragment, null,
-                                        React.createElement("span", { style: doctor.isDoctorActive ?
-                                                { color: '#31a031' } :
-                                                { color: '#c23636' } }, doctor.isDoctorActive ? 'ordinuje' : 'v tuto chvíli neordinuje'))),
+                                        React.createElement("span", { style: doctor.isDoctorActive === 1
+                                                ? { color: '#31a031' }
+                                                : { color: '#c23636' } }, doctor.isDoctorActive === 1 ? 'ordinuje' : 'v tuto chvíli neordinuje'))),
                             React.createElement("p", null, doctor.speciality)),
                         React.createElement("span", null, doctor.clinic))));
             })));
         }
         else {
-            checkDoctorResults(null);
+            checkDoctorResults(false);
             return (React.createElement(React.Fragment, null));
         }
     }));

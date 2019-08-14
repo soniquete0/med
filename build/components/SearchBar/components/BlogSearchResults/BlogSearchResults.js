@@ -20,14 +20,14 @@ function BlogSearchResults(_a) {
     return (React.createElement(List_1.default, { data: searchResults, searchedText: query, searchKeys: searchKeys }, function (_a) {
         var data = _a.data;
         if (data.length > 0) {
-            checkBlogResults(data.length);
+            checkBlogResults(true);
             return (React.createElement("ul", { className: 'searchBarResults__blog' }, data.map(function (blogItem, i) { return (React.createElement("li", { key: i },
                 React.createElement(Link_1.default, __assign({}, blogItem.link),
                     React.createElement("div", null,
                         React.createElement("h4", null, blogItem.name || blogItem.title))))); })));
         }
         else {
-            checkBlogResults(null);
+            checkBlogResults(false);
             return (React.createElement(React.Fragment, null));
         }
     }));

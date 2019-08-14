@@ -60,6 +60,16 @@ class DoctorList extends React.Component<RouteComponentProps<{}> & DoctorListPro
     
   }
 
+  getCurrentPolyclinic(current: String, items: Array<LooseObject>) {
+    const polyclinics = this.getUniquePolyclinicNames(items);
+    if (Array.isArray(polyclinics) && current.length > 0) {
+      const polyclinic = polyclinics.find((pol) => pol.indexOf(current) > -1) || '';
+      return polyclinic;
+    }
+
+    return undefined;
+  }
+
   getUniquePolyclinicNames(items: LooseObject<any>[]) {
     return [...new Set(items.map(item => item.clinicName.trim()))];
   }
@@ -95,21 +105,20 @@ class DoctorList extends React.Component<RouteComponentProps<{}> & DoctorListPro
         data={doctors}
         searchedText={this.state.filter}
         exclude={{ key: 'name', value: excludedDoctor }}
-        searchKeys={['content.doctorPersonalInformation.polyclinic.name']}
+        searchKeys={['clinicName']}
       >
-        {({ getPage }) => {
+        {({ getPage, allData }) => {
           const { items, lastPage, allItems } = getPage(this.state.numberOfPage, 'infinite', 6);
           return items && items.length > 0 ? (
             <section className={'doctorList'}>
               <div className={'container'}>
                 {title && <h3>{title}</h3>}
-
                 <Select
-                  value={this.state.filter}
+                  value={this.getCurrentPolyclinic(this.state.filter, allData)}
                   className={'hCenterBlock'}
                   onChange={this.handleChangeSelect}
                   defaultValue={'Všechny polikliniky'}
-                  items={this.getUniquePolyclinicNames(allItems)}
+                  items={this.getUniquePolyclinicNames(allData)}
                 />
 
                 <div className="doctorList__wrapper">
@@ -138,9 +147,11 @@ class DoctorList extends React.Component<RouteComponentProps<{}> & DoctorListPro
                             <Link {...doctor.clinicUrl} className={'doctorList__item__info__link'}>
                               {doctor.clinicName}
                             </Link>
-                            <Button classes="btn--blueBorder btn--small" url={doctor.doctorUrl}>
-                              více informací
-                            </Button>
+                            {doctor.doctorUrl
+                              && doctor.doctorUrl.url
+                              && <Button classes="btn--blueBorder btn--small" url={doctor.doctorUrl}>
+                                více informací
+                              </Button>}
                           </div>
                         </div>
                       );

@@ -87,14 +87,13 @@ var AllPagesComposedQuery = react_adopt_1.adopt({
         if (!languageId || !websiteId) {
             return render({ loading: true });
         }
-        return (React.createElement(React.Fragment, null,
-            React.createElement(react_apollo_1.Query, { query: GET_ALL_PAGES, variables: {
-                    languageId: languageId,
-                    websiteId: websiteId,
-                } }, function (data) {
-                var fetchMore = data.fetchMore;
-                return render(data);
-            })));
+        return (React.createElement(react_apollo_1.Query, { query: GET_ALL_PAGES, variables: {
+                languageId: languageId,
+                websiteId: websiteId,
+            } }, function (data) {
+            var fetchMore = data.fetchMore;
+            return render(data);
+        }));
     },
 });
 var List = /** @class */ (function (_super) {
@@ -124,23 +123,6 @@ var List = /** @class */ (function (_super) {
                 } }, function (queryData) {
                 var dataShape = data.data, error = data.error, loading = data.loading;
                 var datasourceItems = ((queryData.data.datasource && queryData.data.datasource.datasourceItems) || []);
-                if (searchedFragments && searchedFragments.length > 0) {
-                    datasourceItems = searchedFragments.reduce(function (filteredItems, fragment) {
-                        // console.log(filteredItems); // log this to see doctors props
-                        return filteredItems.filter(function (item) {
-                            if (!searchKeys) {
-                                return JSON.stringify(item).toLowerCase().includes(fragment.toLowerCase());
-                            }
-                            var flattenItem = _this.flatten(item, '', '');
-                            return searchKeys.reduce(function (acc, key) {
-                                // Remove letter accents
-                                var Key = removeAccents(("" + flattenItem[key]).toLowerCase());
-                                var Fragment = removeAccents(("" + fragment).toLowerCase());
-                                return acc || Key.includes(Fragment);
-                            }, false);
-                        });
-                    }, datasourceItems);
-                }
                 // Map datasourceItem data to placeholders
                 datasourceItems = datasourceItems
                     .map(function (item) {
@@ -181,7 +163,7 @@ var List = /** @class */ (function (_super) {
                             }
                         }
                     });
-                    return res;
+                    return __assign({}, res, { di: item.content });
                 })
                     .filter(function (item) {
                     if (_this.props.exclude && item[_this.props.exclude.key]
@@ -202,7 +184,7 @@ var List = /** @class */ (function (_super) {
                 if (loading) {
                     return React.createElement(Loader_1.default, null);
                 }
-                var items = data.orderBy ?
+                var allData = data.orderBy ?
                     datasourceItems
                         .sort(function (a, b) {
                         if (data.order === 'DESC') {
@@ -232,8 +214,26 @@ var List = /** @class */ (function (_super) {
                     })
                     :
                         datasourceItems;
+                var items = allData;
+                if (searchedFragments && searchedFragments.length > 0) {
+                    items = searchedFragments.reduce(function (filteredItems, fragment) {
+                        return filteredItems.filter(function (item) {
+                            if (!searchKeys) {
+                                return JSON.stringify(item).toLowerCase().includes(fragment.toLowerCase());
+                            }
+                            var flattenItem = _this.flatten(item, '', '');
+                            return searchKeys.reduce(function (acc, key) {
+                                // Remove letter accents
+                                var Key = removeAccents(("" + flattenItem[key]).toLowerCase());
+                                var Fragment = removeAccents(("" + fragment).toLowerCase());
+                                return acc || Key.includes(Fragment);
+                            }, false);
+                        });
+                    }, allData);
+                }
                 return _this.props.children({
                     data: items,
+                    allData: allData,
                     getPage: _this.getPaginatingFunction(items)
                 });
             }));
@@ -256,7 +256,7 @@ var List = /** @class */ (function (_super) {
             if (res && res[1]) {
                 var textFromSearchParams = searchParams && searchParams.get(res[1]);
                 if (!textFromSearchParams) {
-                    return this.props.children({ data: [], getPage: this.getPaginatingFunction([]) });
+                    return this.props.children({ data: [], allData: [], getPage: this.getPaginatingFunction([]) });
                 }
                 searchedText = (searchedText ? searchedText : '') + " " + (textFromSearchParams ? textFromSearchParams : '');
             }
@@ -266,7 +266,7 @@ var List = /** @class */ (function (_super) {
         }
         var searchedFragments = searchedText && searchedText.trim().split(' ').map(function (fragment) { return fragment.trim(); });
         if (Array.isArray(data)) {
-            return this.props.children({ data: data, getPage: this.getPaginatingFunction(data) });
+            return this.props.children({ data: data, allData: [], getPage: this.getPaginatingFunction(data) });
         }
         // In case that data isn't array and contain datasourceId try to fetch datasource with his items
         if (data && data.datasourceId) {
@@ -284,30 +284,6 @@ var List = /** @class */ (function (_super) {
                     return "Error...";
                 }
                 var pages = allPagesData.pages;
-                if (searchedFragments && searchedFragments.length > 0) {
-                    pages = searchedFragments.reduce(function (filteredPages, fragment) {
-                        return filteredPages
-                            .filter(function (page) {
-                            if (!searchKeys) {
-                                return JSON.stringify(page).toLowerCase().includes(fragment.toLowerCase());
-                            }
-                            var flattenPage = _this.flatten(__assign({}, page, { 
-                                // adding annotations as data to page object
-                                annotations: (page.translations && page.translations[0] &&
-                                    page.translations[0].annotations && Array.isArray(page.translations[0].annotations)
-                                    && page.translations[0].annotations.reduce(function (acc, a) {
-                                        acc[a.key] = a.value;
-                                        return acc;
-                                    }, {})) || {} }), '', '');
-                            return searchKeys.reduce(function (acc, key) {
-                                // Remove letter accents
-                                var Key = removeAccents(("" + flattenPage[key]).toLowerCase());
-                                var Fragment = removeAccents(("" + fragment).toLowerCase());
-                                return acc || Key.includes(Fragment);
-                            }, false);
-                        });
-                    }, pages);
-                }
                 var pagesWithTag = pages
                     .filter(function (p) {
                     if (!(p.translations && p.translations.length > 0)) {
@@ -351,7 +327,10 @@ var List = /** @class */ (function (_super) {
                             res[key] = replaced;
                         }
                         else if (res[key].pageSourcedUrl) {
-                            res[key] = { pageId: p.id };
+                            var queryParams = typeof window !== 'undefined'
+                                && /^([\w-]+(=[\w-]*)(&[\w-]+(=[\w-]*)?)*)$/.test(res[key].url)
+                                && new URLSearchParams(res[key] && res[key].url || '').toString() || undefined;
+                            res[key] = { pageId: p.id, query: queryParams };
                         }
                         else if (res[key].dynamiclySourcedImage) {
                             var image = void 0;
@@ -364,7 +343,7 @@ var List = /** @class */ (function (_super) {
                             res[key] = image || {};
                         }
                     });
-                    return res;
+                    return __assign({}, res, { pi: item });
                 })
                     .filter(function (item) {
                     return !item.filters ||
@@ -375,8 +354,33 @@ var List = /** @class */ (function (_super) {
                         });
                 })
                     .filter(function (item, i) { return !data.limit || i < data.limit; });
+                var pagesWithFilter = pagesWithTag;
+                if (searchedFragments && searchedFragments.length > 0) {
+                    pagesWithFilter = searchedFragments.reduce(function (filteredPages, fragment) {
+                        return filteredPages
+                            .filter(function (page) {
+                            if (!searchKeys) {
+                                return JSON.stringify(page).toLowerCase().includes(fragment.toLowerCase());
+                            }
+                            var flattenPage = _this.flatten(__assign({}, page, { 
+                                // adding annotations as data to page object
+                                annotations: (page.translations && page.translations[0] &&
+                                    page.translations[0].annotations && Array.isArray(page.translations[0].annotations)
+                                    && page.translations[0].annotations.reduce(function (acc, a) {
+                                        acc[a.key] = a.value;
+                                        return acc;
+                                    }, {})) || {} }), '', '');
+                            return searchKeys.reduce(function (acc, key) {
+                                // Remove letter accents
+                                var Key = removeAccents(("" + flattenPage[key]).toLowerCase());
+                                var Fragment = removeAccents(("" + fragment).toLowerCase());
+                                return acc || Key.includes(Fragment);
+                            }, false);
+                        });
+                    }, pagesWithTag);
+                }
                 pages = data.orderBy ?
-                    pagesWithTag
+                    pagesWithFilter
                         .sort(function (a, b) {
                         if (data.order === 'DESC') {
                             if (a.orderBy > b.orderBy) {
@@ -404,11 +408,15 @@ var List = /** @class */ (function (_super) {
                         return item;
                     })
                     :
-                        pagesWithTag;
-                return _this.props.children({ data: pages, getPage: _this.getPaginatingFunction(pages) });
+                        pagesWithFilter;
+                return _this.props.children({
+                    data: pagesWithFilter,
+                    allData: pagesWithTag,
+                    getPage: _this.getPaginatingFunction(pages)
+                });
             }));
         }
-        return this.props.children({ data: [], getPage: this.getPaginatingFunction([]) });
+        return this.props.children({ data: [], allData: [], getPage: this.getPaginatingFunction([]) });
     };
     List.prototype.replaceWithSourceItemValues = function (source, item, isImage) {
         var regex = /%([^%]*)%/g;

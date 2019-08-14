@@ -34,7 +34,7 @@ const WorkingHours = (props: WorkingHoursProps) => {
                 <tbody>
                   {data && data.map((item, index) => {
                       return (
-                        <>
+                        <React.Fragment key={index}>
                           <tr className={'mobileHeading'}>
                             <td colSpan={3}>{item.day}</td>
                           </tr>
@@ -53,7 +53,7 @@ const WorkingHours = (props: WorkingHoursProps) => {
                               <p>{item.eveningHoursDescription}</p>
                             </td>
                           </tr>
-                        </>
+                        </React.Fragment>
                       );
                     })}
                 </tbody>

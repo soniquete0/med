@@ -47,7 +47,7 @@ const GET_PAGES_URLS = gql`
 `;
 
 const ComposerLink = props => {
-  const { children, urlNewWindow, url, pageId, dynamic, ...args } = props;
+  const { children, urlNewWindow, url, query, pageId, dynamic, ...args } = props;
 
   return (
     <ComposedQuery>
@@ -62,7 +62,6 @@ const ComposerLink = props => {
 
         let pageUrlObj;
         const { pagesUrls } = data;
-
         if (pagesUrls) {
           pageUrlObj = pagesUrls.find(u => u.page === pageId || u.url === url);
         }
@@ -81,7 +80,7 @@ const ComposerLink = props => {
           return (
             <NavLink 
               activeClassName={'navItemActive'} 
-              to={(dynamic && url) || (pageUrlObj ? pageUrlObj.url : '#')}
+              to={(dynamic && url) || (pageUrlObj ? `${pageUrlObj.url}${query ? `?${query}` : ''}` : '#')}
               style={props.style}
               {...args}
             >

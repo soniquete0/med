@@ -12,7 +12,7 @@ var WorkingHours = function (props) {
                     React.createElement("h4", null, (props && props.data && props.data.title) || '')),
                 React.createElement("table", null,
                     React.createElement("tbody", null, data && data.map(function (item, index) {
-                        return (React.createElement(React.Fragment, null,
+                        return (React.createElement(React.Fragment, { key: index },
                             React.createElement("tr", { className: 'mobileHeading' },
                                 React.createElement("td", { colSpan: 3 }, item.day)),
                             React.createElement("tr", { className: 'normalRow' },

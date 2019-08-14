@@ -13,6 +13,7 @@ interface DoctorSearchResultsProps {
 }
 
 function isDoctorActive(workingHours: LooseObject) {
+  const i = Math.random();
   const weekDayKey = getWeekDayKey();
 
   if (
@@ -23,7 +24,7 @@ function isDoctorActive(workingHours: LooseObject) {
   ) {
     if (!workingHours.weeks[0].days[weekDayKey] &&
       workingHours.weeks[0].days[weekDayKey].length > 0) {
-      return false;
+      return -1;
     }
 
     return workingHours.weeks[0].days[weekDayKey].some(doctorWorkingHours => {
@@ -36,21 +37,23 @@ function isDoctorActive(workingHours: LooseObject) {
           .startOf('day')
           .add(from[1], 'hours')
           .add(from[2], 'minutes');
+        
         const endOfShift = moment()
           .startOf('day')
           .add(to[1], 'hours')
           .add(to[2], 'minutes');
+        
         const now = moment();
-
         if (now.isSameOrBefore(endOfShift) && now.isSameOrAfter(startOfShift)) {
-          return true;
+          return 1;
         }
       }
-      return false;
+
+      return 0;
     });
   }
 
-  return null;
+  return -1;
 }
 
 function getWeekDayKey() {
@@ -97,8 +100,9 @@ export default function DoctorSearchResults (props: DoctorSearchResultsProps) {
     >
       {({ data }) => {
         if (data.length > 0) {
-          checkDoctorResults(data.length);
+          checkDoctorResults(true);
           
+          // const doctors = 
           return (
             <ul className={'searchBarResults__doctors'}>
               {data
@@ -117,13 +121,21 @@ export default function DoctorSearchResults (props: DoctorSearchResultsProps) {
                     };
                   }
                 )
-                .sort((a, b) => (a.isDoctorActive === true ? -1 : 1))
+                .sort((a, b) => {
+                  if (a.isDoctorActive === b.isDoctorActive) {
+                    if (a.name < b.name) { return -1; }
+                    if (a.name > b.name) { return 1; }
+                    return 0;
+                  }
+
+                  return b.isDoctorActive - a.isDoctorActive;
+                })
                 .map((doctor, i) => {
                   return (
                     <li 
                       key={i} 
                       className={
-                        (doctor.isDoctorActive === true || doctor.isDoctorActive === null)
+                        ([-1, 1].includes(doctor.isDoctorActive))
                         ? 'active' : ''
                       }
                       onClick={() => clearData()}
@@ -131,20 +143,20 @@ export default function DoctorSearchResults (props: DoctorSearchResultsProps) {
                       <Link {...doctor.link}>
                         <span>
                           <p>
-                            <span className={doctor.isDoctorActive === null ? 'noTimetable' : ''}>
+                            <span className={doctor.isDoctorActive === -1 ? 'noTimetable' : ''}>
                               {doctor.name}
                             </span>
 
-                            {doctor.isDoctorActive !== null && 
+                            {doctor.isDoctorActive > -1 && 
                               <>
                                 <span 
                                   style={
-                                    doctor.isDoctorActive ? 
-                                    {color: '#31a031'} : 
-                                    {color: '#c23636'} 
+                                    doctor.isDoctorActive === 1
+                                    ? {color: '#31a031'}
+                                    : {color: '#c23636'}
                                   }
                                 >
-                                  {doctor.isDoctorActive ? 'ordinuje' : 'v tuto chvíli neordinuje'}
+                                  {doctor.isDoctorActive === 1 ? 'ordinuje' : 'v tuto chvíli neordinuje'}
                                 </span>
                               </>
                             }
@@ -159,7 +171,7 @@ export default function DoctorSearchResults (props: DoctorSearchResultsProps) {
             </ul>
           );
         } else {
-          checkDoctorResults(null);
+          checkDoctorResults(false);
           return (<></>);
         }
       }}

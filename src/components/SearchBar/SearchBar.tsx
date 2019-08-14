@@ -15,8 +15,8 @@ export interface SearchBarProps {
 export interface SearchBarState {
   focused: boolean;
   query: string;
-  doctorResults: null | number;
-  blogResults: null | number;
+  doctorResults: boolean;
+  blogResults: boolean;
 }
 
 const doctorSearchResultsTemplate: LooseObject = {
@@ -54,12 +54,12 @@ class SearchBar extends React.Component<SearchBarProps, SearchBarState> {
     this.input = React.createRef();
     this.searchBar = React.createRef();
 
-    this.checkDoctorResults = debounce(this.checkDoctorResults, 10).bind(this);
-    this.checkBlogResults = debounce(this.checkBlogResults, 10).bind(this);
+    this.checkDoctorResults = debounce(this.checkDoctorResults, 50).bind(this);
+    this.checkBlogResults = debounce(this.checkBlogResults, 50).bind(this);
 
     this.handleClick = this.handleClick.bind(this);
-    this.clearData = debounce(this.clearData, 300).bind(this);
-    this.changeSearchQuery = debounce(this.changeSearchQuery, 300).bind(this);
+    this.clearData = debounce(this.clearData, 600).bind(this);
+    this.changeSearchQuery = debounce(this.changeSearchQuery, 600).bind(this);
   }
 
   componentDidMount() {
@@ -70,12 +70,16 @@ class SearchBar extends React.Component<SearchBarProps, SearchBarState> {
     document.removeEventListener('click', this.handleClick, false);
   }
 
-  checkDoctorResults(value: number | null) {
-    return this.setState({ doctorResults: value });
+  checkDoctorResults(doctorResults: boolean) {
+    if (doctorResults !== this.state.doctorResults) {
+      return this.setState({ doctorResults });
+    }
   }
 
-  checkBlogResults(value: number | null) {
-    return this.setState({ blogResults: value });
+  checkBlogResults(blogResults: boolean) {
+    if(blogResults !== this.state.blogResults) {
+      return this.setState({ blogResults });
+    }
   }
 
   handleFocus = () => {
@@ -105,7 +109,7 @@ class SearchBar extends React.Component<SearchBarProps, SearchBarState> {
   }
   
   renderNoResults() {
-    if (this.state.doctorResults === null && this.state.blogResults === null) {
+    if (!this.state.doctorResults && !this.state.blogResults) {
       return (
         <div className={'searchBarResults__noResults'}>
           Bohužel jsme nenašli žádné vysledky.
@@ -147,28 +151,32 @@ class SearchBar extends React.Component<SearchBarProps, SearchBarState> {
         </div>
 
         <div className={`searchBar__bar`} />
-        {this.state.query.length > 2 &&
-          <div className={`searchBarResults ${this.state.query.length > 2 ? 'active' : ''}`}>
-            {this.props.blogSearchResults && this.state.query.length > 2 && (
+        {this.state.query.length > 1 &&
+          <div className={`searchBarResults ${this.state.query.length > 1 ? 'active' : ''}`}>
+            {this.props.blogSearchResults && this.state.query.length > 1 && (
               <BlogSearchResults
                 query={this.state.query}
-                searchKeys={['translations.0.name', 'annotations.perex', 'annotations.title']}
+                searchKeys={[
+                  'pi.page.name',
+                  'pi.page.annotations.perex',
+                  'pi.page.annotations.title'
+                ]}
                 searchResults={this.props.blogSearchResults}
                 checkBlogResults={this.checkBlogResults}
               />
             )}
             
-            {doctorSearchResults && this.state.query.length > 2 && (
+            {doctorSearchResults && this.state.query.length > 1 && (
               <DoctorSearchResults
                 searchResults={doctorSearchResults}
                 query={this.state.query}
                 searchKeys={[
-                  'content.doctorPersonalInformation.firstName',
-                  'content.doctorPersonalInformation.lastName',
-                  'content.doctorPersonalInformation.expertises.0.name',
-                  'content.doctorPersonalInformation.polyclinic.name',
-                  'content.doctorPersonalInformation.prenominal',
-                  'content.doctorPersonalInformation.postnominal'
+                  'di.doctorPersonalInformation.firstName',
+                  'di.doctorPersonalInformation.lastName',
+                  'di.doctorPersonalInformation.expertises.0.name',
+                  'di.doctorPersonalInformation.polyclinic.name',
+                  'di.doctorPersonalInformation.prenominal',
+                  'di.doctorPersonalInformation.postnominal'
                 ]}
                 clearData={this.clearData}
                 checkDoctorResults={this.checkDoctorResults}

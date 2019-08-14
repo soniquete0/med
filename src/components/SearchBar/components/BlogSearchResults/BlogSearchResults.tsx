@@ -20,7 +20,7 @@ export default function BlogSearchResults({ searchResults, query, searchKeys, ch
     >
       {({ data }) => {
         if (data.length > 0) {
-          checkBlogResults(data.length);
+          checkBlogResults(true);
 
           return (
             <ul className={'searchBarResults__blog'}>
@@ -36,7 +36,7 @@ export default function BlogSearchResults({ searchResults, query, searchKeys, ch
             </ul>
           );
         } else {
-          checkBlogResults(null);
+          checkBlogResults(false);
           return (<></>);
         }
       }}
