@@ -2,6 +2,7 @@
 node_modules/
 .prettierrc
 .vscode/
+.history/
 
 # Ignore error logs
 npm-debug.log*
