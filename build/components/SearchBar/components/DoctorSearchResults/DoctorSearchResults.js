@@ -16,7 +16,6 @@ var moment = require("moment");
 var List_1 = require("../../../List");
 var Link_1 = require("../../../../partials/Link");
 function isDoctorActive(workingHours) {
-    var i = Math.random();
     var weekDayKey = getWeekDayKey();
     if (workingHours &&
         workingHours.weeks &&
@@ -41,11 +40,11 @@ function isDoctorActive(workingHours) {
                     .add(to[2], 'minutes');
                 var now = moment();
                 if (now.isSameOrBefore(endOfShift) && now.isSameOrAfter(startOfShift)) {
-                    return 1;
+                    return true;
                 }
             }
-            return 0;
-        });
+            return false;
+        }) ? 0 : 1;
     }
     return -1;
 }

@@ -3866,11 +3866,9 @@ cite {
         cursor: pointer;
         display: flex;
         justify-content: space-between;
-        color: #c5c8ca; }
-        .searchBarResults__doctors li.active {
-          color: black; }
-          .searchBarResults__doctors li.active span p span:nth-of-type(1):after {
-            background: #31a031; }
+        color: black; }
+        .searchBarResults__doctors li.active span p span:nth-of-type(1):after {
+          background: #31a031; }
         .searchBarResults__doctors li:hover {
           background: #c5c5c534; }
         .searchBarResults__doctors li:before {

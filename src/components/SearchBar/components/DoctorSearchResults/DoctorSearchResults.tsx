@@ -12,8 +12,7 @@ interface DoctorSearchResultsProps {
   checkDoctorResults: Function;
 }
 
-function isDoctorActive(workingHours: LooseObject) {
-  const i = Math.random();
+function isDoctorActive(workingHours: LooseObject): Number {
   const weekDayKey = getWeekDayKey();
 
   if (
@@ -45,12 +44,12 @@ function isDoctorActive(workingHours: LooseObject) {
         
         const now = moment();
         if (now.isSameOrBefore(endOfShift) && now.isSameOrAfter(startOfShift)) {
-          return 1;
+          return true;
         }
       }
 
-      return 0;
-    });
+      return false;
+    }) ? 0 : 1;
   }
 
   return -1;
@@ -144,7 +143,7 @@ export default function DoctorSearchResults (props: DoctorSearchResultsProps) {
                         <span>
                           <p>
                             <span className={doctor.isDoctorActive === -1 ? 'noTimetable' : ''}>
-                              {doctor.name}
+                              {doctor.name} 
                             </span>
 
                             {doctor.isDoctorActive > -1 && 
