@@ -1,4 +1,4 @@
-$avatar: 'avatar';
+$avatar: "avatar";
 $avatarRed: rgb(255, 153, 153);
 
 .avatarDoll {
@@ -31,16 +31,17 @@ $avatarRed: rgb(255, 153, 153);
       cursor: pointer;
       z-index: 100;
       stroke: none;
-      transition: 300ms ease;
+      // transition: 300ms ease;
 
       &:hover {
-        fill: $avatarRed;
+        fill: $avatarRed !important;
 
         path {
-          fill: $avatarRed;
+          fill: $avatarRed !important;
         }
       }
     }
+
     .#{avatar}__eye {
       fill: $lightBlue;
     }
@@ -64,6 +65,20 @@ $avatarRed: rgb(255, 153, 153);
           fill: $avatarRed;
         }
       }
+    }
+  }
+}
+
+.guid-animation {
+  animation: svg-color 2s ease-out infinite;
+
+  path {
+    animation: svg-color 2s ease-out infinite;
+  }
+
+  @keyframes svg-color {
+    to {
+      fill: $avatarRed;
     }
   }
 }

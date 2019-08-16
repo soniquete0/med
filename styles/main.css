@@ -6030,12 +6030,11 @@ cite {
     .avatarDoll svg .avatar__area {
       cursor: pointer;
       z-index: 100;
-      stroke: none;
-      transition: 300ms ease; }
+      stroke: none; }
       .avatarDoll svg .avatar__area:hover {
-        fill: #ff9999; }
+        fill: #ff9999 !important; }
         .avatarDoll svg .avatar__area:hover path {
-          fill: #ff9999; }
+          fill: #ff9999 !important; }
     .avatarDoll svg .avatar__eye {
       fill: #00aad0; }
   .avatarDoll.active--body .avatar__body {
@@ -6066,6 +6065,21 @@ cite {
     fill: #ff9999; }
     .avatarDoll.active--head .avatar__head path {
       fill: #ff9999; }
+
+.guid-animation {
+  -webkit-animation: svg-color 2s ease-out infinite;
+          animation: svg-color 2s ease-out infinite; }
+  .guid-animation path {
+    -webkit-animation: svg-color 2s ease-out infinite;
+            animation: svg-color 2s ease-out infinite; }
+
+@-webkit-keyframes svg-color {
+  to {
+    fill: #ff9999; } }
+
+@keyframes svg-color {
+  to {
+    fill: #ff9999; } }
 
 .myProblem {
   padding: 50px 0; }

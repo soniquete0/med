@@ -78,8 +78,10 @@ class MyProblem extends React.Component<MyProblemProps, MyProblemState> {
                   this.state.availableSpecializations.map((specialization, i) => {
                     if (specialization.link) {
                       return (
-                        <div className={'infoBox__item'} key={i}>
-                          <Link {...specialization.link}>{specialization.name}</Link>
+                        <div className={'infoBox__item'} key={`${specialization.name + i}`}>
+                          <Link {...specialization.link}>
+                            {specialization.name}
+                          </Link>
                         </div>
                       );
                     } else {

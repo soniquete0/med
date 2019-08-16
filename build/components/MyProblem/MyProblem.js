@@ -69,7 +69,7 @@ var MyProblem = /** @class */ (function (_super) {
                         this.state.availableSpecializations &&
                             this.state.availableSpecializations.map(function (specialization, i) {
                                 if (specialization.link) {
-                                    return (React.createElement("div", { className: 'infoBox__item', key: i },
+                                    return (React.createElement("div", { className: 'infoBox__item', key: "" + (specialization.name + i) },
                                         React.createElement(Link_1.default, __assign({}, specialization.link), specialization.name)));
                                 }
                                 else {
