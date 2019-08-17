@@ -56,21 +56,21 @@ class Avatar extends React.Component<AvatarProps, AvatarState> {
         { value: 'rgb(255, 153, 153)' },
         { value: 'rgb(255,255,255)' }
       ],
-    },           relativeOffset);
+    },                relativeOffset);
     this.timeline.add({
       targets: this.chest.current,
       fill: [
         { value: 'rgb(255, 153, 153)' },
         { value: 'rgb(255,230,6)' }
       ]
-    },           relativeOffset);
+    },                relativeOffset);
     this.timeline.add({
       targets: [this.leg1.current, this.leg2.current],
       fill: [
         { value: 'rgb(255, 153, 153)' },
         { value: 'rgb(255,255,255)' }
       ]
-    },           relativeOffset); 
+    },                relativeOffset); 
   }
 
   cancelAnimationLoop() {
