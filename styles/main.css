@@ -6011,7 +6011,6 @@ cite {
 
 .avatarDoll {
   width: 100%;
-  transition: 300ms ease;
   max-width: 290px; }
   @media (min-width: 576px) {
     .avatarDoll {
@@ -6038,48 +6037,33 @@ cite {
     .avatarDoll svg .avatar__eye {
       fill: #00aad0; }
   .avatarDoll.active--body .avatar__body {
-    fill: #ff9999; }
+    fill: #ff9999 !important; }
     .avatarDoll.active--body .avatar__body path {
-      fill: #ff9999; }
+      fill: #ff9999 !important; }
   .avatarDoll.active--belly .avatar__belly {
-    fill: #ff9999; }
+    fill: #ff9999 !important; }
     .avatarDoll.active--belly .avatar__belly path {
-      fill: #ff9999; }
+      fill: #ff9999 !important; }
   .avatarDoll.active--chest .avatar__chest {
-    fill: #ff9999; }
+    fill: #ff9999 !important; }
     .avatarDoll.active--chest .avatar__chest path {
-      fill: #ff9999; }
+      fill: #ff9999 !important; }
   .avatarDoll.active--feet .avatar__feet {
-    fill: #ff9999; }
+    fill: #ff9999 !important; }
     .avatarDoll.active--feet .avatar__feet path {
-      fill: #ff9999; }
+      fill: #ff9999 !important; }
   .avatarDoll.active--arm .avatar__arm {
-    fill: #ff9999; }
+    fill: #ff9999 !important; }
     .avatarDoll.active--arm .avatar__arm path {
-      fill: #ff9999; }
+      fill: #ff9999 !important; }
   .avatarDoll.active--legs .avatar__legs {
-    fill: #ff9999; }
+    fill: #ff9999 !important; }
     .avatarDoll.active--legs .avatar__legs path {
-      fill: #ff9999; }
+      fill: #ff9999 !important; }
   .avatarDoll.active--head .avatar__head {
-    fill: #ff9999; }
+    fill: #ff9999 !important; }
     .avatarDoll.active--head .avatar__head path {
-      fill: #ff9999; }
-
-.guid-animation {
-  -webkit-animation: svg-color 2s ease-out infinite;
-          animation: svg-color 2s ease-out infinite; }
-  .guid-animation path {
-    -webkit-animation: svg-color 2s ease-out infinite;
-            animation: svg-color 2s ease-out infinite; }
-
-@-webkit-keyframes svg-color {
-  to {
-    fill: #ff9999; } }
-
-@keyframes svg-color {
-  to {
-    fill: #ff9999; } }
+      fill: #ff9999 !important; }
 
 .myProblem {
   padding: 50px 0; }

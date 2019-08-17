@@ -25,6 +25,7 @@ var __assign = (this && this.__assign) || function () {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
+var scrollmonitor = require("scrollmonitor");
 var Link_1 = require("../../partials/Link");
 var Avatar_1 = require("./components/Avatar");
 var SvgIcon_1 = require("../../partials/SvgIcon");
@@ -52,17 +53,24 @@ var MyProblem = /** @class */ (function (_super) {
         _this.state = {
             area: '',
             availableSpecializations: null,
+            visible: false,
         };
+        _this.myProblem = React.createRef();
         return _this;
     }
+    MyProblem.prototype.componentDidMount = function () {
+        var _this = this;
+        var watcher = scrollmonitor.create(this.myProblem.current, { top: -600 });
+        watcher.enterViewport(function () { return _this.setState({ visible: true }); });
+    };
     MyProblem.prototype.render = function () {
         var _this = this;
         return (React.createElement("div", { className: "container" },
-            React.createElement("section", { className: 'myProblem' },
+            React.createElement("section", { className: 'myProblem', ref: this.myProblem },
                 React.createElement("h3", null, "M\u016Fj Probl\u00E9m se t\u00FDk\u00E1"),
                 React.createElement("p", null, "Klikn\u011Bte na \u010D\u00E1st t\u011Bla se kterou m\u00E1te probl\u00E9m."),
                 React.createElement("div", { className: 'flexRow myProblem__holder' },
-                    React.createElement(Avatar_1.default, { onClick: this.clickArea, activeArea: this.state.area ? 'active--' + this.state.area : '' }),
+                    React.createElement(Avatar_1.default, { onClick: this.clickArea, visible: this.state.visible, activeArea: this.state.area ? 'active--' + this.state.area : '' }),
                     this.state.area && (React.createElement("div", { className: "infoBox " + (this.state.area ? 'infoBox--' + this.state.area : '') },
                         React.createElement("div", { className: 'infoBox__close', onClick: function () { return _this.closeInfoBox(); } },
                             React.createElement(SvgIcon_1.default, { name: "close", type: "gray" })),
@@ -73,7 +81,7 @@ var MyProblem = /** @class */ (function (_super) {
                                         React.createElement(Link_1.default, __assign({}, specialization.link), specialization.name)));
                                 }
                                 else {
-                                    return (React.createElement("div", { className: 'infoBox__item' },
+                                    return (React.createElement("div", { key: specialization.name, className: 'infoBox__item' },
                                         React.createElement("p", null, specialization.name)));
                                 }
                             })))))));

@@ -65,6 +65,7 @@
     "react-router-dom": "^4.3.1",
     "react-swipeable": "^4.3.1",
     "remove-accents": "^0.4.2",
+    "scrollmonitor": "^1.2.4",
     "urlize": "^0.2.1"
   }
 }

@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as scrollmonitor from 'scrollmonitor';
 
 import Link from '../../partials/Link';
 import Avatar from './components/Avatar';
@@ -24,16 +25,27 @@ export interface MyProblemProps {
 export interface MyProblemState {
   area: string;
   availableSpecializations: Specialization[];
+  visible: boolean;
 }
 
 class MyProblem extends React.Component<MyProblemProps, MyProblemState> {
+  public myProblem: any;
+
   constructor(props: MyProblemProps) {
     super(props);
 
     this.state = {
       area: '',
       availableSpecializations: null,
+      visible: false,
     };
+
+    this.myProblem = React.createRef();
+  }
+
+  componentDidMount() {
+    const watcher = scrollmonitor.create(this.myProblem.current, { top: -600 });
+    watcher.enterViewport(() => this.setState({ visible: true }));
   }
 
   clickArea = (area: string) => {
@@ -60,13 +72,17 @@ class MyProblem extends React.Component<MyProblemProps, MyProblemState> {
   public render() {
     return (
       <div className="container">
-        <section className={'myProblem'}>
+        <section className={'myProblem'} ref={this.myProblem}>
           <h3>Můj Problém se týká</h3>
 
           <p>Klikněte na část těla se kterou máte problém.</p>
 
           <div className={'flexRow myProblem__holder'}>
-            <Avatar onClick={this.clickArea} activeArea={this.state.area ? 'active--' + this.state.area : ''} />
+            <Avatar
+              onClick={this.clickArea}
+              visible={this.state.visible}
+              activeArea={this.state.area ? 'active--' + this.state.area : ''}
+            />
 
             {this.state.area && (
               <div className={`infoBox ${this.state.area ? 'infoBox--' + this.state.area : ''}`}>
@@ -86,7 +102,7 @@ class MyProblem extends React.Component<MyProblemProps, MyProblemState> {
                       );
                     } else {
                       return (
-                        <div className={'infoBox__item'}>
+                        <div key={specialization.name} className={'infoBox__item'}>
                           <p>{specialization.name}</p>
                         </div>
                       );

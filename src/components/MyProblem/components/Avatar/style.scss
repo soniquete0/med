@@ -3,7 +3,6 @@ $avatarRed: rgb(255, 153, 153);
 
 .avatarDoll {
   width: 100%;
-  transition: 300ms ease;
   max-width: 290px;
 
   @include sm {
@@ -31,7 +30,6 @@ $avatarRed: rgb(255, 153, 153);
       cursor: pointer;
       z-index: 100;
       stroke: none;
-      // transition: 300ms ease;
 
       &:hover {
         fill: $avatarRed !important;
@@ -45,13 +43,6 @@ $avatarRed: rgb(255, 153, 153);
     .#{avatar}__eye {
       fill: $lightBlue;
     }
-
-    .#{avatar}__eyebrow,
-    .#{avatar}__mouth,
-    .#{avatar}__ear,
-    .#{avatar}__nose {
-      // stroke: $lightBlue;
-    }
   }
 
   $areaList: body belly chest feet arm legs head;
@@ -59,26 +50,12 @@ $avatarRed: rgb(255, 153, 153);
   @each $area in $areaList {
     &.active--#{$area} {
       .avatar__#{$area} {
-        fill: $avatarRed;
+        fill: $avatarRed !important;
 
         path {
-          fill: $avatarRed;
+          fill: $avatarRed !important;
         }
       }
-    }
-  }
-}
-
-.guid-animation {
-  animation: svg-color 2s ease-out infinite;
-
-  path {
-    animation: svg-color 2s ease-out infinite;
-  }
-
-  @keyframes svg-color {
-    to {
-      fill: $avatarRed;
     }
   }
 }

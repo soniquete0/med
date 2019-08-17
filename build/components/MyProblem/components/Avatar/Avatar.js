@@ -20,49 +20,75 @@ var Avatar = /** @class */ (function (_super) {
     function Avatar(props) {
         var _this = _super.call(this, props) || this;
         _this.state = {
-            cliked: false
+            clicked: false
         };
         _this.head = React.createRef();
         _this.chest = React.createRef();
         _this.leg1 = React.createRef();
         _this.leg2 = React.createRef();
-        _this.shapeTransform = _this.shapeTransform.bind(_this);
-        _this.cancelLoop = _this.cancelLoop.bind(_this);
+        _this.timeline = animejs_1.default.timeline({
+            easing: 'linear',
+            duration: 800,
+            loop: true,
+        });
+        _this.onClick = _this.onClick.bind(_this);
+        _this.highlight = _this.highlight.bind(_this);
+        _this.cancelAnimationLoop = _this.cancelAnimationLoop.bind(_this);
         return _this;
     }
-    Avatar.prototype.componentDidMount = function () {
-        // TODO: start only when viewport bottom on the screen
-        // TODO: start with head afetr chest and after legs
-        this.shapeTransform(this.head.current);
-        this.shapeTransform(this.chest.current);
-        this.shapeTransform([this.leg1.current, this.leg2.current]);
+    Avatar.prototype.componentWillReceiveProps = function (props) {
+        if (props.visible && !this.state.clicked) {
+            this.highlight();
+        }
     };
-    Avatar.prototype.cancelLoop = function () {
-        this.setState({ cliked: true });
-        animejs_1.default.remove([
-            this.head.current,
-            this.chest.current,
-            this.leg1.current,
-            this.leg2.current
-        ]);
+    Avatar.prototype.highlight = function () {
+        var relativeOffset = '+=500';
+        this.timeline.add({
+            targets: this.head.current,
+            fill: [
+                { value: 'rgb(255, 153, 153)' },
+                { value: 'rgb(255,255,255)' }
+            ],
+        }, relativeOffset);
+        this.timeline.add({
+            targets: this.chest.current,
+            fill: [
+                { value: 'rgb(255, 153, 153)' },
+                { value: 'rgb(255,230,6)' }
+            ]
+        }, relativeOffset);
+        this.timeline.add({
+            targets: [this.leg1.current, this.leg2.current],
+            fill: [
+                { value: 'rgb(255, 153, 153)' },
+                { value: 'rgb(255,255,255)' }
+            ]
+        }, relativeOffset);
+    };
+    Avatar.prototype.cancelAnimationLoop = function () {
+        this.timeline.pause();
+        this.setState({ clicked: true });
         animejs_1.default({
             targets: [
                 this.head.current,
                 this.leg1.current,
                 this.leg2.current
             ],
-            fill: '#fff',
-            duration: 100
+            fill: 'rgb(255,255,255)'
         });
         animejs_1.default({
             targets: this.chest.current,
-            fill: '#ffe606',
-            duration: 100
+            fill: 'rgb(255,230,6)'
         });
+    };
+    Avatar.prototype.onClick = function (part) {
+        var _this = this;
+        this.cancelAnimationLoop();
+        setTimeout(function () { return _this.props.onClick(part); }, 50);
     };
     Avatar.prototype.render = function () {
         var _this = this;
-        var _a = this.props, onClick = _a.onClick, activeArea = _a.activeArea;
+        var activeArea = this.props.activeArea;
         return (React.createElement("div", { className: "avatarDoll " + activeArea },
             React.createElement("svg", { version: "1.1", id: "Layer_1", xmlns: "http://www.w3.org/2000/svg", xmlnsXlink: "http://www.w3.org/1999/xlink", x: "0px", y: "0px", viewBox: "0 0 1218 1275.6", xmlSpace: "preserve" },
                 React.createElement("style", { type: "text/css", dangerouslySetInnerHTML: {
@@ -82,7 +108,7 @@ var Avatar = /** @class */ (function (_super) {
                         React.createElement("path", { className: "st2", d: "M840,328.3c0,0-0.7,9.3-0.5,16.7c0.2,7.4-1.4,21.1-1.4,21.1s12.6,18.3,30.4,16.2c17.7-2,32-17.8,32-17.8\r\n        s-3.4-8.5-3.9-21.7s-2.5-22.8-2.5-22.8L840,328.3z" }),
                         React.createElement("g", null,
                             React.createElement("path", { className: "st3", d: "M838.9,328.6c-0.8,11.9-0.5,23.9-1.7,35.8c-0.6,5.6,8.3,11.4,12.4,13.9c17.5,10.8,39.2-0.1,51.8-13.8\r\n          c0.1,0,0.1-0.1,0.1-0.2c-5.5-14.1-3.5-29.9-6.3-44.5c0-0.2-0.8-0.1-0.9-0.1c-18,2.8-36.1,5.5-54.1,8.3c-0.8,0.1-2,1-0.4,0.7\r\n          c9.7-1.5,19.3-3,29-4.4c6.2-1,12.4-1.9,18.6-2.8c1.7-0.3,3.5-0.4,5.3-0.8c0.2,0,1-0.3,1.2-0.2c-1.3-0.6-0.5,0.9-0.5,1.6\r\n          c-0.2,3.8,1.2,8.1,1.5,12c0.6,6.4,0.6,12.8,1.6,19.2c0.5,3.3,2.5,7.4,2.6,10.8c0,1.4,0,1.3-1.6,2.7c-7.4,7.1-16.9,13.5-27.2,15.1\r\n          c-10,1.5-19-3.3-26-10c-1.4-1.4-4.4-3.7-5-5.7s0.4-5.3,0.6-7.3c0.9-10.2,0.5-20.5,1.2-30.7C841.1,327.8,839,328,838.9,328.6z" })))),
-                React.createElement("g", { id: "man_x5F__x5F_feet", className: 'avatar__area avatar__feet', onClick: function () { onClick('feet'); _this.cancelLoop(); } },
+                React.createElement("g", { id: "man_x5F__x5F_feet", className: 'avatar__area avatar__feet', onClick: function () { return _this.onClick('feet'); } },
                     React.createElement("g", null,
                         React.createElement("path", { className: "st4", d: "M895.2,1094l-0.7,28.1c0,0,25.6,13.9,38.4,21.3s44.2,24.4,52.8,23.6c8.6-0.9,12.8-2.8,12.8-2.8\r\n        s6.5-13.2,2-24.3S957,1107,957,1107l-18.4-16.1c0,0-9.5,7.4-21.3,7.3c-8.1,0-16-3.7-20.2-6C895.8,1091.5,895.2,1092.5,895.2,1094z\r\n        " })),
                     React.createElement("g", null,
@@ -108,7 +134,7 @@ var Avatar = /** @class */ (function (_super) {
                 React.createElement("g", { id: "Layer_36" },
                     React.createElement("path", { className: "st5", d: "M837.3,351.3l-9.8,6c0,0,5.3,9.6,10.5,17.1s18,17.1,18,17.1l12.1-19.2c0,0-9-3.5-15.2-6.7\r\n      C844.8,361.4,837.3,351.3,837.3,351.3z" }),
                     React.createElement("path", { className: "st5", d: "M899.8,351.3l8.7,6c0,0-5.3,9.6-10.5,17.1s-18,17.1-18,17.1l-12.1-19.2c0,0,9.3-2.9,15.2-6.7\r\n      C888.3,362.3,899.8,351.3,899.8,351.3z" })),
-                React.createElement("g", { id: "man_x5F__x5F_legs", className: 'avatar__area avatar__legs', onClick: function () { onClick('legs'); _this.cancelLoop(); } },
+                React.createElement("g", { id: "man_x5F__x5F_legs", className: 'avatar__area avatar__legs', onClick: function () { return _this.onClick('legs'); } },
                     React.createElement("g", null,
                         React.createElement("linearGradient", { id: "SVGID_1_", gradientUnits: "userSpaceOnUse", x1: "777.3", y1: "453.7", x2: "938.6", y2: "453.7", gradientTransform: "matrix(1 0 0 1 0 432)" },
                             React.createElement("stop", { offset: 0, style: { stopColor: '#2472B7' } }),
@@ -129,7 +155,7 @@ var Avatar = /** @class */ (function (_super) {
                 React.createElement("g", { id: "Layer_23" },
                     React.createElement("path", { className: "st3", d: "M916.2,209.5c18.3,3.6,22.9,11,24.5,9.1s-10.4-12-25-14.8s-27.4-2.9-26.4,1.6S901.6,206.6,916.2,209.5z" }),
                     React.createElement("path", { className: "st3", d: "M822.6,209.5c-18.3,3.6-22.9,11-24.5,9.1s10.4-12,25-14.8s27.4-2.9,26.4,1.6S837.2,206.6,822.6,209.5z" })),
-                React.createElement("g", { id: "man_x5F__x5F_head", className: "avatar__head avatar__area", onClick: function () { onClick('head'); _this.cancelLoop(); } },
+                React.createElement("g", { id: "man_x5F__x5F_head", className: "avatar__head avatar__area", onClick: function () { return _this.onClick('head'); } },
                     React.createElement("g", null,
                         React.createElement("path", { ref: this.head, className: "st2", d: "M941.7,293.4c-10.1,24.7-52.4,51.9-78.5,51.6c-24.9-0.4-73.5-33.2-79.8-58.1c-6.3-25-9.6-60.5-6.3-75.6\r\n        c3.2-15.1-2.3-84.6,89.7-84.6c100.3,0,84.2,61.6,86.8,77.4S951.2,270.2,941.7,293.4z" }),
                         React.createElement("g", null,
@@ -180,7 +206,7 @@ var Avatar = /** @class */ (function (_super) {
                         React.createElement("stop", { offset: 1, style: { stopColor: '#00ACCE' } })),
                     React.createElement("path", { className: "st12", d: "M450.1,250.9c2.1,20.1,8.3,53.2,1,106.1c-6.8,50-25.5,69.1-61.8,89.8c-25.1,14.3-65.1,14-97.5,2.3\r\n      c-27.1-9.9-53.7-39.4-64.7-69.8s-9.6-66.5-7.4-92.9c2.6-30.8,10.7-69.8,23.4-88.9c20.7-31,35.4-47.8,62.9-56.4\r\n      c27-8.5,61.1,7.2,61.1,7.2s29,1.1,52.1,23.6C443.6,195.4,446.6,216.4,450.1,250.9z" })),
                 React.createElement("g", { id: "Layer_38" }),
-                React.createElement("g", { id: "woman_x5F__x5F_legs", className: 'avatar__area avatar__legs', onClick: function () { onClick('legs'); _this.cancelLoop(); } },
+                React.createElement("g", { id: "woman_x5F__x5F_legs", className: 'avatar__area avatar__legs', onClick: function () { return _this.onClick('legs'); } },
                     React.createElement("g", null,
                         React.createElement("path", { className: "st2", ref: this.leg1, d: "M400.7,849.9c0,0-6.2,24.7-6.5,42.5c-0.5,31.3,3.3,45.6,0.5,82.8c-1.9,25.2-6,77-6.3,89.5\r\n        c-0.5,29.1,2.6,35.2,40.9,58c15,8.9-43.3,2.7-58.9-0.8c-15.6-3.6-11.9-18.1-11.9-47.2c0-17.5-8-68.8-9.4-107.7\r\n        c-0.7-19.6,4.2-55.2,4.2-69.1l-8.6-44.5" }),
                         React.createElement("g", null,
@@ -189,7 +215,7 @@ var Avatar = /** @class */ (function (_super) {
                         React.createElement("path", { className: "st2", ref: this.leg2, d: "M281.5,849.9c0,0,6.2,24.7,6.5,42.5c0.5,31.3-3.3,45.6-0.5,82.8c1.9,25.2,6,77,6.3,89.5\r\n        c0.5,29.1-2.6,35.2-40.9,58c-15,8.9,43.3,2.7,58.9-0.8c15.6-3.6,11.9-18.1,11.9-47.2c0-17.5,8-68.8,9.4-107.7\r\n        c0.7-19.6-4.2-55.2-4.2-69.1l8.6-44.5" }),
                         React.createElement("g", null,
                             React.createElement("path", { className: "st3", d: "M280.4,850.2c2.4,9.5,4.2,19.1,5.4,28.7c1.7,13.8,1.1,27.7,0.5,41.5c-0.6,13.5-1.2,27-0.7,40.6\r\n          c0.5,13.1,1.7,26.2,2.7,39.3c1.7,22,4.1,44.3,4.4,66.4c0.1,8.8,0.2,18.2-3.9,26.2c-4.8,9.4-14.4,15.7-22.9,21.3\r\n          c-3.1,2-6.2,3.9-9.3,5.8c-1.9,1.2-4.6,2.1-6.1,3.8c-0.9,1-1.5,1.5-0.5,2.6c1.1,1.2,4.4,1.1,5.9,1.2c4,0.3,7.9,0.1,11.9-0.1\r\n          c9.8-0.5,19.6-1.5,29.4-2.8c6.5-0.9,14.5-1.3,20.4-4.6c7-3.9,7.6-12.6,7.7-19.8c0.2-11.8-0.8-23.5,0.1-35.2\r\n          c2.1-28.5,6.4-56.8,8.3-85.3c1.8-26.5-2.4-52.3-3.4-78.8c-0.2-5.6,1.4-11.2,2.5-16.7c1.7-8.7,3.4-17.4,5.1-26.2\r\n          c0.3-1.7,0.7-3.4,1-5.1c0-0.1-2,0-2.2,0.6c-2.6,13.5-5.2,26.9-7.8,40.4c-1.3,6.6-0.5,13.2,0.1,19.9c1.1,13.2,2.5,26.4,3.1,39.7\r\n          c1.3,28.4-3.1,57.1-6.1,85.2c-1.2,10.9-2.6,21.8-3,32.8c-0.5,11.7,1.2,23.5,0,35.1c-0.4,4-1.3,8.3-4.2,11.3\r\n          c-3.1,3.3-7.8,3.8-12,4.6c-9.3,1.6-18.6,2.7-28,3.4c-7.6,0.6-16.8,2.1-24.4,0.3c-2-0.5-3.2-1-1.7-2.8c1.8-2.1,5.7-3.5,8-4.9\r\n          c3-1.8,6-3.7,8.9-5.7c7.4-4.9,15.2-10.3,20.1-17.8c4.3-6.6,5.3-14.3,5.5-22c0.6-20.3-1.9-40.9-3.4-61.1\r\n          c-2-25.8-4.6-51.6-3.6-77.5c0.5-12.5,1.3-25,1.3-37.6c0-13.3-1.9-26.3-4.6-39.3c-0.6-2.7-1.2-5.4-1.8-8.1\r\n          C282.5,849.2,280.3,849.8,280.4,850.2L280.4,850.2z" })))),
-                React.createElement("g", { id: "woman_x5F__x5F_feet", className: 'avatar__area avatar__feet', onClick: function () { onClick('feet'); _this.cancelLoop(); } },
+                React.createElement("g", { id: "woman_x5F__x5F_feet", className: 'avatar__area avatar__feet', onClick: function () { return _this.onClick('feet'); } },
                     React.createElement("linearGradient", { id: "SVGID_5_", gradientUnits: "userSpaceOnUse", x1: "399.892", y1: "716.4375", x2: "399.892", y2: "661.7405", gradientTransform: "matrix(1 0 0 1 0 432)" },
                         React.createElement("stop", { offset: 0, style: { stopColor: '#9753A0' } }),
                         React.createElement("stop", { offset: 1, style: { stopColor: '#2E9491' } })),
@@ -203,7 +229,7 @@ var Avatar = /** @class */ (function (_super) {
                         React.createElement("path", { className: "st2", d: "M310.3,372.3c0,0,4,10.3,3.1,16.6c-0.9,6.3-0.5,17.1-4.1,21.1c-6.9,7.5-43.6,12.7-39.6,16.2\r\n        s28.7,44.1,67.5,44.1c45,0.1,58.5-39.8,63-43.1c6.2-4.6-32.7-11.5-40.5-18.9c-3.1-3-2.8-7.1-3.4-16.9c-0.6-11.3,0.2-19.2,0.2-19.2\r\n        L310.3,372.3L310.3,372.3z" }),
                         React.createElement("g", null,
                             React.createElement("path", { className: "st3", d: "M309.2,372.6c2.3,6,3.5,12,3,18.3c-0.6,6.8,0.4,16.9-6.1,21c-9.8,6.2-22.6,7.1-33.3,11.2\r\n          c-1.4,0.5-4.5,1.4-4.3,3.2c0.2,1.5,4.3,5.2,5.2,6.4c7.3,9.2,15.4,17.9,25.1,24.8c22.6,16.2,53.2,18,76.3,1.3\r\n          c8.5-6.2,15.1-14.4,20.7-23.2c1.6-2.5,2.9-5.3,4.8-7.6c1.4-1.7,2.3-2.2,0.2-3.9c-3.7-3.1-10-4.2-14.5-5.7\r\n          c-7-2.3-14.2-4.3-20.8-7.5c-6.6-3.3-7.3-7.8-7.6-14.8c-0.4-8-0.9-16.1,0-24.1c0-0.1-0.4-0.1-0.4-0.1c-15.5,0-30.9,0-46.4,0\r\n          c-0.4,0-2.5,0.8-1.4,0.8c9.7,0,19.4,0,29.1,0c5.1,0,10.3,0.1,15.4,0c0.3,0,1.3-0.2,1.5,0c0.6,0.4-0.3-0.4-0.1,0.2\r\n          c0.3,0.6-0.2,2.3-0.2,3c-0.1,2.4-0.2,4.9-0.2,7.3c0,5.4,0.3,10.8,0.6,16.2c0.2,3,0.4,6.3,2.4,8.7c3.4,4,10.1,5.7,14.9,7.4\r\n          c6.4,2.2,13,4.1,19.4,6.5c1.9,0.7,4.6,1.4,6.1,2.9c1.5,1.4,1.2,1.4,0.2,2.9c-4.5,6.9-8.7,14.1-14.1,20.4\r\n          C372.8,462,356.3,470,338,469.9c-18-0.1-34-9.2-46.9-21.1c-5.1-4.7-9.7-9.9-14.1-15.3c-1.2-1.5-2.4-3-3.6-4.6\r\n          c-0.5-0.7-2.2-2.1-2.5-3c-0.9-3,12.6-5.5,15.1-6.2c6.8-1.9,13.9-3.7,20.2-7c6.6-3.5,7.2-9.8,7.7-16.7c0.7-8.6,0.6-15.9-2.5-24\r\n          C311.2,371.5,309.1,372.2,309.2,372.6z" })))),
-                React.createElement("g", { id: "woman_x5F__x5F_arms", className: 'avatar__arm avatar__area', onClick: function () { onClick('arm'); _this.cancelLoop(); } },
+                React.createElement("g", { id: "woman_x5F__x5F_arms", className: 'avatar__arm avatar__area', onClick: function () { return _this.onClick('arm'); } },
                     React.createElement("g", { id: "Layer_11" },
                         React.createElement("g", null,
                             React.createElement("path", { className: "st2", d: "M294.4,433.1c-10.8-12.3-27.9-3.1-36.7,7.9c-8.8,11-61.7,129-66.9,149.2s9.4,18.8,19.6,10.3\r\n          c8.8-7.4,11.6-13.5,25.4-38c12.1-21.6,49.1-97.8,49.6-103.8c0.4-6,2.6-31.6,2.6-31.6" }),
@@ -235,7 +261,7 @@ var Avatar = /** @class */ (function (_super) {
                 React.createElement("g", { id: "Layer_40" },
                     React.createElement("circle", { className: "st15", cx: "428.6", cy: "318.9", r: "5.2" }),
                     React.createElement("circle", { className: "st15", cx: "242.1", cy: "318.9", r: "5.2" })),
-                React.createElement("g", { id: "woman_x5F__x5F_head", className: "avatar__head avatar__area", onClick: function () { onClick('head'); _this.cancelLoop(); } },
+                React.createElement("g", { id: "woman_x5F__x5F_head", className: "avatar__head avatar__area", onClick: function () { return _this.onClick('head'); } },
                     React.createElement("g", null,
                         React.createElement("path", { className: "st2", d: "M419.5,322.9c-13.2,22.9-45.1,59.6-83.4,59.6c-32.6,0-77.2-34.7-88.3-64.7c-12-32.4-6-74.4-2.4-91.4\r\n        c6.7-31.8,32.4-83.1,93.8-83.1c59.9,0,85.4,56.6,87.6,74.6C429.6,240.7,436.3,294,419.5,322.9z" }),
                         React.createElement("g", null,
@@ -278,7 +304,7 @@ var Avatar = /** @class */ (function (_super) {
                     React.createElement("path", { className: "st2", d: "M595,656c0,0,0.8,7.9,0,13.9s-5.9,14.1-5.9,14.1s7.9,17.3,22.7,17.8s28.5-11.3,28.5-11.3s-5.4-5.4-4.2-16.2\r\n      s4.2-18.3,4.2-18.3H595L595,656z" }),
                     React.createElement("g", null,
                         React.createElement("path", { className: "st3", d: "M593.9,656.3c0.5,5.3,0.9,11.1-0.5,16.3c-0.7,2.6-1.8,5-3,7.4c-0.5,0.9-2.2,3.1-2.3,4.2\r\n        c-0.1,1.3,1.6,3.2,2.2,4.3c2,3.1,4.4,6,7.3,8.4c13.1,10.9,32.2,3.5,43.7-6.4c0.1-0.1,0.1-0.2,0-0.3c-8.2-8.5-3.6-24.8,0-34.4\r\n        c0.1-0.2-0.2-0.2-0.4-0.2c-15.1,0-30.2,0-45.3,0c-0.4,0-2.5,0.8-1.4,0.8c8.2,0,16.4,0,24.7,0c5.2,0,10.5,0,15.7,0\r\n        c1,0,3.4-0.5,4.3,0c0.1,0.1,0.6-0.1,0.7,0c-0.5-0.6-0.8,1.3-1,1.6c-2.9,6.7-4.7,16.8-3.4,24c0.5,2.9,1.7,5.2,3.1,7.7\r\n        c0.9,1.7,1,0.3,0.3,1.5c-1.2,2-5.3,3.7-7.3,4.8c-5.7,3.2-12.2,5.7-18.8,5.3c-7.8-0.4-14.1-5.5-18.6-11.6c-1-1.3-3.2-3.8-3.4-5.5\r\n        c-0.2-1.6,1.3-3.2,2.1-4.8c3.9-7.7,4.4-15.4,3.6-23.9C596,655.3,593.8,655.7,593.9,656.3z" }))),
-                React.createElement("g", { id: "kid_x5F__x5F_arms", className: 'avatar__arm avatar__area', onClick: function () { onClick('arm'); _this.cancelLoop(); } },
+                React.createElement("g", { id: "kid_x5F__x5F_arms", className: 'avatar__arm avatar__area', onClick: function () { return _this.onClick('arm'); } },
                     React.createElement("g", null,
                         React.createElement("g", null,
                             React.createElement("path", { className: "st2", d: "M715,773.2l-32.7-18.3l25.1-31.3c0,0,37.6,30.3,44,38.6s-1.8,15.9-4.6,22.3c-2.8,6.4-19.4,23.8-26.3,30.3\r\n          s-23,15.2-23,15.2" }),
@@ -322,14 +348,14 @@ var Avatar = /** @class */ (function (_super) {
                                 React.createElement("path", { className: "st2", d: "M476.8,670.1c0,0-4.7-11.1-7.7-12.2s-11.3,0.6-14.2,2s-5.4,1.8-5.4,1.8s0.9,6.2,4.5,7.4s7.9,0,7.9,0\r\n            s-5.3,2.6-5.7,6.7c-0.4,4,0.5,7.7,3.8,10.5" }),
                                 React.createElement("g", null,
                                     React.createElement("path", { className: "st3", d: "M477.9,669.8c-1.6-3.7-4-10.7-8-12.4c-6.4-2.7-14.5,2.6-20.5,3.8c-0.3,0.1-1,0.4-1,0.8\r\n              c1.2,7.4,6.8,9.3,13.6,7.6c-0.3-0.3-0.5-0.5-0.8-0.8c-7.3,3.7-8.1,12.2-2.2,17.8c0.5,0.5,2.6-0.3,2-0.8\r\n              c-5.2-5-5.2-12.9,1.5-16.4c1.1-0.6-0.2-1-0.8-0.8c-2.6,0.6-10-0.2-11.2-7.2c-0.3,0.3-0.6,0.5-1,0.8c5.4-1.1,14.6-7.1,19.7-3\r\n              c3.1,2.5,4.9,7.6,6.4,11.1C476,671.1,478.1,670.4,477.9,669.8L477.9,669.8z" })))))),
-                React.createElement("g", { id: "kid_x5F__x5F_legs", className: 'avatar__area avatar__legs', onClick: function () { onClick('legs'); _this.cancelLoop(); } },
+                React.createElement("g", { id: "kid_x5F__x5F_legs", className: 'avatar__area avatar__legs', onClick: function () { return _this.onClick('legs'); } },
                     React.createElement("linearGradient", { id: "SVGID_8_", gradientUnits: "userSpaceOnUse", x1: 554, y1: "557.4017", x2: "671.7133", y2: "557.4017", gradientTransform: "matrix(1 0 0 1 0 432)" },
                         React.createElement("stop", { offset: 0, style: { stopColor: '#2472B7' } }),
                         React.createElement("stop", { offset: 1, style: { stopColor: '#00A9CF' } })),
                     React.createElement("path", { className: "st18", d: "M554,881.5c0,0,0.3,43.8,5.5,90s19,123.3,19,123.3s3.1,2.9,13.4,3.6s18.9-3.6,18.9-3.6V938l6.6,0.7l4,156.3\r\n      c0,0,8.8,4.5,18.3,3.3s14.3-3.7,14.3-3.7s10.9-84.4,14.5-117.9c3.6-33.4,3.2-96.4,3.2-96.4L554,881.5z" }),
                     React.createElement("g", null,
                         React.createElement("path", { className: "st3", d: "M552.6,881.9c0.3,38.4,3.4,76.9,8.7,114.9c2.8,20.1,6,40.2,9.3,60.2c1.3,7.7,2.6,15.5,3.9,23.2\r\n        c0.8,4.3,1,9.4,2.4,13.6c1.2,3.6,6.2,4.1,9.6,4.6c8.4,1.3,17.5,0.3,25.2-3.5c0.2-0.1,0.6-0.3,0.6-0.6c0-45.7,0-91.5,0-137.2\r\n        c0-6.5,0-13,0-19.5c-0.8,0.3-1.6,0.7-2.4,1c1.4,0.2,2.8,0.3,4.3,0.5c0.9,0.1,2,0.5,1.8,0.1c0.2,0.3,0.1,1.4,0,1.8\r\n        c-0.2,3.2,0.2,6.5,0.2,9.7c0.3,12,0.6,24,0.9,36c0.7,29.3,1.5,58.6,2.2,87.9c0.2,7,0.3,14,0.5,21l0.1,0.1\r\n        c8.8,4.3,18.5,4.2,27.8,1.8c3.2-0.8,7-1.2,7.9-4.4c1.2-4.9,1.3-10.3,2-15.3c1.1-8.9,2.3-17.9,3.4-26.9\r\n        c5-40.2,10.5-80.2,11.6-120.8c0.5-16.7,0.7-33.3,0.6-50c0-0.2-0.4-0.2-0.5-0.2c-34.3,0.3-68.7,0.6-103,0.9\r\n        c-4.9,0-9.7,0.1-14.6,0.1c-0.6,0-3.3,1.2-1.9,1.2c31.9-0.3,63.7-0.5,95.6-0.8c6.3,0,12.7-0.1,19-0.2c0.5,0,2.6-0.4,3,0\r\n        c-0.8-0.7-0.5,4.1-0.5,4.7c0,24.6-0.3,49.2-1.8,73.8c-1.4,23.7-4.8,47.3-7.7,70.9c-2.5,20.5-5.1,40.9-7.7,61.4\r\n        c-0.1,0.8-0.2,1.7-0.3,2.5c-0.1,1.1,0.1,0.4,0.3,0.3c-2.1,1.8-6.9,2.2-9.4,2.7c-5.7,1-11.1,0.7-16.6-1.1c-2.3-0.7-3.6-0.7-4.2-2.5\r\n        c-0.4-1.4-0.1-3.3-0.1-4.7c-0.4-15.5-0.8-31-1.2-46.5c-0.9-34-1.7-68.1-2.6-102.1c0-0.7,0-1.4,0-2.1c0-0.2-0.4-0.2-0.5-0.2\r\n        c-2.2-0.2-4.4-0.5-6.6-0.7c-0.5-0.1-2.4,0.2-2.4,1c0,43.6,0,87.1,0,130.7c0,7.9,0,15.8,0,23.7c0,0.6,0.1,1.3,0,1.9\r\n        c0,0.1,0,0.3,0,0.4c-0.2,0.7,1-1.1,0.3-0.4c-0.6,0.6-2,0.8-2.7,1.1c-6.9,2.4-14.4,2.7-21.5,0.8c-1.4-0.4-4.7-1.2-5.5-2.3\r\n        c-1.3-1.9-1.1-6.4-1.5-8.6c-1.2-6.7-2.3-13.4-3.4-20.1c-3.2-19.3-6.3-38.5-9.2-57.9c-6.1-41.9-10.1-84.2-10.3-126.6\r\n        C555.5,880.6,552.5,881.1,552.6,881.9z" }))),
-                React.createElement("g", { id: "kid_x5F_feet", className: 'avatar__area avatar__feet', onClick: function () { onClick('feet'); _this.cancelLoop(); } },
+                React.createElement("g", { id: "kid_x5F_feet", className: 'avatar__area avatar__feet', onClick: function () { return _this.onClick('feet'); } },
                     React.createElement("g", null,
                         React.createElement("path", { className: "st3", d: "M611.1,1092.6l-0.3,22.5c0,0-16.1,13.6-28.6,20.8s-21.2,11.9-29.6,11.1c-8.4-0.8-12.5-2.7-12.5-2.7\r\n        s-6.4-9.9-1.9-20.8s24.6-24.1,24.6-24.1l15-9.8c0,0-0.7,7.2,10.8,7.2c7.9,0,15.7-3.6,19.7-5.9\r\n        C609.6,1090.2,611.2,1091.1,611.1,1092.6z" }),
                         React.createElement("g", null,
@@ -348,7 +374,7 @@ var Avatar = /** @class */ (function (_super) {
                     React.createElement("g", null,
                         React.createElement("path", { className: "st3", d: "M545.5,602.7c-9.7,4.5-21.3,3.5-28-5.4c-7.4-9.9-10.5-25.8-0.4-35.2c5.8-5.4,18.5-8.6,25.6-3.2\r\n        c1.4,1.1,1.1,1.4,1.2,3.3c0.3,7.5,0.5,15,0.8,22.5c0.2,6.1,0.4,12.2,0.6,18.3c0,0.2,1.5,0,1.5-0.4c-0.3-7.6-0.5-15.1-0.8-22.7\r\n        c-0.2-5-0.3-10-0.5-15c0-1.3,0.5-4.7-0.3-5.8c-0.7-1.1-3.4-1.7-4.5-2c-3.3-1-6.8-1.5-10.2-1.2c-5.3,0.5-10.7,2.7-14.6,6.4\r\n        c-11,10.4-6.9,28.9,3,38.5c7.2,7,19,6.1,27.6,2.1C547.2,602.5,545.8,602.5,545.5,602.7z" }))),
                 React.createElement("path", { className: "st19", d: "M540.7,593.3c0,0-11.7,3-18.1-4.5c-6.4-7.5-5.2-12.1-3.8-16.3c2.3-7,11.3-8,15.8-3.5c5.3,5.3,5.9,7.5,5.9,7.5\r\n    L540.7,593.3z" }),
-                React.createElement("g", { id: "kid_x5F__x5F_head", className: "avatar__head avatar__area", onClick: function () { onClick('head'); _this.cancelLoop(); } },
+                React.createElement("g", { id: "kid_x5F__x5F_head", className: "avatar__head avatar__area", onClick: function () { return _this.onClick('head'); } },
                     React.createElement("path", { className: "st2", d: "M723,574.3c-6.4,23.5-12.4,61.8-32.3,73.2c-19.9,11.4-56.1,26.3-80,21.3c-23.8-5-70.4-29.9-74.3-54.7\r\n      s-3.9-66.5,0-81s37-91,111.6-71.1s76.4,58.3,78.2,73.9C728.1,551.6,723,574.3,723,574.3z" }),
                     React.createElement("g", null,
                         React.createElement("path", { className: "st3", d: "M721.2,574c-3.1,11.5-5.5,23.2-9,34.6c-3.5,11.4-7.8,23.9-16.2,32.7c-8.2,8.6-21.8,13.4-32.6,17.6\r\n        c-13.3,5.2-27.6,9.5-41.9,9.7c-11.3,0.1-22.1-3.9-32.3-8.5c-11.7-5.2-23-11.8-32.8-20.1c-8-6.8-16.1-15.2-18.1-25.9\r\n        c-2.3-13-2.7-26.5-2.9-39.6c-0.2-16.5-0.6-34.1,5.9-49.5c5.8-13.8,14-26.8,24.2-37.7c13.3-14.2,30.7-24.6,50.3-26.8\r\n        c13.4-1.5,26.5,1,39.2,4.9c12.8,3.9,25.5,9,36.8,16.3c13.6,8.8,24.8,21.2,29.5,36.9c4.4,15,3.9,31.1,1.4,46.5\r\n        C722.3,568,721.8,571,721.2,574c-0.4,1.6,3.3,2.3,3.7,0.6c6.9-31.4,5.3-65.3-20.7-87.4c-8.8-7.5-19-13.1-29.7-17.6\r\n        c-13.5-5.7-28.2-10.5-42.9-11.8c-21.3-1.9-42.1,4.6-58.7,18c-13.5,10.8-24,25.2-31.7,40.6c-2.4,4.8-4.6,9.7-6.2,14.8\r\n        c-2.8,9.2-3,19.4-3.3,28.9c-0.4,14.1,0,28.4,1.4,42.5c0.6,5.7,0.9,11.8,3,17.2c1.8,4.6,4.7,8.8,7.9,12.5\r\n        c8.2,9.5,18.8,16.8,29.6,23c10.3,5.8,21.3,10.9,32.8,14c25.9,6.9,55.3-4.9,78.2-16.7c10.5-5.4,17.7-11.7,23.1-22.4\r\n        c6-11.7,9.3-24.7,12.5-37.4c1.5-6,2.9-12.1,4.5-18.1C725.3,573.1,721.6,572.4,721.2,574z" }))),
@@ -416,31 +442,31 @@ var Avatar = /** @class */ (function (_super) {
                     React.createElement("linearGradient", { id: "man_x5F__x5F_arm_2_", gradientUnits: "userSpaceOnUse", x1: "638.3", y1: "112.049", x2: "999.5", y2: "112.049", gradientTransform: "matrix(1 0 0 1 0 432)" },
                         React.createElement("stop", { offset: 0, style: { stopColor: '#3EB558' } }),
                         React.createElement("stop", { offset: 1, style: { stopColor: '#00ADCF' } })),
-                    React.createElement("path", { id: "man_x5F__x5F_arm_1_", className: "st22 avatar__area avatar__arm", onClick: function () { onClick('arm'); _this.cancelLoop(); }, d: "M723.3,565.5c-8.8,16.7-85,136.7-85,136.7l37.6,11.6c0,0,81.1-114.9,87.4-138\r\n      c1.5-5.5,24.2-85.2,33.2-116.9l-25.3-84.6C754.1,400.4,729.4,553.9,723.3,565.5z" }),
+                    React.createElement("path", { id: "man_x5F__x5F_arm_1_", className: "st22 avatar__area avatar__arm", onClick: function () { return _this.onClick('arm'); }, d: "M723.3,565.5c-8.8,16.7-85,136.7-85,136.7l37.6,11.6c0,0,81.1-114.9,87.4-138\r\n      c1.5-5.5,24.2-85.2,33.2-116.9l-25.3-84.6C754.1,400.4,729.4,553.9,723.3,565.5z" }),
                     React.createElement("linearGradient", { id: "man_x5F__x5F_arm_3_", gradientUnits: "userSpaceOnUse", x1: "638.3", y1: "130.9186", x2: "999.5", y2: "130.9186", gradientTransform: "matrix(1 0 0 1 0 432)" },
                         React.createElement("stop", { offset: 0, style: { stopColor: '#3EB558' } }),
                         React.createElement("stop", { offset: 1, style: { stopColor: '#00ADCF' } })),
-                    React.createElement("path", { id: "man_x5F__x5F_arm", className: "st23 avatar__area avatar__arm", onClick: function () { onClick('arm'); _this.cancelLoop(); }, d: "M996.2,576.4c-0.3-13.9-19.5-188.8-39.8-202.6c-1.2-0.9-2.6-1.7-4-2.5L936.5,464\r\n      c9.5,34.4,17.6,107.8,17.9,114.7c1,18.7,7.5,175.8,7.5,175.8l37.6-1.3C999.2,752.8,996.5,590.3,996.2,576.4z" }),
+                    React.createElement("path", { id: "man_x5F__x5F_arm", className: "st23 avatar__area avatar__arm", onClick: function () { return _this.onClick('arm'); }, d: "M996.2,576.4c-0.3-13.9-19.5-188.8-39.8-202.6c-1.2-0.9-2.6-1.7-4-2.5L936.5,464\r\n      c9.5,34.4,17.6,107.8,17.9,114.7c1,18.7,7.5,175.8,7.5,175.8l37.6-1.3C999.2,752.8,996.5,590.3,996.2,576.4z" }),
                     React.createElement("linearGradient", { id: "man_x5F__x5F_belly_1_", gradientUnits: "userSpaceOnUse", x1: "638.3", y1: "184.295", x2: "999.5", y2: "184.295", gradientTransform: "matrix(1 0 0 1 0 432)" },
                         React.createElement("stop", { offset: 0, style: { stopColor: '#3EB558' } }),
                         React.createElement("stop", { offset: 1, style: { stopColor: '#00ADCF' } })),
-                    React.createElement("path", { id: "man_x5F__x5F_belly", className: "st24 avatar__area avatar__belly", onClick: function () { onClick('belly'); _this.cancelLoop(); }, d: "M782.5,676.5l77.9,7.2l75.8-7.2c0,0-2.5-83.1-2.2-125.3c0-0.7,0-1.5,0-2.3H792.4\r\n      C791.4,587.7,782.5,676.5,782.5,676.5z" }),
+                    React.createElement("path", { id: "man_x5F__x5F_belly", className: "st24 avatar__area avatar__belly", onClick: function () { return _this.onClick('belly'); }, d: "M782.5,676.5l77.9,7.2l75.8-7.2c0,0-2.5-83.1-2.2-125.3c0-0.7,0-1.5,0-2.3H792.4\r\n      C791.4,587.7,782.5,676.5,782.5,676.5z" }),
                     React.createElement("linearGradient", { id: "man_x5F__x5F_chest_1_", gradientUnits: "userSpaceOnUse", x1: "638.3", y1: "20.645", x2: "999.5", y2: "20.645", gradientTransform: "matrix(1 0 0 1 0 432)" },
                         React.createElement("stop", { offset: 0, style: { stopColor: '#3EB558' } }),
                         React.createElement("stop", { offset: 1, style: { stopColor: '#00ADCF' } })),
-                    React.createElement("path", { id: "man_x5F__x5F_chest", className: 'avatar__area avatar__chest st25', onClick: function () { onClick('chest'); _this.cancelLoop(); }, d: "M898.2,356.4c0,0-4.7,16-30,16s-30-16-30-16s-44.5,3.1-63.9,14.6c-1,0.6-2,1.7-3,3.3\r\n      l25.3,84.6c0.2-0.7,0.4-1.4,0.6-2.1c2.1,23.5-4.4,77.9-4.6,89.3c0,0.9,0,1.8-0.1,2.8H934c-0.1-17.6-2.4-55.5,2.2-86.1\r\n      c0.1,0.4,0.2,0.8,0.3,1.2l15.8-92.6C933.2,360.9,898.2,356.4,898.2,356.4z" })),
+                    React.createElement("path", { id: "man_x5F__x5F_chest", className: 'avatar__area avatar__chest st25', onClick: function () { return _this.onClick('chest'); }, d: "M898.2,356.4c0,0-4.7,16-30,16s-30-16-30-16s-44.5,3.1-63.9,14.6c-1,0.6-2,1.7-3,3.3\r\n      l25.3,84.6c0.2-0.7,0.4-1.4,0.6-2.1c2.1,23.5-4.4,77.9-4.6,89.3c0,0.9,0,1.8-0.1,2.8H934c-0.1-17.6-2.4-55.5,2.2-86.1\r\n      c0.1,0.4,0.2,0.8,0.3,1.2l15.8-92.6C933.2,360.9,898.2,356.4,898.2,356.4z" })),
                 React.createElement("g", null,
                     React.createElement("linearGradient", { id: "woman_x5F__x5F_chest_1_", gradientUnits: "userSpaceOnUse", x1: "253.6615", y1: "69.8594", x2: "430.1677", y2: "69.8594", gradientTransform: "matrix(1 0 0 1 0 432)" },
                         React.createElement("stop", { offset: 0, style: { stopColor: '#937C9F' } }),
                         React.createElement("stop", { offset: 1, style: { stopColor: '#AC91B6' } })),
-                    React.createElement("path", { id: "woman_x5F__x5F_chest", className: 'avatar__area avatar__chest st26', onClick: function () { onClick('chest'); _this.cancelLoop(); }, d: "M390.7,561.8c0.5-11.5,18.1-26,18.1-47.4c0-15.2-5.2-28.6-5.3-40.2\r\n      c-0.4-29.2,8.1-47.8-0.9-51.6c-17-7.2-18.4,1-31.6,9c-26.5,15.9-48.4,11.9-71.9,0.8c-22-10.4-16.3-15.7-32.6-7\r\n      c-8.7,4.6,0.2,24.6,0.6,48.8c0.1,12.6-4.4,26.5-3.8,40.2c1.3,28.1,16.6,37.2,17.7,51c0.5,6.2,0.4,12.4-0.1,18.5h110.6\r\n      C390.7,577,390.4,569.7,390.7,561.8z" }),
+                    React.createElement("path", { id: "woman_x5F__x5F_chest", className: 'avatar__area avatar__chest st26', onClick: function () { return _this.onClick('chest'); }, d: "M390.7,561.8c0.5-11.5,18.1-26,18.1-47.4c0-15.2-5.2-28.6-5.3-40.2\r\n      c-0.4-29.2,8.1-47.8-0.9-51.6c-17-7.2-18.4,1-31.6,9c-26.5,15.9-48.4,11.9-71.9,0.8c-22-10.4-16.3-15.7-32.6-7\r\n      c-8.7,4.6,0.2,24.6,0.6,48.8c0.1,12.6-4.4,26.5-3.8,40.2c1.3,28.1,16.6,37.2,17.7,51c0.5,6.2,0.4,12.4-0.1,18.5h110.6\r\n      C390.7,577,390.4,569.7,390.7,561.8z" }),
                     React.createElement("linearGradient", { id: "woman_x5F__x5F_belly_1_", gradientUnits: "userSpaceOnUse", x1: "253.6615", y1: "320.1451", x2: "430.1677", y2: "320.1451", gradientTransform: "matrix(1 0 0 1 0 432)" },
                         React.createElement("stop", { offset: 0, style: { stopColor: '#937C9F' } }),
                         React.createElement("stop", { offset: 1, style: { stopColor: '#AC91B6' } })),
-                    React.createElement("path", { id: "woman_x5F__x5F_belly", className: 'avatar__area avatar__belly st27', onClick: function () { onClick('belly'); _this.cancelLoop(); }, d: "M425.7,711.2c-4.6-57-29.1-84.8-34.2-127.3H280.9c-3.5,41.5-26.7,81.3-27,129.8\r\n      c-0.8,153.9-4.6,206.7,92.3,206.7C424.7,920.4,439.2,877.4,425.7,711.2z" })),
+                    React.createElement("path", { id: "woman_x5F__x5F_belly", className: 'avatar__area avatar__belly st27', onClick: function () { return _this.onClick('belly'); }, d: "M425.7,711.2c-4.6-57-29.1-84.8-34.2-127.3H280.9c-3.5,41.5-26.7,81.3-27,129.8\r\n      c-0.8,153.9-4.6,206.7,92.3,206.7C424.7,920.4,439.2,877.4,425.7,711.2z" })),
                 React.createElement("g", null,
-                    React.createElement("path", { id: "kid_x5F__x5F_belly", className: 'avatar__area avatar__belly st28', onClick: function () { onClick('belly'); _this.cancelLoop(); }, d: "M557.5,804.1c-0.8,18.2-1.6,36.3-2.1,54.4c-0.2,6.7-0.4,13.3-0.6,20\r\n      c0,1-0.5,2.7-0.1,3.7c0,0,0,0,0,0c0.5,0.4,1.7,0.4,2.4,0.6c36.8,8.3,77.9,11.1,114.1-1.8c-0.7-28.6-2.2-57.1-3.3-85.6H557.8\r\n      C557.7,798.3,557.6,801.2,557.5,804.1z" }),
-                    React.createElement("path", { ref: this.chest, id: "kid_x5F__x5F_chest", className: 'avatar__area avatar__chest st28', onClick: function () { onClick('chest'); _this.cancelLoop(); }, d: "M556.7,749.8c0.9,15.1,1.4,30.4,1.1,45.6h110.1c-0.4-10.4-0.8-20.9-1-31.3\r\n      c0-0.9,1.9-1.4,2.6-1c0.1,0.1,0.3,0.1,0.4,0.2c0,0,0,0,0,0c0,0,0,0,0,0c4.6,2.4,9.1,4.9,13.7,7.4c4.9-10.2,9.7-20.4,16.3-29.7\r\n      c3.5-5,7.2-9.8,10.9-14.6c1.7-2.2,2-1.2-0.2-2.8c-7.3-5.3-14.6-10.5-22-15.7c-8.9-6.2-17.7-12.5-26.9-18.2\r\n      c-7.7-4.8-16.1-6.4-25-7.3c-9.4,8.9-27.7,12.8-38.9,6c-2.2-1.3-4.1-3.1-5.5-5.3c-0.7-1-1-2.6-1.7-3.6c0,0-0.1,0-0.1,0\r\n      c-0.4,0-0.9,0.1-1.3,0.1c-2.5,0.1-5,0.6-7.4,1.2c-3.7,1-7,2.8-10.2,4.9c-11.1,7.2-22,14.8-32.9,22.2c-5.3,3.6-10.7,7.3-16,10.9\r\n      c-1.7,1.2-3.4,2.3-5.1,3.5c-0.8,0.6-1.1,1-1.2,0.9c0.9,1.9,4.6,4.8,5.7,6.1c3.2,4,6.1,8.1,8.7,12.5c3.8,6.3,7.4,12.9,10.7,19.5\r\n      c4.1-3.7,8.3-7.4,12.4-11.1C554.2,749.4,556.7,749.1,556.7,749.8z" }),
+                    React.createElement("path", { id: "kid_x5F__x5F_belly", className: 'avatar__area avatar__belly st28', onClick: function () { return _this.onClick('belly'); }, d: "M557.5,804.1c-0.8,18.2-1.6,36.3-2.1,54.4c-0.2,6.7-0.4,13.3-0.6,20\r\n      c0,1-0.5,2.7-0.1,3.7c0,0,0,0,0,0c0.5,0.4,1.7,0.4,2.4,0.6c36.8,8.3,77.9,11.1,114.1-1.8c-0.7-28.6-2.2-57.1-3.3-85.6H557.8\r\n      C557.7,798.3,557.6,801.2,557.5,804.1z" }),
+                    React.createElement("path", { ref: this.chest, id: "kid_x5F__x5F_chest", className: 'avatar__area avatar__chest st28', onClick: function () { return _this.onClick('chest'); }, d: "M556.7,749.8c0.9,15.1,1.4,30.4,1.1,45.6h110.1c-0.4-10.4-0.8-20.9-1-31.3\r\n      c0-0.9,1.9-1.4,2.6-1c0.1,0.1,0.3,0.1,0.4,0.2c0,0,0,0,0,0c0,0,0,0,0,0c4.6,2.4,9.1,4.9,13.7,7.4c4.9-10.2,9.7-20.4,16.3-29.7\r\n      c3.5-5,7.2-9.8,10.9-14.6c1.7-2.2,2-1.2-0.2-2.8c-7.3-5.3-14.6-10.5-22-15.7c-8.9-6.2-17.7-12.5-26.9-18.2\r\n      c-7.7-4.8-16.1-6.4-25-7.3c-9.4,8.9-27.7,12.8-38.9,6c-2.2-1.3-4.1-3.1-5.5-5.3c-0.7-1-1-2.6-1.7-3.6c0,0-0.1,0-0.1,0\r\n      c-0.4,0-0.9,0.1-1.3,0.1c-2.5,0.1-5,0.6-7.4,1.2c-3.7,1-7,2.8-10.2,4.9c-11.1,7.2-22,14.8-32.9,22.2c-5.3,3.6-10.7,7.3-16,10.9\r\n      c-1.7,1.2-3.4,2.3-5.1,3.5c-0.8,0.6-1.1,1-1.2,0.9c0.9,1.9,4.6,4.8,5.7,6.1c3.2,4,6.1,8.1,8.7,12.5c3.8,6.3,7.4,12.9,10.7,19.5\r\n      c4.1-3.7,8.3-7.4,12.4-11.1C554.2,749.4,556.7,749.1,556.7,749.8z" }),
                     React.createElement("path", { className: "st29", d: "M668.5,763.8c0,0-0.1,0-0.1,0.1c0,0.2,0,0.6,0,1.1c0.5,0.3,1,0.5,1.4,0.8c0-0.4,0-0.9,0-1.3L668.5,763.8z" }),
                     React.createElement("path", { className: "st29", d: "M669.4,795.4h1.5c-0.4-9.9-0.7-19.7-1-29.6c-0.5-0.3-1-0.5-1.4-0.8C668.5,768.9,668.9,781.5,669.4,795.4z" }),
                     React.createElement("path", { className: "st29", d: "M635.2,682.4c0.1,0,0.2,0,0.2,0c0.1,0,0.1-0.1,0.1-0.1C635.5,682.3,635.3,682.4,635.2,682.4z" }),
@@ -478,19 +504,6 @@ var Avatar = /** @class */ (function (_super) {
                 React.createElement("g", null,
                     React.createElement("path", { className: "st3", d: "M572.8,683.5c0,0,7.4,22.2,7.4,111c0,61.9-1.4,94.2-1.4,94.2l7.4,1c0,0,0.9-55.5,0.9-94.5\r\n      c0-86.8-5-115.3-5-115.3l-4.9,1.5L572.8,683.5z" }),
                     React.createElement("path", { className: "st3", d: "M658.8,686.1c0,0-8.1,20.6-8.1,109.4c0,61.9,1.4,92.3,1.4,92.3l-7.4,1.9c0,0-0.9-54.5-0.9-93.5\r\n      c0-86.8,5.8-113.2,5.8-113.2l5.6,1.6L658.8,686.1z" })))));
-    };
-    Avatar.prototype.shapeTransform = function (targets) {
-        if (this.state.cliked) {
-            return;
-        }
-        animejs_1.default({
-            targets: targets,
-            loop: true,
-            fill: [
-                { value: 'rgb(255, 153, 153)' },
-            ],
-            easing: 'linear',
-        });
     };
     return Avatar;
 }(React.Component));

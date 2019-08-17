@@ -4,10 +4,11 @@ import anime from 'animejs';
 export interface AvatarProps {
   onClick: (area: string) => void;
   activeArea: string;
+  visible: boolean;
 }
 
 interface AvatarState {
-  cliked: boolean;
+  clicked: boolean;
 }
 
 class Avatar extends React.Component<AvatarProps, AvatarState> {
@@ -15,39 +16,66 @@ class Avatar extends React.Component<AvatarProps, AvatarState> {
   public chest: any;
   public leg1: any;
   public leg2: any;
+  public timeline: any;
 
   constructor(props: AvatarProps) {
     super(props);
 
     this.state = {
-      cliked: false
-    };
+      clicked: false
+    }
 
     this.head = React.createRef();
     this.chest = React.createRef();
     this.leg1 = React.createRef();
     this.leg2 = React.createRef();
 
-    this.shapeTransform = this.shapeTransform.bind(this);
-    this.cancelLoop = this.cancelLoop.bind(this);
+    this.timeline = anime.timeline({
+      easing: 'linear',
+      duration: 800,
+      loop: true,
+    });
+
+    this.onClick = this.onClick.bind(this);
+    this.highlight = this.highlight.bind(this);
+    this.cancelAnimationLoop = this.cancelAnimationLoop.bind(this);
   }
 
-  componentDidMount() {
-    // TODO: start only when viewport bottom on the screen
-    // TODO: start with head afetr chest and after legs
-    this.shapeTransform(this.head.current);
-    this.shapeTransform(this.chest.current);
-    this.shapeTransform([this.leg1.current, this.leg2.current]);
+  componentWillReceiveProps(props: AvatarProps) {
+    if (props.visible && !this.state.clicked) {
+      this.highlight();
+    }
   }
 
-  cancelLoop() {
-    this.setState({ cliked: true });
-    anime.remove([
-      this.head.current,
-      this.chest.current,
-      this.leg1.current,
-      this.leg2.current
-    ]);
+  highlight() {
+    const relativeOffset = '+=500';
+
+    this.timeline.add({
+      targets: this.head.current,
+      fill: [
+        { value: 'rgb(255, 153, 153)' },
+        { value: 'rgb(255,255,255)' }
+      ],
+    },           relativeOffset);
+    this.timeline.add({
+      targets: this.chest.current,
+      fill: [
+        { value: 'rgb(255, 153, 153)' },
+        { value: 'rgb(255,230,6)' }
+      ]
+    },           relativeOffset);
+    this.timeline.add({
+      targets: [this.leg1.current, this.leg2.current],
+      fill: [
+        { value: 'rgb(255, 153, 153)' },
+        { value: 'rgb(255,255,255)' }
+      ]
+    },           relativeOffset); 
+  }
+
+  cancelAnimationLoop() {
+    this.timeline.pause();
+    this.setState({ clicked: true });
 
     anime({
       targets: [
@@ -55,18 +83,22 @@ class Avatar extends React.Component<AvatarProps, AvatarState> {
         this.leg1.current,
         this.leg2.current
       ],
-      fill: '#fff',
-      duration: 100
+      fill: 'rgb(255,255,255)'
     });
     anime({
       targets: this.chest.current,
-      fill: '#ffe606',
-      duration: 100
+      fill: 'rgb(255,230,6)'
     });
+
+  }
+
+  onClick(part: string) {
+    this.cancelAnimationLoop();
+    setTimeout(() => this.props.onClick(part), 50);
   }
 
   render() {
-    const { onClick, activeArea } = this.props;
+    const { activeArea } = this.props;
 
     return (
       <div className={`avatarDoll ${activeArea}`}>
@@ -150,7 +182,7 @@ class Avatar extends React.Component<AvatarProps, AvatarState> {
           <g 
             id="man_x5F__x5F_feet"
             className={'avatar__area avatar__feet'}
-            onClick={() => { onClick('feet'); this.cancelLoop() }}
+            onClick={() => this.onClick('feet')}
           >
             <g>
               <path
@@ -240,7 +272,7 @@ class Avatar extends React.Component<AvatarProps, AvatarState> {
           <g
             id="man_x5F__x5F_legs"
             className={'avatar__area avatar__legs'}
-            onClick={() => { onClick('legs'); this.cancelLoop() }}
+            onClick={() => this.onClick('legs')}
           >
             <g>
               <linearGradient
@@ -338,7 +370,7 @@ class Avatar extends React.Component<AvatarProps, AvatarState> {
           <g
             id="man_x5F__x5F_head"
             className="avatar__head avatar__area"
-            onClick={() => { onClick('head'); this.cancelLoop() }}
+            onClick={() => this.onClick('head')}
           >
             <g>
               <path
@@ -514,7 +546,7 @@ class Avatar extends React.Component<AvatarProps, AvatarState> {
           <g
             id="woman_x5F__x5F_legs"
             className={'avatar__area avatar__legs'}
-            onClick={() => { onClick('legs'); this.cancelLoop() }}
+            onClick={() => this.onClick('legs')}
           >
             <g>
               <path
@@ -570,7 +602,7 @@ class Avatar extends React.Component<AvatarProps, AvatarState> {
           <g
             id="woman_x5F__x5F_feet"
             className={'avatar__area avatar__feet'}
-            onClick={() => { onClick('feet'); this.cancelLoop() }}
+            onClick={() => this.onClick('feet')}
           >
             <linearGradient
               id="SVGID_5_"
@@ -635,7 +667,7 @@ class Avatar extends React.Component<AvatarProps, AvatarState> {
           <g
             id="woman_x5F__x5F_arms"
             className={'avatar__arm avatar__area'}
-            onClick={() => { onClick('arm'); this.cancelLoop() }}
+            onClick={() => this.onClick('arm')}
           >
             <g id="Layer_11">
               <g>
@@ -774,7 +806,7 @@ class Avatar extends React.Component<AvatarProps, AvatarState> {
           <g
             id="woman_x5F__x5F_head"
             className="avatar__head avatar__area"
-            onClick={() => { onClick('head'); this.cancelLoop() }}
+            onClick={() => this.onClick('head')}
           >
             <g>
               <path
@@ -915,7 +947,7 @@ class Avatar extends React.Component<AvatarProps, AvatarState> {
           <g
             id="kid_x5F__x5F_arms"
             className={'avatar__arm avatar__area'}
-            onClick={() => { onClick('arm'); this.cancelLoop() }}
+            onClick={() => this.onClick('arm')}
           >
             <g>
               <g>
@@ -1077,7 +1109,7 @@ class Avatar extends React.Component<AvatarProps, AvatarState> {
           <g
             id="kid_x5F__x5F_legs"
             className={'avatar__area avatar__legs'} 
-            onClick={() => { onClick('legs'); this.cancelLoop() }}
+            onClick={() => this.onClick('legs')}
           >
             <linearGradient
               id="SVGID_8_"
@@ -1119,7 +1151,7 @@ class Avatar extends React.Component<AvatarProps, AvatarState> {
           <g 
             id="kid_x5F_feet" 
             className={'avatar__area avatar__feet'}
-            onClick={() => { onClick('feet'); this.cancelLoop() }}
+            onClick={() => this.onClick('feet')}
           >
             <g>
               <path
@@ -1207,7 +1239,7 @@ class Avatar extends React.Component<AvatarProps, AvatarState> {
           <g
             id="kid_x5F__x5F_head"
             className="avatar__head avatar__area"
-            onClick={() => { onClick('head'); this.cancelLoop() }}
+            onClick={() => this.onClick('head')}
           >
             <path
               className="st2"
@@ -1382,7 +1414,7 @@ class Avatar extends React.Component<AvatarProps, AvatarState> {
             <path
               id="man_x5F__x5F_arm_1_"
               className="st22 avatar__area avatar__arm"
-              onClick={() => { onClick('arm'); this.cancelLoop() }}
+              onClick={() => this.onClick('arm')}
               d="M723.3,565.5c-8.8,16.7-85,136.7-85,136.7l37.6,11.6c0,0,81.1-114.9,87.4-138
       c1.5-5.5,24.2-85.2,33.2-116.9l-25.3-84.6C754.1,400.4,729.4,553.9,723.3,565.5z"
             />
@@ -1401,7 +1433,7 @@ class Avatar extends React.Component<AvatarProps, AvatarState> {
             <path
               id="man_x5F__x5F_arm"
               className="st23 avatar__area avatar__arm"
-              onClick={() => { onClick('arm'); this.cancelLoop() }}
+              onClick={() => this.onClick('arm')}
               d="M996.2,576.4c-0.3-13.9-19.5-188.8-39.8-202.6c-1.2-0.9-2.6-1.7-4-2.5L936.5,464
       c9.5,34.4,17.6,107.8,17.9,114.7c1,18.7,7.5,175.8,7.5,175.8l37.6-1.3C999.2,752.8,996.5,590.3,996.2,576.4z"
             />
@@ -1420,7 +1452,7 @@ class Avatar extends React.Component<AvatarProps, AvatarState> {
             <path
               id="man_x5F__x5F_belly"
               className="st24 avatar__area avatar__belly"
-              onClick={() => { onClick('belly'); this.cancelLoop() }}
+              onClick={() => this.onClick('belly')}
               d="M782.5,676.5l77.9,7.2l75.8-7.2c0,0-2.5-83.1-2.2-125.3c0-0.7,0-1.5,0-2.3H792.4
       C791.4,587.7,782.5,676.5,782.5,676.5z"
             />
@@ -1439,7 +1471,7 @@ class Avatar extends React.Component<AvatarProps, AvatarState> {
             <path
               id="man_x5F__x5F_chest"
               className={'avatar__area avatar__chest st25'}
-              onClick={() => { onClick('chest'); this.cancelLoop() }}
+              onClick={() => this.onClick('chest')}
               d="M898.2,356.4c0,0-4.7,16-30,16s-30-16-30-16s-44.5,3.1-63.9,14.6c-1,0.6-2,1.7-3,3.3
       l25.3,84.6c0.2-0.7,0.4-1.4,0.6-2.1c2.1,23.5-4.4,77.9-4.6,89.3c0,0.9,0,1.8-0.1,2.8H934c-0.1-17.6-2.4-55.5,2.2-86.1
       c0.1,0.4,0.2,0.8,0.3,1.2l15.8-92.6C933.2,360.9,898.2,356.4,898.2,356.4z"
@@ -1461,7 +1493,7 @@ class Avatar extends React.Component<AvatarProps, AvatarState> {
             <path
               id="woman_x5F__x5F_chest"
               className={'avatar__area avatar__chest st26'}
-              onClick={() => { onClick('chest'); this.cancelLoop() }}
+              onClick={() => this.onClick('chest')}
               d="M390.7,561.8c0.5-11.5,18.1-26,18.1-47.4c0-15.2-5.2-28.6-5.3-40.2
       c-0.4-29.2,8.1-47.8-0.9-51.6c-17-7.2-18.4,1-31.6,9c-26.5,15.9-48.4,11.9-71.9,0.8c-22-10.4-16.3-15.7-32.6-7
       c-8.7,4.6,0.2,24.6,0.6,48.8c0.1,12.6-4.4,26.5-3.8,40.2c1.3,28.1,16.6,37.2,17.7,51c0.5,6.2,0.4,12.4-0.1,18.5h110.6
@@ -1482,7 +1514,7 @@ class Avatar extends React.Component<AvatarProps, AvatarState> {
             <path
               id="woman_x5F__x5F_belly"
               className={'avatar__area avatar__belly st27'}
-              onClick={() => { onClick('belly'); this.cancelLoop() }}
+              onClick={() => this.onClick('belly')}
               d="M425.7,711.2c-4.6-57-29.1-84.8-34.2-127.3H280.9c-3.5,41.5-26.7,81.3-27,129.8
       c-0.8,153.9-4.6,206.7,92.3,206.7C424.7,920.4,439.2,877.4,425.7,711.2z"
             />
@@ -1491,7 +1523,7 @@ class Avatar extends React.Component<AvatarProps, AvatarState> {
             <path
               id="kid_x5F__x5F_belly"
               className={'avatar__area avatar__belly st28'}
-              onClick={() => { onClick('belly'); this.cancelLoop() }}
+              onClick={() => this.onClick('belly')}
               d="M557.5,804.1c-0.8,18.2-1.6,36.3-2.1,54.4c-0.2,6.7-0.4,13.3-0.6,20
       c0,1-0.5,2.7-0.1,3.7c0,0,0,0,0,0c0.5,0.4,1.7,0.4,2.4,0.6c36.8,8.3,77.9,11.1,114.1-1.8c-0.7-28.6-2.2-57.1-3.3-85.6H557.8
       C557.7,798.3,557.6,801.2,557.5,804.1z"
@@ -1500,7 +1532,7 @@ class Avatar extends React.Component<AvatarProps, AvatarState> {
               ref={this.chest}
               id="kid_x5F__x5F_chest"
               className={'avatar__area avatar__chest st28'}
-              onClick={() => { onClick('chest'); this.cancelLoop() }}
+              onClick={() => this.onClick('chest')}
               d="M556.7,749.8c0.9,15.1,1.4,30.4,1.1,45.6h110.1c-0.4-10.4-0.8-20.9-1-31.3
       c0-0.9,1.9-1.4,2.6-1c0.1,0.1,0.3,0.1,0.4,0.2c0,0,0,0,0,0c0,0,0,0,0,0c4.6,2.4,9.1,4.9,13.7,7.4c4.9-10.2,9.7-20.4,16.3-29.7
       c3.5-5,7.2-9.8,10.9-14.6c1.7-2.2,2-1.2-0.2-2.8c-7.3-5.3-14.6-10.5-22-15.7c-8.9-6.2-17.7-12.5-26.9-18.2
@@ -1671,21 +1703,6 @@ class Avatar extends React.Component<AvatarProps, AvatarState> {
         </svg>
       </div>
     );
-  }
-
-  private shapeTransform(targets: any) {
-    if (this.state.cliked) {
-      return;
-    }
-
-    anime({
-      targets: targets,
-      loop: true,
-      fill: [
-        { value: 'rgb(255, 153, 153)' },
-      ],
-      easing: 'linear',
-    });
   }
 }
 
