@@ -1,5 +1,13 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var WorkingHours_1 = require("./WorkingHours");
-exports.default = WorkingHours_1.default;
-//# sourceMappingURL=index.js.map
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports["default"] = void 0;
+
+var _WorkingHours = _interopRequireDefault(require("./WorkingHours"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+var _default = _WorkingHours["default"];
+exports["default"] = _default;

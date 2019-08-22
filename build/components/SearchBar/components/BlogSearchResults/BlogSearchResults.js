@@ -1,36 +1,44 @@
 "use strict";
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var React = require("react");
-var List_1 = require("../../../List");
-var Link_1 = require("../../../../partials/Link");
-// tslint:disable-next-line:max-line-length
-function BlogSearchResults(_a) {
-    var searchResults = _a.searchResults, query = _a.query, searchKeys = _a.searchKeys, checkBlogResults = _a.checkBlogResults;
-    return (React.createElement(List_1.default, { data: searchResults, searchedText: query, searchKeys: searchKeys }, function (_a) {
-        var data = _a.data;
-        if (data.length > 0) {
-            checkBlogResults(true);
-            return (React.createElement("ul", { className: 'searchBarResults__blog' }, data.map(function (blogItem, i) { return (React.createElement("li", { key: i },
-                React.createElement(Link_1.default, __assign({}, blogItem.link),
-                    React.createElement("div", null,
-                        React.createElement("h4", null, blogItem.name || blogItem.title))))); })));
-        }
-        else {
-            checkBlogResults(false);
-            return (React.createElement(React.Fragment, null));
-        }
-    }));
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports["default"] = BlogSearchResults;
+
+var React = _interopRequireWildcard(require("react"));
+
+var _List = _interopRequireDefault(require("../../../List"));
+
+var _Link = _interopRequireDefault(require("../../../../partials/Link"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj["default"] = obj; return newObj; } }
+
+function BlogSearchResults(_ref) {
+  var searchResults = _ref.searchResults,
+      query = _ref.query,
+      searchKeys = _ref.searchKeys,
+      checkBlogResults = _ref.checkBlogResults;
+  return React.createElement(_List["default"], {
+    data: searchResults,
+    searchedText: query,
+    searchKeys: searchKeys
+  }, function (_ref2) {
+    var data = _ref2.data;
+
+    if (data.length > 0) {
+      checkBlogResults(true);
+      return React.createElement("ul", {
+        className: 'searchBarResults__blog'
+      }, data.map(function (blogItem, i) {
+        return React.createElement("li", {
+          key: i
+        }, React.createElement(_Link["default"], blogItem.link, React.createElement("div", null, React.createElement("h4", null, blogItem.name || blogItem.title))));
+      }));
+    } else {
+      checkBlogResults(false);
+      return React.createElement(React.Fragment, null);
+    }
+  });
 }
-exports.default = BlogSearchResults;
-//# sourceMappingURL=BlogSearchResults.js.map

@@ -1,36 +1,70 @@
 "use strict";
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-var React = require("react");
-var Examination_1 = require("./components/Examination");
-// tslint:disable-next-line:max-line-length
-var ExpertiseDescriptionExamination = /** @class */ (function (_super) {
-    __extends(ExpertiseDescriptionExamination, _super);
-    function ExpertiseDescriptionExamination(props) {
-        return _super.call(this, props) || this;
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports["default"] = void 0;
+
+var React = _interopRequireWildcard(require("react"));
+
+var _Examination = _interopRequireDefault(require("./components/Examination"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj["default"] = obj; return newObj; } }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var ExpertiseDescriptionExamination = function (_React$Component) {
+  _inherits(ExpertiseDescriptionExamination, _React$Component);
+
+  function ExpertiseDescriptionExamination(props) {
+    _classCallCheck(this, ExpertiseDescriptionExamination);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(ExpertiseDescriptionExamination).call(this, props));
+  }
+
+  _createClass(ExpertiseDescriptionExamination, [{
+    key: "render",
+    value: function render() {
+      var _this$props = this.props,
+          title = _this$props.title,
+          examinations = _this$props.examinations;
+      return React.createElement("div", {
+        className: 'examination'
+      }, title && React.createElement("h3", null, title), React.createElement("div", {
+        className: 'examination__list row'
+      }, examinations && examinations.map(function (examination, i) {
+        return React.createElement("div", {
+          key: i,
+          className: "col-12 ".concat(i === 2 ? 'col-md-12' : 'col-md-6')
+        }, React.createElement(_Examination["default"], {
+          url: examination.url,
+          title: examination.title,
+          description: examination.description
+        }));
+      })));
     }
-    ExpertiseDescriptionExamination.prototype.render = function () {
-        var _a = this.props, title = _a.title, examinations = _a.examinations;
-        return (React.createElement("div", { className: 'examination' },
-            title && React.createElement("h3", null, title),
-            React.createElement("div", { className: 'examination__list row' }, examinations && examinations.map(function (examination, i) {
-                return (React.createElement("div", { key: i, className: "col-12 " + (i === 2 ? 'col-md-12' : 'col-md-6') },
-                    React.createElement(Examination_1.default, { url: examination.url, title: examination.title, description: examination.description })));
-            }))));
-    };
-    return ExpertiseDescriptionExamination;
-}(React.Component));
-exports.default = ExpertiseDescriptionExamination;
-//# sourceMappingURL=ExpertiseDescriptionExamination.js.map
+  }]);
+
+  return ExpertiseDescriptionExamination;
+}(React.Component);
+
+var _default = ExpertiseDescriptionExamination;
+exports["default"] = _default;

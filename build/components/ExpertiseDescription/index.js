@@ -1,5 +1,13 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var ExpertiseDescription_1 = require("./ExpertiseDescription");
-exports.default = ExpertiseDescription_1.default;
-//# sourceMappingURL=index.js.map
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports["default"] = void 0;
+
+var _ExpertiseDescription = _interopRequireDefault(require("./ExpertiseDescription"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+var _default = _ExpertiseDescription["default"];
+exports["default"] = _default;

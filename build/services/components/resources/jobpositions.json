@@ -1,68 +1,68 @@
 {
-    "name": "JobPositions",
-    "data": {
-        "title": "Výpis aktuálních pozic",
-        "positions": [
-            {
-                "name": "Dermatolog",
-                "url": "",
-                "image": {
-                    "recommendedSizes": {
-                        "width": "400",
-                        "height": "296"
-                    }
-                }
-            },
-            {
-                "name": "Gynekolog",
-                "url": "",
-                "image": {
-                    "recommendedSizes": {
-                        "width": "400",
-                        "height": "296"
-                    }
-                }
-            },
-            {
-                "name": "Ortoped",
-                "url": "",
-                "image": {
-                    "recommendedSizes": {
-                        "width": "400",
-                        "height": "296"
-                    }
-                }
-            }
-        ]
-    },
-    "form": {
-        "schema": {
-            "type": "object",
-            "properties": {
-                "title": {
-                    "type": "text",
-                    "title": "Title"
-                },
-                "positions": {
-                    "type": "array",
-                    "title": "Positions",
-                    "items": {
-                        "properties": {
-                            "name": {
-                                "type": "text",
-                                "title": "Name of position"
-                            },
-                            "url": {
-                                "type": "urlAutocomplete",
-                                "title": "URL"
-                            },
-                            "image": {
-                                "type": "image"
-                            }
-                        }
-                    }
-                }
-            }
+  "name": "JobPositions",
+  "data": {
+    "title": "Výpis aktuálních pozic",
+    "positions": [
+      {
+        "name": "Dermatolog",
+        "url": "",
+        "image": {
+          "recommendedSizes": {
+            "width": "400",
+            "height": "296"
+          }
         }
+      },
+      {
+        "name": "Gynekolog",
+        "url": "",
+        "image": {
+          "recommendedSizes": {
+            "width": "400",
+            "height": "296"
+          }
+        }
+      },
+      {
+        "name": "Ortoped",
+        "url": "",
+        "image": {
+          "recommendedSizes": {
+            "width": "400",
+            "height": "296"
+          }
+        }
+      }
+    ]
+  },
+  "form": {
+    "schema": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "text",
+          "title": "Title"
+        },
+        "positions": {
+          "type": "array",
+          "title": "Positions",
+          "items": {
+            "properties": {
+              "name": {
+                "type": "text",
+                "title": "Name of position"
+              },
+              "url": {
+                "type": "urlAutocomplete",
+                "title": "URL"
+              },
+              "image": {
+                "type": "image"
+              }
+            }
+          }
+        }
+      }
     }
+  }
 }

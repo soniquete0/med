@@ -4,6 +4,7 @@ const { dest, parallel, pipe, src, watch } = require('gulp');
 const sass = require('gulp-sass');
 const postcss = require('gulp-postcss');
 const autoprefixer = require('autoprefixer');
+const babel = require('gulp-babel');
 
 const root = path.resolve(__dirname);
 
@@ -12,6 +13,46 @@ function buildJs(cb) {
   execSync(`npx tsc --build ./tsconfig.json`, {
     cwd: root,
   });
+
+  cb();
+}
+
+function buildTsWithBabel(cb) {
+  const srcFolder = path.resolve(root, 'src');
+  const tsFiles = srcFolder + '/**/*.ts';
+  const tsxFiles = srcFolder + '/**/*.tsx';
+
+  const buildFolder = path.resolve(root, 'build');
+
+  const options = {
+    presets: [
+      '@babel/preset-env',
+      '@babel/typescript',
+      '@babel/react'
+    ],
+    plugins: [
+      ['module-resolver', {
+        'root': ['./src'],
+        'alias': {
+          '@source': './src',
+        },
+      }],
+      '@babel/proposal-class-properties',
+      '@babel/proposal-object-rest-spread'
+    ],
+    comments: false,
+  };
+
+  const jsonFiles = srcFolder + '/**/*.json';
+
+  // Copy all JSON files
+  src([jsonFiles])
+  .pipe(dest(buildFolder));
+
+  // Build TS using Babel
+  src([tsFiles, tsxFiles])
+  .pipe(babel(options))
+  .pipe(dest(buildFolder));
 
   cb();
 }
@@ -25,17 +66,17 @@ function buildSass(cb) {
   cb();
 }
 
-const build = parallel(buildJs, buildSass);
+const build = parallel(buildTsWithBabel, buildSass);
 
 function watchJs() {
   const tsFiles = path.resolve(root, 'src') + '/**/*.ts';
   watch(tsFiles, { ignoreInitial: true }, (cb) => {
-    buildJs(cb);
+    buildTsWithBabel(cb);
   });
 
   const tsxFiles = path.resolve(root, 'src') + '/**/*.tsx';
   watch(tsxFiles, { ignoreInitial: true }, (cb) => {
-    buildJs(cb);
+    buildTsWithBabel(cb);
   });
 }
 
@@ -57,6 +98,7 @@ const watchAll = parallel(watchJs, watchSass);
 module.exports = {
   build,
   buildJs,
+  buildTs: buildTsWithBabel,
   buildSass,
   watch: watchAll,
   watchJs,

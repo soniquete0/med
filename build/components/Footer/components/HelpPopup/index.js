@@ -1,5 +1,13 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var HelpPopup_1 = require("./HelpPopup");
-exports.default = HelpPopup_1.default;
-//# sourceMappingURL=index.js.map
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports["default"] = void 0;
+
+var _HelpPopup = _interopRequireDefault(require("./HelpPopup"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+var _default = _HelpPopup["default"];
+exports["default"] = _default;

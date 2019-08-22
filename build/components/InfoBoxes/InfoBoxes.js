@@ -1,19 +1,47 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var React = require("react");
-var List_1 = require("../List");
-var InfoElement_1 = require("./components/InfoElement");
-var InfoBoxes = function (props) {
-    var _a = props.data, title = _a.title, boxes = _a.boxes;
-    return (React.createElement("section", { className: 'info-boxes' },
-        React.createElement("div", { className: 'container' },
-            title && React.createElement("h3", null, title),
-            React.createElement("div", { className: 'info-boxes__list row' },
-                React.createElement(List_1.default, { data: boxes }, function (_a) {
-                    var data = _a.data;
-                    return data &&
-                        data.map(function (box, i) { return (React.createElement(InfoElement_1.default, { key: i, link: box.link, title: box.title, image: box.image, button: box.button, titleColor: box.titleColor, gradientColor: box.gradientColor })); });
-                })))));
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports["default"] = void 0;
+
+var React = _interopRequireWildcard(require("react"));
+
+var _List = _interopRequireDefault(require("../List"));
+
+var _InfoElement = _interopRequireDefault(require("./components/InfoElement"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj["default"] = obj; return newObj; } }
+
+var InfoBoxes = function InfoBoxes(props) {
+  var _props$data = props.data,
+      title = _props$data.title,
+      boxes = _props$data.boxes;
+  return React.createElement("section", {
+    className: 'info-boxes'
+  }, React.createElement("div", {
+    className: 'container'
+  }, title && React.createElement("h3", null, title), React.createElement("div", {
+    className: 'info-boxes__list row'
+  }, React.createElement(_List["default"], {
+    data: boxes
+  }, function (_ref) {
+    var data = _ref.data;
+    return data && data.map(function (box, i) {
+      return React.createElement(_InfoElement["default"], {
+        key: i,
+        link: box.link,
+        title: box.title,
+        image: box.image,
+        button: box.button,
+        titleColor: box.titleColor,
+        gradientColor: box.gradientColor
+      });
+    });
+  }))));
 };
-exports.default = InfoBoxes;
-//# sourceMappingURL=InfoBoxes.js.map
+
+var _default = InfoBoxes;
+exports["default"] = _default;

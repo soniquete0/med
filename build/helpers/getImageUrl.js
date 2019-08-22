@@ -1,11 +1,19 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var getImgUrl = function (data) {
-    var baseUrl = 'https://foxer360-media-library.s3.eu-central-1.amazonaws.com/';
-    if (data && data.filename) {
-        return baseUrl + data.category + data.hash + '_' + data.filename;
-    }
-    return null;
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports["default"] = void 0;
+
+var getImgUrl = function getImgUrl(data) {
+  var baseUrl = 'https://foxer360-media-library.s3.eu-central-1.amazonaws.com/';
+
+  if (data && data.filename) {
+    return baseUrl + data.category + data.hash + '_' + data.filename;
+  }
+
+  return null;
 };
-exports.default = getImgUrl;
-//# sourceMappingURL=getImageUrl.js.map
+
+var _default = getImgUrl;
+exports["default"] = _default;

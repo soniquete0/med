@@ -1,27 +1,27 @@
 {
-    "name": "Divider",
-    "data": {
-        "marginTop": "40",
-        "marginBottom": "40",
-        "displayDots": true
-    },
-    "form": {
-        "schema": {
-            "type": "object",
-            "properties": {
-                "marginTop": {
-                    "type": "number",
-                    "title": "Margin top (px)"
-                },
-                "marginBottom": {
-                    "type": "number",
-                    "title": "Margin bottom (px)"
-                },
-                "displayDots": {
-                    "type": "boolean",
-                    "title": "Display dots?"
-                }
-            }
+  "name": "Divider",
+  "data": {
+    "marginTop": "40",
+    "marginBottom": "40",
+    "displayDots": true
+  },
+  "form": {
+    "schema": {
+      "type": "object",
+      "properties": {
+        "marginTop": {
+          "type": "number",
+          "title": "Margin top (px)"
+        },
+        "marginBottom": {
+          "type": "number",
+          "title": "Margin bottom (px)"
+        },
+        "displayDots": {
+          "type": "boolean",
+          "title": "Display dots?"
         }
+      }
     }
+  }
 }

@@ -1,5 +1,13 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var RegistrationBlock_1 = require("./RegistrationBlock");
-exports.default = RegistrationBlock_1.default;
-//# sourceMappingURL=index.js.map
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports["default"] = void 0;
+
+var _RegistrationBlock = _interopRequireDefault(require("./RegistrationBlock"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+var _default = _RegistrationBlock["default"];
+exports["default"] = _default;

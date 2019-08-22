@@ -1,83 +1,327 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var AlertNotFound_1 = require("./AlertNotFound");
-exports.AlertNotFound = AlertNotFound_1.default;
-var Benefits_1 = require("./Benefits");
-exports.Benefits = Benefits_1.default;
-var CrossRoads_1 = require("./CrossRoads");
-exports.CrossRoads = CrossRoads_1.default;
-var Divider_1 = require("./Divider");
-exports.Divider = Divider_1.default;
-var Footer_1 = require("./Footer");
-exports.Footer = Footer_1.default;
-var Header_1 = require("./Header");
-exports.Header = Header_1.default;
-var Hero_1 = require("./Hero");
-exports.Hero = Hero_1.default;
-var Highlight_1 = require("./Highlight");
-exports.Highlight = Highlight_1.default;
-var InfoBoxes_1 = require("./InfoBoxes");
-exports.InfoBoxes = InfoBoxes_1.default;
-var Map_1 = require("./Map");
-exports.Map = Map_1.default;
-var Reviews_1 = require("./Reviews");
-exports.Reviews = Reviews_1.default;
-var TextBlock_1 = require("./TextBlock");
-exports.TextBlock = TextBlock_1.default;
-var DoctorList_1 = require("./DoctorList");
-exports.DoctorList = DoctorList_1.default;
-var PolyclinicsList_1 = require("./PolyclinicsList");
-exports.PolyclinicsList = PolyclinicsList_1.default;
-var ExpertiseList_1 = require("./ExpertiseList");
-exports.ExpertiseList = ExpertiseList_1.default;
-var InfoRectangles_1 = require("./InfoRectangles");
-exports.InfoRectangles = InfoRectangles_1.default;
-var PolyclinicInfo_1 = require("./PolyclinicInfo");
-exports.PolyclinicInfo = PolyclinicInfo_1.default;
-var Blog_1 = require("./Blog");
-exports.Blog = Blog_1.default;
-var PolyclinicBoxes_1 = require("./PolyclinicBoxes");
-exports.PolyclinicBoxes = PolyclinicBoxes_1.default;
-var DoctorCard_1 = require("./DoctorCard");
-exports.DoctorCard = DoctorCard_1.default;
-var Odbornost_1 = require("./Odbornost");
-exports.Odbornost = Odbornost_1.default;
-var MyProblem_1 = require("./MyProblem");
-exports.MyProblem = MyProblem_1.default;
-var JobPositions_1 = require("./JobPositions");
-exports.JobPositions = JobPositions_1.default;
-var JobOffers_1 = require("./JobOffers");
-exports.JobOffers = JobOffers_1.default;
-var CareerForm_1 = require("./CareerForm");
-exports.CareerForm = CareerForm_1.default;
-var ExpertiseDescription_1 = require("./ExpertiseDescription");
-exports.ExpertiseDescription = ExpertiseDescription_1.default;
-var Timeline_1 = require("./Timeline");
-exports.Timeline = Timeline_1.default;
-var MedicalGroup_1 = require("./MedicalGroup");
-exports.MedicalGroup = MedicalGroup_1.default;
-var ViewsAboutUs_1 = require("./ViewsAboutUs");
-exports.ViewsAboutUs = ViewsAboutUs_1.default;
-var ContactInfo_1 = require("./ContactInfo");
-exports.ContactInfo = ContactInfo_1.default;
-var ContactForm_1 = require("./ContactForm");
-exports.ContactForm = ContactForm_1.default;
-var Downloads_1 = require("./Downloads");
-exports.Downloads = Downloads_1.default;
-var ContactsBlock_1 = require("./ContactsBlock");
-exports.ContactsBlock = ContactsBlock_1.default;
-var Faq_1 = require("./Faq");
-exports.Faq = Faq_1.default;
-var BlogArticle_1 = require("./BlogArticle");
-exports.BlogArticle = BlogArticle_1.default;
-var DoctorSchedule_1 = require("./DoctorSchedule");
-exports.DoctorSchedule = DoctorSchedule_1.default;
-var WorkingHours_1 = require("./WorkingHours");
-exports.WorkingHours = WorkingHours_1.default;
-var RegistrationBlock_1 = require("./RegistrationBlock");
-exports.RegistrationBlock = RegistrationBlock_1.default;
-var Paragraph_1 = require("./Paragraph");
-exports.Paragraph = Paragraph_1.default;
-var UnionStructure_1 = require("./UnionStructure");
-exports.UnionStructure = UnionStructure_1.default;
-//# sourceMappingURL=index.js.map
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+Object.defineProperty(exports, "AlertNotFound", {
+  enumerable: true,
+  get: function get() {
+    return _AlertNotFound["default"];
+  }
+});
+Object.defineProperty(exports, "Benefits", {
+  enumerable: true,
+  get: function get() {
+    return _Benefits["default"];
+  }
+});
+Object.defineProperty(exports, "CrossRoads", {
+  enumerable: true,
+  get: function get() {
+    return _CrossRoads["default"];
+  }
+});
+Object.defineProperty(exports, "Divider", {
+  enumerable: true,
+  get: function get() {
+    return _Divider["default"];
+  }
+});
+Object.defineProperty(exports, "Footer", {
+  enumerable: true,
+  get: function get() {
+    return _Footer["default"];
+  }
+});
+Object.defineProperty(exports, "Header", {
+  enumerable: true,
+  get: function get() {
+    return _Header["default"];
+  }
+});
+Object.defineProperty(exports, "Hero", {
+  enumerable: true,
+  get: function get() {
+    return _Hero["default"];
+  }
+});
+Object.defineProperty(exports, "Highlight", {
+  enumerable: true,
+  get: function get() {
+    return _Highlight["default"];
+  }
+});
+Object.defineProperty(exports, "InfoBoxes", {
+  enumerable: true,
+  get: function get() {
+    return _InfoBoxes["default"];
+  }
+});
+Object.defineProperty(exports, "Map", {
+  enumerable: true,
+  get: function get() {
+    return _Map["default"];
+  }
+});
+Object.defineProperty(exports, "Reviews", {
+  enumerable: true,
+  get: function get() {
+    return _Reviews["default"];
+  }
+});
+Object.defineProperty(exports, "TextBlock", {
+  enumerable: true,
+  get: function get() {
+    return _TextBlock["default"];
+  }
+});
+Object.defineProperty(exports, "DoctorList", {
+  enumerable: true,
+  get: function get() {
+    return _DoctorList["default"];
+  }
+});
+Object.defineProperty(exports, "PolyclinicsList", {
+  enumerable: true,
+  get: function get() {
+    return _PolyclinicsList["default"];
+  }
+});
+Object.defineProperty(exports, "ExpertiseList", {
+  enumerable: true,
+  get: function get() {
+    return _ExpertiseList["default"];
+  }
+});
+Object.defineProperty(exports, "InfoRectangles", {
+  enumerable: true,
+  get: function get() {
+    return _InfoRectangles["default"];
+  }
+});
+Object.defineProperty(exports, "PolyclinicInfo", {
+  enumerable: true,
+  get: function get() {
+    return _PolyclinicInfo["default"];
+  }
+});
+Object.defineProperty(exports, "Blog", {
+  enumerable: true,
+  get: function get() {
+    return _Blog["default"];
+  }
+});
+Object.defineProperty(exports, "PolyclinicBoxes", {
+  enumerable: true,
+  get: function get() {
+    return _PolyclinicBoxes["default"];
+  }
+});
+Object.defineProperty(exports, "DoctorCard", {
+  enumerable: true,
+  get: function get() {
+    return _DoctorCard["default"];
+  }
+});
+Object.defineProperty(exports, "Odbornost", {
+  enumerable: true,
+  get: function get() {
+    return _Odbornost["default"];
+  }
+});
+Object.defineProperty(exports, "MyProblem", {
+  enumerable: true,
+  get: function get() {
+    return _MyProblem["default"];
+  }
+});
+Object.defineProperty(exports, "JobPositions", {
+  enumerable: true,
+  get: function get() {
+    return _JobPositions["default"];
+  }
+});
+Object.defineProperty(exports, "JobOffers", {
+  enumerable: true,
+  get: function get() {
+    return _JobOffers["default"];
+  }
+});
+Object.defineProperty(exports, "CareerForm", {
+  enumerable: true,
+  get: function get() {
+    return _CareerForm["default"];
+  }
+});
+Object.defineProperty(exports, "ExpertiseDescription", {
+  enumerable: true,
+  get: function get() {
+    return _ExpertiseDescription["default"];
+  }
+});
+Object.defineProperty(exports, "Timeline", {
+  enumerable: true,
+  get: function get() {
+    return _Timeline["default"];
+  }
+});
+Object.defineProperty(exports, "MedicalGroup", {
+  enumerable: true,
+  get: function get() {
+    return _MedicalGroup["default"];
+  }
+});
+Object.defineProperty(exports, "ViewsAboutUs", {
+  enumerable: true,
+  get: function get() {
+    return _ViewsAboutUs["default"];
+  }
+});
+Object.defineProperty(exports, "ContactInfo", {
+  enumerable: true,
+  get: function get() {
+    return _ContactInfo["default"];
+  }
+});
+Object.defineProperty(exports, "ContactForm", {
+  enumerable: true,
+  get: function get() {
+    return _ContactForm["default"];
+  }
+});
+Object.defineProperty(exports, "Downloads", {
+  enumerable: true,
+  get: function get() {
+    return _Downloads["default"];
+  }
+});
+Object.defineProperty(exports, "ContactsBlock", {
+  enumerable: true,
+  get: function get() {
+    return _ContactsBlock["default"];
+  }
+});
+Object.defineProperty(exports, "Faq", {
+  enumerable: true,
+  get: function get() {
+    return _Faq["default"];
+  }
+});
+Object.defineProperty(exports, "BlogArticle", {
+  enumerable: true,
+  get: function get() {
+    return _BlogArticle["default"];
+  }
+});
+Object.defineProperty(exports, "DoctorSchedule", {
+  enumerable: true,
+  get: function get() {
+    return _DoctorSchedule["default"];
+  }
+});
+Object.defineProperty(exports, "WorkingHours", {
+  enumerable: true,
+  get: function get() {
+    return _WorkingHours["default"];
+  }
+});
+Object.defineProperty(exports, "RegistrationBlock", {
+  enumerable: true,
+  get: function get() {
+    return _RegistrationBlock["default"];
+  }
+});
+Object.defineProperty(exports, "Paragraph", {
+  enumerable: true,
+  get: function get() {
+    return _Paragraph["default"];
+  }
+});
+Object.defineProperty(exports, "UnionStructure", {
+  enumerable: true,
+  get: function get() {
+    return _UnionStructure["default"];
+  }
+});
+
+var _AlertNotFound = _interopRequireDefault(require("./AlertNotFound"));
+
+var _Benefits = _interopRequireDefault(require("./Benefits"));
+
+var _CrossRoads = _interopRequireDefault(require("./CrossRoads"));
+
+var _Divider = _interopRequireDefault(require("./Divider"));
+
+var _Footer = _interopRequireDefault(require("./Footer"));
+
+var _Header = _interopRequireDefault(require("./Header"));
+
+var _Hero = _interopRequireDefault(require("./Hero"));
+
+var _Highlight = _interopRequireDefault(require("./Highlight"));
+
+var _InfoBoxes = _interopRequireDefault(require("./InfoBoxes"));
+
+var _Map = _interopRequireDefault(require("./Map"));
+
+var _Reviews = _interopRequireDefault(require("./Reviews"));
+
+var _TextBlock = _interopRequireDefault(require("./TextBlock"));
+
+var _DoctorList = _interopRequireDefault(require("./DoctorList"));
+
+var _PolyclinicsList = _interopRequireDefault(require("./PolyclinicsList"));
+
+var _ExpertiseList = _interopRequireDefault(require("./ExpertiseList"));
+
+var _InfoRectangles = _interopRequireDefault(require("./InfoRectangles"));
+
+var _PolyclinicInfo = _interopRequireDefault(require("./PolyclinicInfo"));
+
+var _Blog = _interopRequireDefault(require("./Blog"));
+
+var _PolyclinicBoxes = _interopRequireDefault(require("./PolyclinicBoxes"));
+
+var _DoctorCard = _interopRequireDefault(require("./DoctorCard"));
+
+var _Odbornost = _interopRequireDefault(require("./Odbornost"));
+
+var _MyProblem = _interopRequireDefault(require("./MyProblem"));
+
+var _JobPositions = _interopRequireDefault(require("./JobPositions"));
+
+var _JobOffers = _interopRequireDefault(require("./JobOffers"));
+
+var _CareerForm = _interopRequireDefault(require("./CareerForm"));
+
+var _ExpertiseDescription = _interopRequireDefault(require("./ExpertiseDescription"));
+
+var _Timeline = _interopRequireDefault(require("./Timeline"));
+
+var _MedicalGroup = _interopRequireDefault(require("./MedicalGroup"));
+
+var _ViewsAboutUs = _interopRequireDefault(require("./ViewsAboutUs"));
+
+var _ContactInfo = _interopRequireDefault(require("./ContactInfo"));
+
+var _ContactForm = _interopRequireDefault(require("./ContactForm"));
+
+var _Downloads = _interopRequireDefault(require("./Downloads"));
+
+var _ContactsBlock = _interopRequireDefault(require("./ContactsBlock"));
+
+var _Faq = _interopRequireDefault(require("./Faq"));
+
+var _BlogArticle = _interopRequireDefault(require("./BlogArticle"));
+
+var _DoctorSchedule = _interopRequireDefault(require("./DoctorSchedule"));
+
+var _WorkingHours = _interopRequireDefault(require("./WorkingHours"));
+
+var _RegistrationBlock = _interopRequireDefault(require("./RegistrationBlock"));
+
+var _Paragraph = _interopRequireDefault(require("./Paragraph"));
+
+var _UnionStructure = _interopRequireDefault(require("./UnionStructure"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }

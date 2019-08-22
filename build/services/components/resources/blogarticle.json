@@ -1,46 +1,48 @@
 {
-    "name": "BlogArticle",
-    "data": {
-        "title": "Title",
-        "text": "Text",
-        "textAlign": "textCenter",
-        "image": {
-            "recommendedSizes": {
-                "width": "820",
-                "height": "360"
-            }
-        },
-        "isImageSquare": false
+  "name": "BlogArticle",
+
+  "data": {
+    "title": "Title",
+    "text": "Text",
+    "textAlign": "textCenter",
+    "image": {
+      "recommendedSizes": {
+        "width": "820",
+        "height": "360"
+      }
     },
-    "form": {
-        "schema": {
-            "type": "object",
-            "properties": {
-                "title": {
-                    "title": "Title",
-                    "type": "text"
-                },
-                "text": {
-                    "title": "Text",
-                    "type": "markdown"
-                },
-                "textAlign": {
-                    "type": "enum",
-                    "title": "Text Align",
-                    "options": {
-                        "textCenter": "center",
-                        "textLeft": "left",
-                        "textRight": "right"
-                    }
-                },
-                "image": {
-                    "type": "image"
-                },
-                "isImageSquare": {
-                    "type": "boolean",
-                    "title": "Square image?"
-                }
-            }
+    "isImageSquare": false
+  },
+
+  "form": {
+    "schema": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "title": "Title",
+          "type": "text"
+        },
+        "text": {
+          "title": "Text",
+          "type": "markdown"
+        },
+        "textAlign": {
+          "type": "enum",
+          "title": "Text Align",
+          "options": {
+            "textCenter": "center",
+            "textLeft": "left",
+            "textRight": "right"
+          }
+        },
+        "image": {
+          "type": "image"
+        },
+        "isImageSquare": {
+          "type": "boolean",
+          "title": "Square image?"
         }
+      }
     }
+  }
 }

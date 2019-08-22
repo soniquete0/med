@@ -1,83 +1,168 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var benefits = require("./benefits.json");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.unionstructure = exports.paragraph = exports.registrationblock = exports.workinghours = exports.doctorschedule = exports.blogarticle = exports.faq = exports.contactsblock = exports.downloads = exports.contactform = exports.contactinfo = exports.viewsaboutus = exports.timeline = exports.medicalgroup = exports.expertisedescription = exports.careerform = exports.joboffers = exports.jobpositions = exports.myproblem = exports.doctorcard = exports.polyclinicboxes = exports.odbornost = exports.blog = exports.polyclinicinfo = exports.inforectangles = exports.expertiselist = exports.polyclinicslist = exports.doctorlist = exports.textblock = exports.reviews = exports.map = exports.infoboxes = exports.highlight = exports.hero = exports.header = exports.footer = exports.divider = exports["default"] = exports.crossroads = exports.benefits = void 0;
+
+var benefits = _interopRequireWildcard(require("./benefits.json"));
+
 exports.benefits = benefits;
-var crossroads = require("./crossroads.json");
+
+var crossroads = _interopRequireWildcard(require("./crossroads.json"));
+
 exports.crossroads = crossroads;
-var def = require("./default.json");
-exports.default = def;
-var divider = require("./divider.json");
+
+var def = _interopRequireWildcard(require("./default.json"));
+
+exports["default"] = def;
+
+var divider = _interopRequireWildcard(require("./divider.json"));
+
 exports.divider = divider;
-var footer = require("./footer.json");
+
+var footer = _interopRequireWildcard(require("./footer.json"));
+
 exports.footer = footer;
-var header = require("./header.json");
+
+var header = _interopRequireWildcard(require("./header.json"));
+
 exports.header = header;
-var hero = require("./hero.json");
+
+var hero = _interopRequireWildcard(require("./hero.json"));
+
 exports.hero = hero;
-var highlight = require("./highlight.json");
+
+var highlight = _interopRequireWildcard(require("./highlight.json"));
+
 exports.highlight = highlight;
-var infoboxes = require("./infoboxes.json");
+
+var infoboxes = _interopRequireWildcard(require("./infoboxes.json"));
+
 exports.infoboxes = infoboxes;
-var map = require("./map.json");
+
+var map = _interopRequireWildcard(require("./map.json"));
+
 exports.map = map;
-var reviews = require("./reviews.json");
+
+var reviews = _interopRequireWildcard(require("./reviews.json"));
+
 exports.reviews = reviews;
-var textblock = require("./textblock.json");
+
+var textblock = _interopRequireWildcard(require("./textblock.json"));
+
 exports.textblock = textblock;
-var doctorlist = require("./doctorlist.json");
+
+var doctorlist = _interopRequireWildcard(require("./doctorlist.json"));
+
 exports.doctorlist = doctorlist;
-var polyclinicslist = require("./polyclinicslist.json");
+
+var polyclinicslist = _interopRequireWildcard(require("./polyclinicslist.json"));
+
 exports.polyclinicslist = polyclinicslist;
-var expertiselist = require("./expertiselist.json");
+
+var expertiselist = _interopRequireWildcard(require("./expertiselist.json"));
+
 exports.expertiselist = expertiselist;
-var inforectangles = require("./inforectangles.json");
+
+var inforectangles = _interopRequireWildcard(require("./inforectangles.json"));
+
 exports.inforectangles = inforectangles;
-var polyclinicinfo = require("./polyclinicinfo.json");
+
+var polyclinicinfo = _interopRequireWildcard(require("./polyclinicinfo.json"));
+
 exports.polyclinicinfo = polyclinicinfo;
-var blog = require("./blog.json");
+
+var blog = _interopRequireWildcard(require("./blog.json"));
+
 exports.blog = blog;
-var odbornost = require("./odbornost.json");
+
+var odbornost = _interopRequireWildcard(require("./odbornost.json"));
+
 exports.odbornost = odbornost;
-var polyclinicboxes = require("./polyclinicboxes.json");
+
+var polyclinicboxes = _interopRequireWildcard(require("./polyclinicboxes.json"));
+
 exports.polyclinicboxes = polyclinicboxes;
-var doctorcard = require("./doctorcard.json");
+
+var doctorcard = _interopRequireWildcard(require("./doctorcard.json"));
+
 exports.doctorcard = doctorcard;
-var myproblem = require("./myproblem.json");
+
+var myproblem = _interopRequireWildcard(require("./myproblem.json"));
+
 exports.myproblem = myproblem;
-var jobpositions = require("./jobpositions.json");
+
+var jobpositions = _interopRequireWildcard(require("./jobpositions.json"));
+
 exports.jobpositions = jobpositions;
-var joboffers = require("./joboffers.json");
+
+var joboffers = _interopRequireWildcard(require("./joboffers.json"));
+
 exports.joboffers = joboffers;
-var careerform = require("./careerform.json");
+
+var careerform = _interopRequireWildcard(require("./careerform.json"));
+
 exports.careerform = careerform;
-var expertisedescription = require("./expertisedescription.json");
+
+var expertisedescription = _interopRequireWildcard(require("./expertisedescription.json"));
+
 exports.expertisedescription = expertisedescription;
-var medicalgroup = require("./medicalgroup.json");
+
+var medicalgroup = _interopRequireWildcard(require("./medicalgroup.json"));
+
 exports.medicalgroup = medicalgroup;
-var timeline = require("./timeline.json");
+
+var timeline = _interopRequireWildcard(require("./timeline.json"));
+
 exports.timeline = timeline;
-var viewsaboutus = require("./viewsaboutus.json");
+
+var viewsaboutus = _interopRequireWildcard(require("./viewsaboutus.json"));
+
 exports.viewsaboutus = viewsaboutus;
-var contactinfo = require("./contactinfo.json");
+
+var contactinfo = _interopRequireWildcard(require("./contactinfo.json"));
+
 exports.contactinfo = contactinfo;
-var contactform = require("./contactform.json");
+
+var contactform = _interopRequireWildcard(require("./contactform.json"));
+
 exports.contactform = contactform;
-var downloads = require("./downloads.json");
+
+var downloads = _interopRequireWildcard(require("./downloads.json"));
+
 exports.downloads = downloads;
-var contactsblock = require("./contactsblock.json");
+
+var contactsblock = _interopRequireWildcard(require("./contactsblock.json"));
+
 exports.contactsblock = contactsblock;
-var faq = require("./faq.json");
+
+var faq = _interopRequireWildcard(require("./faq.json"));
+
 exports.faq = faq;
-var blogarticle = require("./blogarticle.json");
+
+var blogarticle = _interopRequireWildcard(require("./blogarticle.json"));
+
 exports.blogarticle = blogarticle;
-var doctorschedule = require("./doctorschedule.json");
+
+var doctorschedule = _interopRequireWildcard(require("./doctorschedule.json"));
+
 exports.doctorschedule = doctorschedule;
-var workinghours = require("./workinghours.json");
+
+var workinghours = _interopRequireWildcard(require("./workinghours.json"));
+
 exports.workinghours = workinghours;
-var registrationblock = require("./registrationblock.json");
+
+var registrationblock = _interopRequireWildcard(require("./registrationblock.json"));
+
 exports.registrationblock = registrationblock;
-var paragraph = require("./paragraph.json");
+
+var paragraph = _interopRequireWildcard(require("./paragraph.json"));
+
 exports.paragraph = paragraph;
-var unionstructure = require("./unionstructure.json");
+
+var unionstructure = _interopRequireWildcard(require("./unionstructure.json"));
+
 exports.unionstructure = unionstructure;
-//# sourceMappingURL=index.js.map
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj["default"] = obj; return newObj; } }

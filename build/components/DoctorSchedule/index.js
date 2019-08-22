@@ -1,5 +1,13 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var DoctorSchedule_1 = require("./DoctorSchedule");
-exports.default = DoctorSchedule_1.default;
-//# sourceMappingURL=index.js.map
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports["default"] = void 0;
+
+var _DoctorSchedule = _interopRequireDefault(require("./DoctorSchedule"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+var _default = _DoctorSchedule["default"];
+exports["default"] = _default;

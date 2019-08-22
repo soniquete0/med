@@ -1,164 +1,263 @@
 "use strict";
-var __makeTemplateObject = (this && this.__makeTemplateObject) || function (cooked, raw) {
-    if (Object.defineProperty) { Object.defineProperty(cooked, "raw", { value: raw }); } else { cooked.raw = raw; }
-    return cooked;
-};
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var React = require("react");
-var graphql_tag_1 = require("graphql-tag");
-var react_apollo_1 = require("react-apollo");
-var react_adopt_1 = require("react-adopt");
-var List_1 = require("../List");
-var Link_1 = require("../../partials/Link");
-var Social_1 = require("./components/Social");
-var Loader_1 = require("../../partials/Loader");
-var HelpPopup_1 = require("./components/HelpPopup");
-var CookiePopup_1 = require("./components/CookiePopup");
-var TemporaryPopup_1 = require("./components/TemporaryPopup");
-var GET_CONTEXT = graphql_tag_1.default(templateObject_1 || (templateObject_1 = __makeTemplateObject(["\n  {\n    languageData @client\n    pageData @client\n    websiteData @client\n    languagesData @client\n    navigationsData @client\n  }\n"], ["\n  {\n    languageData @client\n    pageData @client\n    websiteData @client\n    languagesData @client\n    navigationsData @client\n  }\n"])));
-var GET_PAGES_URLS = graphql_tag_1.default(templateObject_2 || (templateObject_2 = __makeTemplateObject(["\n  query pagesUrls($language: ID!, $websiteId: ID!) {\n    pagesUrls(where: { language: $language, websiteId: $websiteId }) {\n      id\n      page\n      url\n      name\n      description\n    }\n  }\n"], ["\n  query pagesUrls($language: ID!, $websiteId: ID!) {\n    pagesUrls(where: { language: $language, websiteId: $websiteId }) {\n      id\n      page\n      url\n      name\n      description\n    }\n  }\n"])));
-var ComposedQuery = react_adopt_1.adopt({
-    context: function (_a) {
-        var render = _a.render;
-        return React.createElement(react_apollo_1.Query, { query: GET_CONTEXT }, function (_a) {
-            var data = _a.data;
-            return render(data);
-        });
-    },
-    getPagesUrls: function (_a) {
-        var render = _a.render, _b = _a.context, languageData = _b.languageData, websiteData = _b.websiteData;
-        if (!(languageData && websiteData)) {
-            return render({});
-        }
-        return (React.createElement(react_apollo_1.Query, { query: GET_PAGES_URLS, variables: { language: languageData.id, websiteId: websiteData.id } }, function (data) {
-            return render(data);
-        }));
-    },
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
 });
-var Footer = /** @class */ (function (_super) {
-    __extends(Footer, _super);
-    function Footer(props) {
-        return _super.call(this, props) || this;
+exports["default"] = void 0;
+
+var React = _interopRequireWildcard(require("react"));
+
+var _graphqlTag = _interopRequireDefault(require("graphql-tag"));
+
+var _reactApollo = require("react-apollo");
+
+var _reactAdopt = require("react-adopt");
+
+var _List = _interopRequireDefault(require("../List"));
+
+var _Link = _interopRequireDefault(require("../../partials/Link"));
+
+var _Social = _interopRequireDefault(require("./components/Social"));
+
+var _Loader = _interopRequireDefault(require("../../partials/Loader"));
+
+var _HelpPopup = _interopRequireDefault(require("./components/HelpPopup"));
+
+var _CookiePopup = _interopRequireDefault(require("./components/CookiePopup"));
+
+var _TemporaryPopup = _interopRequireDefault(require("./components/TemporaryPopup"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj["default"] = obj; return newObj; } }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _templateObject2() {
+  var data = _taggedTemplateLiteral(["\n  query pagesUrls($language: ID!, $websiteId: ID!) {\n    pagesUrls(where: { language: $language, websiteId: $websiteId }) {\n      id\n      page\n      url\n      name\n      description\n    }\n  }\n"]);
+
+  _templateObject2 = function _templateObject2() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject() {
+  var data = _taggedTemplateLiteral(["\n  {\n    languageData @client\n    pageData @client\n    websiteData @client\n    languagesData @client\n    navigationsData @client\n  }\n"]);
+
+  _templateObject = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+
+function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+var GET_CONTEXT = (0, _graphqlTag["default"])(_templateObject());
+var GET_PAGES_URLS = (0, _graphqlTag["default"])(_templateObject2());
+var ComposedQuery = (0, _reactAdopt.adopt)({
+  context: function context(_ref) {
+    var render = _ref.render;
+    return React.createElement(_reactApollo.Query, {
+      query: GET_CONTEXT
+    }, function (_ref2) {
+      var data = _ref2.data;
+      return render(data);
+    });
+  },
+  getPagesUrls: function getPagesUrls(_ref3) {
+    var render = _ref3.render,
+        _ref3$context = _ref3.context,
+        languageData = _ref3$context.languageData,
+        websiteData = _ref3$context.websiteData;
+
+    if (!(languageData && websiteData)) {
+      return render({});
     }
-    Footer.prototype.render = function () {
-        var _this = this;
-        var _a = this.props.data, social = _a.social, socialIcons = _a.socialIcons, company = _a.company, url = _a.url, text = _a.text;
-        return (React.createElement("footer", { className: 'footer' },
-            React.createElement("div", { className: "container" },
-                React.createElement("div", { className: "flexRow flexAlign--space-between" },
-                    React.createElement(ComposedQuery, null, function (_a) {
-                        var _b = _a.getPagesUrls, loading = _b.loading, error = _b.error, data = _b.data, context = _a.context;
-                        if (!context.navigationsData ||
-                            !context.languageData ||
-                            !context.languagesData ||
-                            !data ||
-                            !data.pagesUrls) {
-                            return React.createElement(Loader_1.default, null);
-                        }
-                        if (error) {
-                            return "Error..." + error;
-                        }
-                        var navigations = context.navigationsData, languageCode = context.languageData.code;
-                        var transformedNavigations = _this.transformNavigationsIntoTree(navigations, data.pagesUrls);
-                        var footerFirst = 'footerFirst';
-                        var footerSecond = 'footerSecond';
-                        var footerThird = 'footerThird';
-                        var footerFirstItems = transformedNavigations && transformedNavigations[footerFirst]
-                            ? transformedNavigations[footerFirst]
-                            : [];
-                        var footerSecondItems = transformedNavigations && transformedNavigations[footerSecond]
-                            ? transformedNavigations[footerSecond]
-                            : [];
-                        var footerThirdItems = transformedNavigations && transformedNavigations[footerThird]
-                            ? transformedNavigations[footerThird]
-                            : [];
-                        return (React.createElement(React.Fragment, null,
-                            React.createElement(HelpPopup_1.default, null),
-                            React.createElement(TemporaryPopup_1.default, null),
-                            React.createElement(CookiePopup_1.default, { lang: context.languageData.code }),
-                            React.createElement("ul", { className: 'footer__list' }, footerFirstItems &&
-                                footerFirstItems.map(function (navItem, i) { return (React.createElement("li", { key: i },
-                                    React.createElement(Link_1.default, __assign({}, navItem.url), navItem.name || navItem.title))); })),
-                            React.createElement("ul", { className: 'footer__list' }, footerSecondItems &&
-                                footerSecondItems.map(function (navItem, i) { return (React.createElement("li", { key: i },
-                                    React.createElement(Link_1.default, __assign({}, navItem.url), navItem.name || navItem.title))); })),
-                            React.createElement("ul", { className: 'footer__list' }, footerThirdItems &&
-                                footerThirdItems.map(function (navItem, i) { return (React.createElement("li", { key: i },
-                                    React.createElement(Link_1.default, __assign({}, navItem.url), navItem.name || navItem.title))); }))));
-                    }),
-                    social && React.createElement(List_1.default, { data: socialIcons }, function (_a) {
-                        var data = _a.data;
-                        return React.createElement(Social_1.default, { info: social, icons: data });
-                    }))),
-            React.createElement("div", { className: "bottom" },
-                React.createElement("div", { className: "container" },
-                    React.createElement("div", { className: "copyrights" },
-                        company && React.createElement("p", null, company),
-                        text && url && React.createElement(Link_1.default, __assign({}, url), text))))));
-    };
-    Footer.prototype.transformNavigationsIntoTree = function (navigation, urls) {
-        var _this = this;
-        var tree = {};
-        if (!navigation || navigation.length < 1) {
-            return null;
+
+    return React.createElement(_reactApollo.Query, {
+      query: GET_PAGES_URLS,
+      variables: {
+        language: languageData.id,
+        websiteId: websiteData.id
+      }
+    }, function (data) {
+      return render(data);
+    });
+  }
+});
+
+var Footer = function (_React$Component) {
+  _inherits(Footer, _React$Component);
+
+  function Footer(props) {
+    _classCallCheck(this, Footer);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(Footer).call(this, props));
+  }
+
+  _createClass(Footer, [{
+    key: "render",
+    value: function render() {
+      var _this = this;
+
+      var _this$props$data = this.props.data,
+          social = _this$props$data.social,
+          socialIcons = _this$props$data.socialIcons,
+          company = _this$props$data.company,
+          url = _this$props$data.url,
+          text = _this$props$data.text;
+      return React.createElement("footer", {
+        className: 'footer'
+      }, React.createElement("div", {
+        className: "container"
+      }, React.createElement("div", {
+        className: "flexRow flexAlign--space-between"
+      }, React.createElement(ComposedQuery, null, function (_ref4) {
+        var _ref4$getPagesUrls = _ref4.getPagesUrls,
+            loading = _ref4$getPagesUrls.loading,
+            error = _ref4$getPagesUrls.error,
+            data = _ref4$getPagesUrls.data,
+            context = _ref4.context;
+
+        if (!context.navigationsData || !context.languageData || !context.languagesData || !data || !data.pagesUrls) {
+          return React.createElement(_Loader["default"], null);
         }
-        navigation.forEach(function (nav) {
-            tree[nav.name] = _this.buildNavTree(nav.nodes, null, urls);
+
+        if (error) {
+          return "Error...".concat(error);
+        }
+
+        var navigations = context.navigationsData,
+            languageCode = context.languageData.code;
+
+        var transformedNavigations = _this.transformNavigationsIntoTree(navigations, data.pagesUrls);
+
+        var footerFirst = 'footerFirst';
+        var footerSecond = 'footerSecond';
+        var footerThird = 'footerThird';
+        var footerFirstItems = transformedNavigations && transformedNavigations[footerFirst] ? transformedNavigations[footerFirst] : [];
+        var footerSecondItems = transformedNavigations && transformedNavigations[footerSecond] ? transformedNavigations[footerSecond] : [];
+        var footerThirdItems = transformedNavigations && transformedNavigations[footerThird] ? transformedNavigations[footerThird] : [];
+        return React.createElement(React.Fragment, null, React.createElement(_HelpPopup["default"], null), React.createElement(_TemporaryPopup["default"], null), React.createElement(_CookiePopup["default"], {
+          lang: context.languageData.code
+        }), React.createElement("ul", {
+          className: 'footer__list'
+        }, footerFirstItems && footerFirstItems.map(function (navItem, i) {
+          return React.createElement("li", {
+            key: i
+          }, React.createElement(_Link["default"], navItem.url, navItem.name || navItem.title));
+        })), React.createElement("ul", {
+          className: 'footer__list'
+        }, footerSecondItems && footerSecondItems.map(function (navItem, i) {
+          return React.createElement("li", {
+            key: i
+          }, React.createElement(_Link["default"], navItem.url, navItem.name || navItem.title));
+        })), React.createElement("ul", {
+          className: 'footer__list'
+        }, footerThirdItems && footerThirdItems.map(function (navItem, i) {
+          return React.createElement("li", {
+            key: i
+          }, React.createElement(_Link["default"], navItem.url, navItem.name || navItem.title));
+        })));
+      }), social && React.createElement(_List["default"], {
+        data: socialIcons
+      }, function (_ref5) {
+        var data = _ref5.data;
+        return React.createElement(_Social["default"], {
+          info: social,
+          icons: data
         });
-        return tree;
-    };
-    Footer.prototype.buildNavTree = function (nav, parent, urls) {
-        var _this = this;
-        var res = [];
-        nav.forEach(function (node) {
-            if (node.parent === parent) {
-                var url = urls.find(function (u) { return u.page === node.page; });
-                var item = __assign({}, node, url);
-                if (node.page) {
-                    var children = _this.buildNavTree(nav, node.page, urls);
-                    if (children && children.length > 0) {
-                        item.children = children;
-                    }
-                }
-                if (node.title && node.link) {
-                    item.url = node.link;
-                }
-                item.url = {
-                    url: item.url,
-                    pageId: item.id,
-                };
-                res.push(item);
+      }))), React.createElement("div", {
+        className: "bottom"
+      }, React.createElement("div", {
+        className: "container"
+      }, React.createElement("div", {
+        className: "copyrights"
+      }, company && React.createElement("p", null, company), text && url && React.createElement(_Link["default"], url, text)))));
+    }
+  }, {
+    key: "transformNavigationsIntoTree",
+    value: function transformNavigationsIntoTree(navigation, urls) {
+      var _this2 = this;
+
+      var tree = {};
+
+      if (!navigation || navigation.length < 1) {
+        return null;
+      }
+
+      navigation.forEach(function (nav) {
+        tree[nav.name] = _this2.buildNavTree(nav.nodes, null, urls);
+      });
+      return tree;
+    }
+  }, {
+    key: "buildNavTree",
+    value: function buildNavTree(nav, parent, urls) {
+      var _this3 = this;
+
+      var res = [];
+      nav.forEach(function (node) {
+        if (node.parent === parent) {
+          var url = urls.find(function (u) {
+            return u.page === node.page;
+          });
+
+          var item = _objectSpread({}, node, {}, url);
+
+          if (node.page) {
+            var children = _this3.buildNavTree(nav, node.page, urls);
+
+            if (children && children.length > 0) {
+              item.children = children;
             }
-        });
-        res.sort(function (a, b) { return a.order - b.order; });
-        return res;
-    };
-    return Footer;
-}(React.Component));
-exports.default = Footer;
-var templateObject_1, templateObject_2;
-//# sourceMappingURL=Footer.js.map
+          }
+
+          if (node.title && node.link) {
+            item.url = node.link;
+          }
+
+          item.url = {
+            url: item.url,
+            pageId: item.id
+          };
+          res.push(item);
+        }
+      });
+      res.sort(function (a, b) {
+        return a.order - b.order;
+      });
+      return res;
+    }
+  }]);
+
+  return Footer;
+}(React.Component);
+
+var _default = Footer;
+exports["default"] = _default;

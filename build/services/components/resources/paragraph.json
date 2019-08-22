@@ -1,46 +1,46 @@
 {
-    "name": "Paragraph",
-    "data": {
-        "paddingTop": true,
-        "paddingBottom": true
-    },
-    "form": {
-        "schema": {
-            "type": "object",
-            "properties": {
-                "leftText": {
-                    "type": "markdown",
-                    "title": "Left text"
-                },
-                "rightMedia": {
-                    "type": "image",
-                    "title": "Right Media"
-                },
-                "leftMedia": {
-                    "type": "image",
-                    "title": "Left Media"
-                },
-                "rightText": {
-                    "type": "markdown",
-                    "title": "Right text"
-                },
-                "paddingTop": {
-                    "type": "boolean",
-                    "title": "Add padding top?"
-                },
-                "paddingBottom": {
-                    "type": "boolean",
-                    "title": "Add padding bottom?"
-                },
-                "buttonText": {
-                    "type": "text",
-                    "title": "Button text"
-                },
-                "buttonUrl": {
-                    "type": "urlAutocomplete",
-                    "title": "Button URL"
-                }
-            }
+  "name": "Paragraph",
+  "data": {
+    "paddingTop": true,
+    "paddingBottom": true
+  },
+  "form": {
+    "schema": {
+      "type": "object",
+      "properties": {
+        "leftText": {
+          "type": "markdown",
+          "title": "Left text"
+        },
+        "rightMedia": {
+          "type": "image",
+          "title": "Right Media"
+        },
+        "leftMedia": {
+          "type": "image",
+          "title": "Left Media"
+        },
+        "rightText": {
+          "type": "markdown",
+          "title": "Right text"
+        },
+        "paddingTop": {
+          "type": "boolean",
+          "title": "Add padding top?"
+        },
+        "paddingBottom": {
+          "type": "boolean",
+          "title": "Add padding bottom?"
+        },
+        "buttonText": {
+          "type": "text",
+          "title": "Button text"
+        },
+        "buttonUrl": {
+          "type": "urlAutocomplete",
+          "title": "Button URL"
         }
+      }
     }
+  }
 }

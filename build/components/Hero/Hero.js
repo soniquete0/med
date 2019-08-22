@@ -1,38 +1,87 @@
 "use strict";
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-var React = require("react");
-var SearchBar_1 = require("../SearchBar/SearchBar");
-var getImageUrl_1 = require("../../helpers/getImageUrl");
-var Hero = /** @class */ (function (_super) {
-    __extends(Hero, _super);
-    function Hero() {
-        return _super !== null && _super.apply(this, arguments) || this;
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports["default"] = void 0;
+
+var React = _interopRequireWildcard(require("react"));
+
+var _SearchBar = _interopRequireDefault(require("../SearchBar/SearchBar"));
+
+var _getImageUrl = _interopRequireDefault(require("../../helpers/getImageUrl"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj["default"] = obj; return newObj; } }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var Hero = function (_React$Component) {
+  _inherits(Hero, _React$Component);
+
+  function Hero() {
+    _classCallCheck(this, Hero);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(Hero).apply(this, arguments));
+  }
+
+  _createClass(Hero, [{
+    key: "render",
+    value: function render() {
+      var _this$props$data = this.props.data,
+          title = _this$props$data.title,
+          text = _this$props$data.text,
+          displaySearch = _this$props$data.displaySearch,
+          image = _this$props$data.image,
+          placeholder = _this$props$data.placeholder,
+          displayOverlay = _this$props$data.displayOverlay,
+          titleColor = _this$props$data.titleColor,
+          textColor = _this$props$data.textColor;
+      return React.createElement("div", {
+        className: "fullWidthContainer"
+      }, React.createElement("section", {
+        className: 'hero',
+        style: {
+          backgroundImage: image && "url(".concat((0, _getImageUrl["default"])(image), ")")
+        }
+      }, displayOverlay && React.createElement("div", {
+        className: 'hero__overlay'
+      }), React.createElement("div", {
+        className: 'container'
+      }, React.createElement("div", {
+        className: 'hero__holder'
+      }, title && React.createElement("h1", {
+        className: "hero__title hero__title--".concat(titleColor)
+      }, title), text && React.createElement("div", {
+        className: "hero__text hero__text--".concat(textColor, " ")
+      }, text), displaySearch && React.createElement(_SearchBar["default"], {
+        barColor: 'lightBlue',
+        placeholder: placeholder ? placeholder : 'Hledat ...',
+        blogSearchResults: this.props.data.blogSearchResults,
+        doctorsLink: this.props.data.doctorsLink
+      })))));
     }
-    Hero.prototype.render = function () {
-        var _a = this.props.data, title = _a.title, text = _a.text, displaySearch = _a.displaySearch, image = _a.image, placeholder = _a.placeholder, displayOverlay = _a.displayOverlay, titleColor = _a.titleColor, textColor = _a.textColor;
-        return (React.createElement("div", { className: "fullWidthContainer" },
-            React.createElement("section", { className: 'hero', style: { backgroundImage: image && "url(" + getImageUrl_1.default(image) + ")" } },
-                displayOverlay && React.createElement("div", { className: 'hero__overlay' }),
-                React.createElement("div", { className: 'container' },
-                    React.createElement("div", { className: 'hero__holder' },
-                        title && React.createElement("h1", { className: "hero__title hero__title--" + titleColor }, title),
-                        text && React.createElement("div", { className: "hero__text hero__text--" + textColor + " " }, text),
-                        displaySearch && (React.createElement(SearchBar_1.default, { barColor: 'lightBlue', placeholder: placeholder ? placeholder : 'Hledat ...', blogSearchResults: this.props.data.blogSearchResults, doctorsLink: this.props.data.doctorsLink })))))));
-    };
-    return Hero;
-}(React.Component));
-exports.default = Hero;
-//# sourceMappingURL=Hero.js.map
+  }]);
+
+  return Hero;
+}(React.Component);
+
+var _default = Hero;
+exports["default"] = _default;

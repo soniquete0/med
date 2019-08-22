@@ -1,55 +1,55 @@
 {
-    "name": "PolyclinicInfo",
-    "data": {
-        "geo": "Antala Staška 1670/80 140 00 Praha 4",
-        "geoUrl": "",
-        "transport": "Metro C stanice Budějovická",
-        "transportUrl": "",
-        "transportImage": {
-            "recommendedSizes": {
-                "width": "50",
-                "height": "50"
-            }
-        },
-        "clinic": "",
-        "clinicColor": ""
+  "name": "PolyclinicInfo",
+  "data": {
+    "geo": "Antala Staška 1670/80 140 00 Praha 4",
+    "geoUrl": "",
+    "transport": "Metro C stanice Budějovická",
+    "transportUrl": "",
+    "transportImage": {
+      "recommendedSizes": {
+        "width": "50",
+        "height": "50"
+      }
     },
-    "form": {
-        "schema": {
-            "type": "object",
-            "properties": {
-                "geo": {
-                    "type": "text",
-                    "title": "Address"
-                },
-                "geoUrl": {
-                    "type": "urlAutocomplete",
-                    "title": "Address URL"
-                },
-                "phone": {
-                    "type": "markdown",
-                    "title": "Contacts"
-                },
-                "transport": {
-                    "type": "text",
-                    "title": "Transport"
-                },
-                "transportUrl": {
-                    "type": "urlAutocomplete",
-                    "title": "Transport URL"
-                },
-                "transportImage": {
-                    "type": "image"
-                },
-                "clinic": {
-                    "type": "text",
-                    "title": "Clinic"
-                },
-                "clinicColor": {
-                    "type": "text",
-                    "title": "Clinic color (HEX)"
-                }
-            }
+    "clinic": "",
+    "clinicColor": ""
+  },
+  "form": {
+    "schema": {
+      "type": "object",
+      "properties": {
+        "geo": {
+          "type": "text",
+          "title": "Address"
+        },
+        "geoUrl": {
+          "type": "urlAutocomplete",
+          "title": "Address URL"
+        },
+        "phone": {
+          "type": "markdown",
+          "title": "Contacts"
+        },
+        "transport": {
+          "type": "text",
+          "title": "Transport"
+        },
+        "transportUrl": {
+          "type": "urlAutocomplete",
+          "title": "Transport URL"
+        },
+        "transportImage": {
+          "type": "image"
+        },
+        "clinic": {
+          "type": "text",
+          "title": "Clinic"
+        },
+        "clinicColor": {
+          "type": "text",
+          "title": "Clinic color (HEX)"
         }
+      }
     }
+  }
 }

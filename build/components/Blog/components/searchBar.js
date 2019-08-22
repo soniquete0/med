@@ -1,43 +1,102 @@
 "use strict";
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports["default"] = void 0;
+
+var React = _interopRequireWildcard(require("react"));
+
+var _SvgIcon = _interopRequireDefault(require("../../../partials/SvgIcon"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj["default"] = obj; return newObj; } }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var SearchBar = function (_React$Component) {
+  _inherits(SearchBar, _React$Component);
+
+  function SearchBar(props) {
+    var _this;
+
+    _classCallCheck(this, SearchBar);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(SearchBar).call(this, props));
+
+    _defineProperty(_assertThisInitialized(_this), "searchBar", void 0);
+
+    _defineProperty(_assertThisInitialized(_this), "handleFocus", function () {
+      _this.setState({
+        focused: !_this.state.focused
+      });
+    });
+
+    _this.searchBar = React.createRef();
+    _this.state = {
+      focused: false
     };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-var React = require("react");
-var SvgIcon_1 = require("../../../partials/SvgIcon");
-var SearchBar = /** @class */ (function (_super) {
-    __extends(SearchBar, _super);
-    function SearchBar(props) {
-        var _this = _super.call(this, props) || this;
-        _this.handleFocus = function () {
-            _this.setState({
-                focused: !_this.state.focused,
-            });
-        };
-        _this.searchBar = React.createRef();
-        _this.state = { focused: false };
-        return _this;
+    return _this;
+  }
+
+  _createClass(SearchBar, [{
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+
+      var _this$props = this.props,
+          placeholder = _this$props.placeholder,
+          barColor = _this$props.barColor,
+          value = _this$props.value,
+          _onChange = _this$props.onChange;
+      return React.createElement("div", {
+        className: "searchBar ".concat(this.state.focused ? 'searchBar--focused' : '', " searchBar--").concat(barColor),
+        ref: this.searchBar
+      }, React.createElement("div", {
+        className: 'searchBar__input'
+      }, React.createElement("input", {
+        type: "text",
+        value: value,
+        onChange: function onChange(e) {
+          return _onChange(e);
+        },
+        placeholder: placeholder,
+        onFocus: function onFocus() {
+          return _this2.handleFocus();
+        },
+        onBlur: function onBlur() {
+          return _this2.handleFocus();
+        }
+      }), React.createElement(_SvgIcon["default"], {
+        name: 'search',
+        type: barColor
+      })), React.createElement("div", {
+        className: "searchBar__bar"
+      }));
     }
-    SearchBar.prototype.render = function () {
-        var _this = this;
-        var _a = this.props, placeholder = _a.placeholder, barColor = _a.barColor, value = _a.value, onChange = _a.onChange;
-        return (React.createElement("div", { className: "searchBar " + (this.state.focused ? 'searchBar--focused' : '') + " searchBar--" + barColor, ref: this.searchBar },
-            React.createElement("div", { className: 'searchBar__input' },
-                React.createElement("input", { type: "text", value: value, onChange: function (e) { return onChange(e); }, placeholder: placeholder, onFocus: function () { return _this.handleFocus(); }, onBlur: function () { return _this.handleFocus(); } }),
-                React.createElement(SvgIcon_1.default, { name: 'search', type: barColor })),
-            React.createElement("div", { className: "searchBar__bar" })));
-    };
-    return SearchBar;
-}(React.Component));
-exports.default = SearchBar;
-//# sourceMappingURL=searchBar.js.map
+  }]);
+
+  return SearchBar;
+}(React.Component);
+
+var _default = SearchBar;
+exports["default"] = _default;

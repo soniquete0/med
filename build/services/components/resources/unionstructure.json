@@ -1,67 +1,67 @@
 {
-    "name": "UnionStructure",
-    "data": {
-        "title": "Skupina medicon & pronatal",
-        "items": [
-            {
-                "title": "Ambulantní péče, polikliniky",
-                "text": "Poliklinika Budějovická (Praha 4) Poliklinika Holešovice (Praha 7) Poliklinika Vysočany (Praha 9) Poliklinika Zelený pruh (Praha 4) Nemocnice Vimperk MEDICON a.s. ClLINICUM a.s."
-            },
-            {
-                "title": "Centra následné péče a domácí péče HomeCare",
-                "text": "Klinika následné péče (Praha 4) Centrum následné péče (Praha 9) Domácí Péče (Praha 1-5) Nemocnice Vimperk Nemocnice Volyně MEDICON Hospitals s.r.o. BH – Nemocnice Vimperk a.s. Nemocnice Volyně s.r.o."
-            },
-            {
-                "title": "Jednodenní chirurgie a gynekologie",
-                "text": "Centrum jednodenní chirurgie (Praha 9) CLINICUM a.s."
-            },
-            {
-                "title": "Radiodiagnostická pracoviště + prevence a léčba karcinomu prsu",
-                "text": "Mammacentrum Budějovická (Praha 4) Mammacentrum Zahradní Město (Praha 10) Mammacentrum Vysočany (Praha 9) Mammacentrum Benešov u Prahy Onkocentrum Zelený pruh (Praha 4) CT, MR, Sono a RTG Budějovická (Praha 4) CT, MR, Sono a RTG Vysočany (Praha 9) MEDICON Services s.r.o. PČLS s.r.o."
-            },
-            {
-                "title": "Lékárny Pharmacentrum a prodejny Ošatka",
-                "text": "Pharmacentrum Budějovická (Praha 4) Pharmacentrum DBK (Praha 4) Pharmacentrum Holešovice (Praha 7) Pharmacentrum Vysočany (Praha 9) Ošatka Budějovická (Praha 4) Ošatka Holešovice (Praha 7) Ošatka Vysočany (Praha 9) E-shop www.osatka.cz"
-            },
-            {
-                "title": "Centra asistované reprodukce",
-                "text": "Pronatal s.r.o. (2x Praha + Kolín) Pronatal Nord s.r.o. (Teplice) Pronatal Plus s.r.o. (Praha 6) Pronatal Repro s.r.o. (České Budějovice) Pronatal Spa s.r.o. (Karlovy Vary) Gyncentrum Ostrava s.r.o. (Ostrava) Medico-S Banja Luka (Bosna a Herzegovina)"
-            },
-            {
-                "title": "Prémiová zdravotní péče",
-                "text": "INCARE.cz MEDICON InCare s.r.o. MEDICON InCare Business s.r.o."
-            },
-            {
-                "title": "Zájmové a vzdělávací aktivity",
-                "text": "Spolek přátel medicíny a umění (pro odbornou veřejnost) Evropská nadace pro rozvoj zdravotní a sociální péče MEDICON a.s."
-            }
-        ]
-    },
-    "form": {
-        "schema": {
-            "type": "object",
+  "name": "UnionStructure",
+  "data": {
+    "title": "Skupina medicon & pronatal",
+    "items": [
+      {
+        "title": "Ambulantní péče, polikliniky",
+        "text": "Poliklinika Budějovická (Praha 4) Poliklinika Holešovice (Praha 7) Poliklinika Vysočany (Praha 9) Poliklinika Zelený pruh (Praha 4) Nemocnice Vimperk MEDICON a.s. ClLINICUM a.s."
+      },
+      {
+        "title": "Centra následné péče a domácí péče HomeCare",
+        "text": "Klinika následné péče (Praha 4) Centrum následné péče (Praha 9) Domácí Péče (Praha 1-5) Nemocnice Vimperk Nemocnice Volyně MEDICON Hospitals s.r.o. BH – Nemocnice Vimperk a.s. Nemocnice Volyně s.r.o."
+      },
+      {
+        "title": "Jednodenní chirurgie a gynekologie",
+        "text": "Centrum jednodenní chirurgie (Praha 9) CLINICUM a.s."
+      },
+      {
+        "title": "Radiodiagnostická pracoviště + prevence a léčba karcinomu prsu",
+        "text": "Mammacentrum Budějovická (Praha 4) Mammacentrum Zahradní Město (Praha 10) Mammacentrum Vysočany (Praha 9) Mammacentrum Benešov u Prahy Onkocentrum Zelený pruh (Praha 4) CT, MR, Sono a RTG Budějovická (Praha 4) CT, MR, Sono a RTG Vysočany (Praha 9) MEDICON Services s.r.o. PČLS s.r.o."
+      },
+      {
+        "title": "Lékárny Pharmacentrum a prodejny Ošatka",
+        "text": "Pharmacentrum Budějovická (Praha 4) Pharmacentrum DBK (Praha 4) Pharmacentrum Holešovice (Praha 7) Pharmacentrum Vysočany (Praha 9) Ošatka Budějovická (Praha 4) Ošatka Holešovice (Praha 7) Ošatka Vysočany (Praha 9) E-shop www.osatka.cz"
+      },
+      {
+        "title": "Centra asistované reprodukce",
+        "text": "Pronatal s.r.o. (2x Praha + Kolín) Pronatal Nord s.r.o. (Teplice) Pronatal Plus s.r.o. (Praha 6) Pronatal Repro s.r.o. (České Budějovice) Pronatal Spa s.r.o. (Karlovy Vary) Gyncentrum Ostrava s.r.o. (Ostrava) Medico-S Banja Luka (Bosna a Herzegovina)"
+      },
+      {
+        "title": "Prémiová zdravotní péče",
+        "text": "INCARE.cz MEDICON InCare s.r.o. MEDICON InCare Business s.r.o."
+      },
+      {
+        "title": "Zájmové a vzdělávací aktivity",
+        "text": "Spolek přátel medicíny a umění (pro odbornou veřejnost) Evropská nadace pro rozvoj zdravotní a sociální péče MEDICON a.s."
+      }
+    ]
+  },
+  "form": {
+    "schema": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "text",
+          "title": "Title"
+        },
+        "items": {
+          "type": "array",
+          "title": "Items",
+          "items": {
             "properties": {
-                "title": {
-                    "type": "text",
-                    "title": "Title"
-                },
-                "items": {
-                    "type": "array",
-                    "title": "Items",
-                    "items": {
-                        "properties": {
-                            "title": {
-                                "type": "text",
-                                "title": "Title"
-                            },
-                            "text": {
-                                "type": "markdown",
-                                "title": "Text"
-                            }
-                        }
-                    }
-                }
+              "title": {
+                "type": "text",
+                "title": "Title"
+              },
+              "text": {
+                "type": "markdown",
+                "title": "Text"
+              }
             }
+          }
         }
+      }
     }
+  }
 }
