@@ -3,6 +3,16 @@ var __makeTemplateObject = (this && this.__makeTemplateObject) || function (cook
     if (Object.defineProperty) { Object.defineProperty(cooked, "raw", { value: raw }); } else { cooked.raw = raw; }
     return cooked;
 };
+var __values = (this && this.__values) || function (o) {
+    var m = typeof Symbol === "function" && o[Symbol.iterator], i = 0;
+    if (m) return m.call(o);
+    return {
+        next: function () {
+            if (o && i >= o.length) o = void 0;
+            return { value: o && o[i++], done: !o };
+        }
+    };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
 var moment = require("moment");
@@ -11,6 +21,7 @@ var urlize_1 = require("urlize");
 var react_apollo_1 = require("react-apollo");
 var Link_1 = require("../../partials/Link");
 var DividerCircles_1 = require("../DividerCircles");
+var Highlight_1 = require("../Highlight");
 var GET_CONTEXT = graphql_tag_1.default(templateObject_1 || (templateObject_1 = __makeTemplateObject(["\n  {\n    languageData @client\n    pageData @client\n    websiteData @client\n    languagesData @client\n    navigationsData @client\n  }\n"], ["\n  {\n    languageData @client\n    pageData @client\n    websiteData @client\n    languagesData @client\n    navigationsData @client\n  }\n"])));
 var getDayOfWeek = function (day) {
     switch (day) {
@@ -74,14 +85,61 @@ var getAbsenceLink = function (data, alternate) {
     }
     return null;
 };
+var getClinicTitle = function (schedule, title) {
+    var e_1, _a;
+    var clinics = [];
+    try {
+        for (var _b = __values(schedule.weeks), _c = _b.next(); !_c.done; _c = _b.next()) {
+            var week = _c.value;
+            clinics.push(week.polyclinic.name);
+        }
+    }
+    catch (e_1_1) { e_1 = { error: e_1_1 }; }
+    finally {
+        try {
+            if (_c && !_c.done && (_a = _b.return)) _a.call(_b);
+        }
+        finally { if (e_1) throw e_1.error; }
+    }
+    if (clinics.length > 1 && !clinics.every(function (c) { return c === clinics[0]; })) {
+        return ' - POLIKLINIKA ' + title;
+    }
+    return '';
+};
+var highlightAbsence = function (absences) {
+    var e_2, _a;
+    var props = {
+        text: 'Dnes lékař neordinuje',
+        description: null,
+        urlTitle: null,
+        url: null
+    };
+    try {
+        for (var absences_1 = __values(absences), absences_1_1 = absences_1.next(); !absences_1_1.done; absences_1_1 = absences_1.next()) {
+            var absence = absences_1_1.value;
+            if (new Date(absence.fromDate.date) < new Date() || new Date(absence.toDate.date) < new Date()) {
+                return React.createElement(Highlight_1.default, { data: props });
+            }
+            return null;
+        }
+    }
+    catch (e_2_1) { e_2 = { error: e_2_1 }; }
+    finally {
+        try {
+            if (absences_1_1 && !absences_1_1.done && (_a = absences_1.return)) _a.call(absences_1);
+        }
+        finally { if (e_2) throw e_2.error; }
+    }
+};
 var DoctorSchedule = function (props) {
     var _a = props.data, schedule = _a.schedule, oddWeekTitle = _a.oddWeekTitle, evenWeekTitle = _a.evenWeekTitle, regularWeekTitle = _a.regularWeekTitle, absences = _a.absences;
     return (React.createElement("section", { className: 'container doctorScheduleSection' },
+        highlightAbsence(absences),
         schedule &&
             schedule.weeks &&
             schedule.weeks.map(function (week, i) { return (React.createElement("div", { className: "doctorSchedule", key: i },
                 React.createElement("div", { className: 'doctorSchedule__title' },
-                    React.createElement("h4", null, getScheduleTitle(week.regularity, oddWeekTitle, evenWeekTitle, regularWeekTitle))),
+                    React.createElement("h4", null, getScheduleTitle(week.regularity, oddWeekTitle, evenWeekTitle, regularWeekTitle) + getClinicTitle(schedule, week.polyclinic.name))),
                 React.createElement("table", null,
                     React.createElement("tbody", null, week &&
                         getWeekStructure(week).map(function (item, j) {
