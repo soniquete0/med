@@ -91,6 +91,9 @@ class DoctorList extends React.Component<RouteComponentProps<{}> & DoctorListPro
       case /holesovice/.test(param):
         this.setState({ filter: 'Holešovice' });
         break;
+      case /(zahradni-mesto)/.test(param):
+        this.setState({ filter: 'Zahradní Město' });
+        break;
       default:
         this.setState({ filter: '' });
         break;
