@@ -4984,7 +4984,8 @@ cite {
         font-weight: 600;
         color: #3c3c3b;
         width: 100%;
-        padding: 0; }
+        padding: 0;
+        text-transform: none; }
         @media (min-width: 992px) {
           .doctorList__item__info h3 {
             font-size: 2rem;
