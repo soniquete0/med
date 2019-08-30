@@ -85,29 +85,11 @@ var getAbsenceLink = function (data, alternate) {
     }
     return null;
 };
-var getClinicTitle = function (schedule, title) {
-    var e_1, _a;
-    var clinics = [];
-    try {
-        for (var _b = __values(schedule.weeks), _c = _b.next(); !_c.done; _c = _b.next()) {
-            var week = _c.value;
-            clinics.push(week.polyclinic.name);
-        }
-    }
-    catch (e_1_1) { e_1 = { error: e_1_1 }; }
-    finally {
-        try {
-            if (_c && !_c.done && (_a = _b.return)) _a.call(_b);
-        }
-        finally { if (e_1) throw e_1.error; }
-    }
-    if (clinics.length > 1 && !clinics.every(function (c) { return c === clinics[0]; })) {
-        return ' - POLIKLINIKA ' + title;
-    }
-    return '';
+var getClinicTitle = function (title) {
+    return ' - POLIKLINIKA ' + title;
 };
 var highlightAbsence = function (absences) {
-    var e_2, _a;
+    var e_1, _a;
     var props = {
         text: 'Dnes lékař neordinuje',
         description: null,
@@ -123,12 +105,12 @@ var highlightAbsence = function (absences) {
             return null;
         }
     }
-    catch (e_2_1) { e_2 = { error: e_2_1 }; }
+    catch (e_1_1) { e_1 = { error: e_1_1 }; }
     finally {
         try {
             if (absences_1_1 && !absences_1_1.done && (_a = absences_1.return)) _a.call(absences_1);
         }
-        finally { if (e_2) throw e_2.error; }
+        finally { if (e_1) throw e_1.error; }
     }
 };
 var DoctorSchedule = function (props) {
@@ -139,7 +121,7 @@ var DoctorSchedule = function (props) {
             schedule.weeks &&
             schedule.weeks.map(function (week, i) { return (React.createElement("div", { className: "doctorSchedule", key: i },
                 React.createElement("div", { className: 'doctorSchedule__title' },
-                    React.createElement("h4", null, getScheduleTitle(week.regularity, oddWeekTitle, evenWeekTitle, regularWeekTitle) + getClinicTitle(schedule, week.polyclinic.name))),
+                    React.createElement("h4", null, getScheduleTitle(week.regularity, oddWeekTitle, evenWeekTitle, regularWeekTitle) + getClinicTitle(week.polyclinic.name))),
                 React.createElement("table", null,
                     React.createElement("tbody", null, week &&
                         getWeekStructure(week).map(function (item, j) {
