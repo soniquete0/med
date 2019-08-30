@@ -6,6 +6,7 @@ import { Query } from 'react-apollo';
 
 import Link from '../../partials/Link';
 import DividerCircles from '../DividerCircles';
+import Highlight from '../Highlight';
 
 const GET_CONTEXT = gql`
   {
@@ -110,17 +111,40 @@ const getAbsenceLink = (data, alternate) => {
   return null;
 };
 
+const getClinicTitle = (title) => {
+  return ' - POLIKLINIKA ' + title;
+}
+
+const highlightAbsence = (absences) => {
+  
+  const props = {
+    text: 'Dnes lékař neordinuje',
+    description: null,
+    urlTitle: null,
+    url: null
+  }
+    
+
+  for (let absence of absences) {
+    if (new Date(absence.fromDate.date) < new Date() || new Date(absence.toDate.date) < new Date()) {
+      return <Highlight data={props}/>
+    }
+    return null;
+  }
+}
+
 const DoctorSchedule = (props: DoctorScheduleProps) => {
   const { schedule, oddWeekTitle, evenWeekTitle, regularWeekTitle, absences } = props.data;
   
   return (
     <section className={'container doctorScheduleSection'}>
+      {highlightAbsence(absences)}
       {schedule &&
         schedule.weeks &&
         schedule.weeks.map((week, i) => (
           <div className="doctorSchedule" key={i}>
             <div className={'doctorSchedule__title'}>
-              <h4>{getScheduleTitle(week.regularity, oddWeekTitle, evenWeekTitle, regularWeekTitle)}</h4>
+              <h4>{getScheduleTitle(week.regularity, oddWeekTitle, evenWeekTitle, regularWeekTitle) + getClinicTitle(week.polyclinic.name)}</h4>
             </div>
             <table>
               <tbody>
