@@ -111,18 +111,8 @@ const getAbsenceLink = (data, alternate) => {
   return null;
 };
 
-const getClinicTitle = (schedule, title) => {
-  const clinics = []
-  
-  for (let week of schedule.weeks) {
-    clinics.push(week.polyclinic.name);
-  }
-
-  if (clinics.length > 1 && !clinics.every(c => c === clinics[0])) {
-    return ' - POLIKLINIKA ' + title;
-  }
-  
-  return '';
+const getClinicTitle = (title) => {
+  return ' - POLIKLINIKA ' + title;
 }
 
 const highlightAbsence = (absences) => {
@@ -154,7 +144,7 @@ const DoctorSchedule = (props: DoctorScheduleProps) => {
         schedule.weeks.map((week, i) => (
           <div className="doctorSchedule" key={i}>
             <div className={'doctorSchedule__title'}>
-              <h4>{getScheduleTitle(week.regularity, oddWeekTitle, evenWeekTitle, regularWeekTitle) + getClinicTitle(schedule, week.polyclinic.name)}</h4>
+              <h4>{getScheduleTitle(week.regularity, oddWeekTitle, evenWeekTitle, regularWeekTitle) + getClinicTitle(week.polyclinic.name)}</h4>
             </div>
             <table>
               <tbody>
