@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as moment from 'moment';
+import * as ReactMarkdown from 'react-markdown';
 import gql from 'graphql-tag';
 import { urlize } from 'urlize';
 import { Query } from 'react-apollo';
@@ -25,6 +26,9 @@ export interface DoctorScheduleProps {
     evenWeekTitle: String;
     regularWeekTitle: String;
     absences: LooseObject[];
+    extraAbsenceSettings: string;
+    doctor: string;
+    defaultAbsenceMessage: string;
   };
 }
 
@@ -115,30 +119,41 @@ const getClinicTitle = (title) => {
   return ' - POLIKLINIKA ' + title;
 }
 
-const highlightAbsence = (absences) => {
-  
+const highlightAbsence = (defaultAbsenceMessage, absences, absenceMessage) => {
   const props = {
-    text: 'Dnes lékař neordinuje',
+    text: defaultAbsenceMessage,
     description: null,
-    urlTitle: null,
-    url: null
-  }
-    
+    urlTitle: Array.isArray(absenceMessage) ? absenceMessage[3] : null,
+    url: Array.isArray(absenceMessage) ? { url: absenceMessage[4] } : null
+  };
 
   for (let absence of absences) {
-    if (new Date(absence.fromDate.date) < new Date() || new Date(absence.toDate.date) < new Date()) {
+    if (absence.fromDate && absence.toDate && moment(absence.fromDate.date) < moment() && moment(absence.toDate.date) > moment()) {
       return <Highlight data={props}/>
     }
     return null;
   }
 }
 
+const absenceSettings = (extraAbsenceSettings, doctor) => {
+  let absenceDict = extraAbsenceSettings.split('\n')
+  doctor = doctor.trim()
+
+  for (let i = 0; i < absenceDict.length; i++) {
+    absenceDict[i] = absenceDict[i].split(/(\d+\,\w+):(\[(.*)\]\((.*)\))/);
+    if (absenceDict[i][1] === doctor) {
+      return absenceDict[i];
+    }
+  }
+  return null;
+}
+
 const DoctorSchedule = (props: DoctorScheduleProps) => {
-  const { schedule, oddWeekTitle, evenWeekTitle, regularWeekTitle, absences } = props.data;
-  
+  const { schedule, oddWeekTitle, evenWeekTitle, regularWeekTitle, absences, extraAbsenceSettings, doctor, defaultAbsenceMessage } = props.data;
+  const absenceMessage = absenceSettings(extraAbsenceSettings, doctor)
   return (
     <section className={'container doctorScheduleSection'}>
-      {highlightAbsence(absences)}
+      {Array.isArray(absences) && highlightAbsence(defaultAbsenceMessage, absences, absenceMessage)}
       {schedule &&
         schedule.weeks &&
         schedule.weeks.map((week, i) => (
@@ -150,7 +165,7 @@ const DoctorSchedule = (props: DoctorScheduleProps) => {
               <tbody>
                 {week &&
                   getWeekStructure(week).map((item, j) => {
-                    if (item.day === 'sobota' || item.day === 'neděle') { return ''; }
+                    if (item.day === 'sobota' || item.day === 'neděle') { return null; }
                     
                     return (
                       <React.Fragment key={j}>
@@ -209,7 +224,7 @@ const DoctorSchedule = (props: DoctorScheduleProps) => {
                   </thead>
                   <tbody>
                     {absences.map((absence, i) => {
-                      if (absence) {
+                      if (absence && moment(absence.fromDate.date) < moment().add(1,'M') && moment(absence.toDate.date) > moment()) {
                         return (
                           <tr key={i}>
                             <td>
@@ -219,10 +234,12 @@ const DoctorSchedule = (props: DoctorScheduleProps) => {
                               {(absence.toDate.date && moment(absence.toDate.date).format('DD-MM-YYYY')) || ''}
                             </td>
                             <td>
+                              {Array.isArray(absenceMessage) ? (<ReactMarkdown source={absenceMessage[2]} />) :
                               <Link dynamic={true} url={getAbsenceLink(data, absence.alternate)}>
                                 {`${(absence.alternate && absence.alternate.firstName) || ''} 
                                 ${(absence.alternate && absence.alternate.lastName) || ''}`}
                               </Link>
+                              }
                             </td>
                           </tr>
                         );
