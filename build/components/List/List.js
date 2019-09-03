@@ -289,6 +289,9 @@ var List = /** @class */ (function (_super) {
                     if (!(p.translations && p.translations.length > 0)) {
                         return false;
                     }
+                    if (data.tagIds && p.tags.some(function (t) { return t.name === 'unpublished'; })) {
+                        return false;
+                    }
                     if (data.tagIds && !p.tags.some(function (t) { return data.tagIds.some(function (tagId) { return t.id === tagId; }); })) {
                         return false;
                     }

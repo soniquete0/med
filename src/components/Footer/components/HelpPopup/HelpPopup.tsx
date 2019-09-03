@@ -20,7 +20,11 @@ export default class HelpPopup extends React.Component<HelpPopupProps, HelpPopup
       active: !this.state.active,
     });
   }
- 
+
+//  componentDidMount() {
+//    console.log("i am vibing..");
+//  }
+
   public render() {
     return (
       <div className={`helpPopup ${this.state.active ? 'helpPopup--active' : ''} `}>

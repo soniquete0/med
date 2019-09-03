@@ -100,7 +100,9 @@ var SearchBar = /** @class */ (function (_super) {
     };
     SearchBar.prototype.clearData = function () {
         this.setState({ focused: false, query: '' });
-        this.input.current.value = '';
+        if (this.input.current) {
+            this.input.current.value = '';
+        }
     };
     SearchBar.prototype.renderNoResults = function () {
         if (!this.state.doctorResults && !this.state.blogResults) {

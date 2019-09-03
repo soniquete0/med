@@ -321,6 +321,10 @@ class List extends React.Component<Properties, {}> {
                     return false;
                   }
   
+                  if (data.tagIds && p.tags.some(t => t.name === 'unpublished')) {
+                    return false;
+                  }
+
                   if (data.tagIds && !p.tags.some(t => data.tagIds.some(tagId => t.id === tagId))) {
                     return false;
                   }

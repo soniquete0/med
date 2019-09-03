@@ -64,7 +64,8 @@
                                 "options": {
                                     "#ffffff": "white",
                                     "#2473ba": "blue",
-                                    "#5a2a20": "brown"
+                                    "#5a2a20": "brown",
+                                    "transparent": "none"
                                 }
                             },
                             "button": {
@@ -73,7 +74,8 @@
                                 "options": {
                                     "btn--whiteBorder": "whiteBorder",
                                     "btn--blueBorder": "blueBorder",
-                                    "btn--blueBkg": "blueBackground"
+                                    "btn--blueBkg": "blueBackground",
+                                    "btn--blackBorder": "blackBorder"
                                 }
                             },
                             "titleColor": {
@@ -82,7 +84,8 @@
                                 "options": {
                                     "#ffffff": "white",
                                     "#2473ba": "blue",
-                                    "#2eac6c": "green"
+                                    "#2eac6c": "green",
+                                    "#000000": "black"
                                 }
                             },
                             "link": {
