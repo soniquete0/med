@@ -21,7 +21,6 @@ export default function BlogSearchResults({ searchResults, query, searchKeys, ch
       {({ data }) => {
         if (data.length > 0) {
           checkBlogResults(true);
-
           return (
             <ul className={'searchBarResults__blog'}>
               {data.map((blogItem, i) => (
