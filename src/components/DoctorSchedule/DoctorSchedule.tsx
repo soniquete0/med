@@ -121,15 +121,17 @@ const getClinicTitle = (title) => {
 
 const highlightAbsence = (defaultAbsenceMessage, absences, absenceMessage) => {
   const props = {
-    text: defaultAbsenceMessage,
+    text: defaultAbsenceMessage || 'Dnes lékař neordinuje',
     description: null,
     urlTitle: Array.isArray(absenceMessage) ? absenceMessage[3] : null,
     url: Array.isArray(absenceMessage) ? { url: absenceMessage[4] } : null
   };
 
   for (let absence of absences) {
-    if (absence.fromDate && absence.toDate && moment(absence.fromDate.date) < moment() && moment(absence.toDate.date) > moment()) {
-      return <Highlight data={props}/>
+    if (absence.fromDate && absence.toDate
+        && moment(absence.fromDate.date) < moment()
+        && moment(absence.toDate.date) > moment()) {
+      return (<Highlight data={props} />);
     }
     return null;
   }
@@ -149,8 +151,10 @@ const absenceSettings = (extraAbsenceSettings, doctor) => {
 }
 
 const DoctorSchedule = (props: DoctorScheduleProps) => {
-  const { schedule, oddWeekTitle, evenWeekTitle, regularWeekTitle, absences, extraAbsenceSettings, doctor, defaultAbsenceMessage } = props.data;
-  const absenceMessage = absenceSettings(extraAbsenceSettings, doctor)
+  const { schedule, oddWeekTitle, evenWeekTitle, regularWeekTitle,
+    absences, extraAbsenceSettings, doctor, defaultAbsenceMessage } = props.data;
+
+  const absenceMessage = absenceSettings(extraAbsenceSettings, doctor);
   return (
     <section className={'container doctorScheduleSection'}>
       {Array.isArray(absences) && highlightAbsence(defaultAbsenceMessage, absences, absenceMessage)}
@@ -159,7 +163,8 @@ const DoctorSchedule = (props: DoctorScheduleProps) => {
         schedule.weeks.map((week, i) => (
           <div className="doctorSchedule" key={i}>
             <div className={'doctorSchedule__title'}>
-              <h4>{getScheduleTitle(week.regularity, oddWeekTitle, evenWeekTitle, regularWeekTitle) + getClinicTitle(week.polyclinic.name)}</h4>
+              <h4>{getScheduleTitle(week.regularity, oddWeekTitle, evenWeekTitle, regularWeekTitle)
+                + getClinicTitle(week.polyclinic.name)}</h4>
             </div>
             <table>
               <tbody>
@@ -205,13 +210,18 @@ const DoctorSchedule = (props: DoctorScheduleProps) => {
                   })}
               </tbody>
             </table>
+            {schedule.note && <b>{schedule.note}</b>}
           </div>
         ))}
 
       <Query query={GET_CONTEXT}>
-        {({ data }) => (
-          <>
-            {absences && Array.isArray(absences) && absences.length > 0 && (
+        {({ data }) => {
+          const nextMonthAbsences = Array.isArray(absences) && absences.filter((absence) => {
+            return absence && moment(absence.fromDate.date) < moment().add(1, 'M') 
+            && moment(absence.toDate.date) > moment();
+          })
+          return (<>
+            {nextMonthAbsences && Array.isArray(nextMonthAbsences) && nextMonthAbsences.length > 0 && (
               <div className={'absences'}>
                 <h4>Nepřítomnost</h4>
                 <table>
@@ -223,34 +233,30 @@ const DoctorSchedule = (props: DoctorScheduleProps) => {
                     </tr>
                   </thead>
                   <tbody>
-                    {absences.map((absence, i) => {
-                      if (absence && moment(absence.fromDate.date) < moment().add(1,'M') && moment(absence.toDate.date) > moment()) {
-                        return (
-                          <tr key={i}>
-                            <td>
-                              {(absence.fromDate && moment(absence.fromDate.date).format('DD-MM-YYYY')) || ''}
-                            </td>
-                            <td>
-                              {(absence.toDate.date && moment(absence.toDate.date).format('DD-MM-YYYY')) || ''}
-                            </td>
-                            <td>
-                              {Array.isArray(absenceMessage) ? (<ReactMarkdown source={absenceMessage[2]} />) :
-                              <Link dynamic={true} url={getAbsenceLink(data, absence.alternate)}>
-                                {`${(absence.alternate && absence.alternate.firstName) || ''} 
-                                ${(absence.alternate && absence.alternate.lastName) || ''}`}
-                              </Link>
-                              }
-                            </td>
-                          </tr>
-                        );
-                      }
-                    })}
+                    {nextMonthAbsences.map((absence, i) => (
+                      <tr key={i}>
+                        <td>
+                          {(absence.fromDate && moment(absence.fromDate.date).format('DD.MM.YYYY')) || ''}
+                        </td>
+                        <td>
+                          {(absence.toDate.date && moment(absence.toDate.date).format('DD.MM.YYYY')) || ''}
+                        </td>
+                        <td>
+                          {Array.isArray(absenceMessage) ? (<ReactMarkdown source={absenceMessage[2]} />) :
+                          <Link dynamic={true} url={getAbsenceLink(data, absence.alternate)}>
+                            {`${(absence.alternate && absence.alternate.firstName) || ''} 
+                            ${(absence.alternate && absence.alternate.lastName) || ''}`}
+                          </Link>
+                          }
+                        </td>
+                      </tr>
+                    ))}
                   </tbody>
                 </table>
               </div>
             )}
           </>
-        )}
+        )}}
       </Query>
     </section>
   );

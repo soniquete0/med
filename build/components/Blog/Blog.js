@@ -60,7 +60,7 @@ var Blog = /** @class */ (function (_super) {
             React.createElement("div", { className: "container" },
                 title && React.createElement("h1", { style: displaySearch ? { paddingBottom: 0 } : {} }, title),
                 displaySearch &&
-                    React.createElement(searchBar_1.default, { barColor: 'gray', placeholder: 'Search', value: this.state.searchQuery, onChange: this.onSearchChange }),
+                    React.createElement(searchBar_1.default, { barColor: 'gray', placeholder: 'Hledat', value: this.state.searchQuery, onChange: this.onSearchChange }),
                 React.createElement(List_1.default, { data: articles, searchedText: this.state.searchQuery }, function (_a) {
                     var getPage = _a.getPage;
                     var _b = getPage(_this.state.numberOfPage, 'infinite', 6), items = _b.items, lastPage = _b.lastPage;

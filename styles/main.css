@@ -7335,7 +7335,7 @@ cite {
         .absences table tbody tr td:nth-of-type(2):before {
           content: 'Do'; }
         .absences table tbody tr td:nth-of-type(3):before {
-          content: 'Alternative'; }
+          content: 'ZASTUPUJE'; }
         .absences table tbody tr td:before {
           position: absolute;
           top: 6px;
@@ -7705,24 +7705,22 @@ button:disabled {
     color: white;
     border: 2px solid white;
     background-color: transparent; }
-    @media (min-width: 768px) {
-      .btn--whiteBorder:hover {
-        color: #2473ba;
-        background-color: white; }
-        .btn--whiteBorder:hover .arrow {
-          border-color: #2473ba; } }
+    .btn--whiteBorder:hover {
+      color: #2473ba;
+      background-color: white; }
+      .btn--whiteBorder:hover .arrow {
+        border-color: #2473ba; }
   .btn--blackBorder {
     color: black;
     border: 2px solid black;
     background-color: transparent; }
     .btn--blackBorder .arrow {
       border-color: black; }
-    @media (min-width: 768px) {
-      .btn--blackBorder:hover {
-        color: white;
-        background-color: black; }
-        .btn--blackBorder:hover .arrow {
-          border-color: white; } }
+    .btn--blackBorder:hover {
+      color: white;
+      background-color: black; }
+      .btn--blackBorder:hover .arrow {
+        border-color: white; }
   .btn--blueBorder {
     color: #00aad0;
     background-color: transparent;

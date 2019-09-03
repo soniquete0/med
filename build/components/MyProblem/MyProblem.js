@@ -60,7 +60,7 @@ var MyProblem = /** @class */ (function (_super) {
         return (React.createElement("div", { className: "container" },
             React.createElement("section", { className: 'myProblem' },
                 React.createElement("h3", null, "M\u016Fj Probl\u00E9m se t\u00FDk\u00E1"),
-                React.createElement("p", null, "Klikn\u011Bte na \u010D\u00E1st t\u011Bla se kterou m\u00E1te probl\u00E9m."),
+                React.createElement("p", null, "Klikn\u011Bte na \u010D\u00E1st t\u011Bla, se kterou m\u00E1te probl\u00E9m."),
                 React.createElement("div", { className: 'flexRow myProblem__holder' },
                     React.createElement(Avatar_1.default, { onClick: this.clickArea, activeArea: this.state.area ? 'active--' + this.state.area : '' }),
                     this.state.area && (React.createElement("div", { className: "infoBox " + (this.state.area ? 'infoBox--' + this.state.area : '') },

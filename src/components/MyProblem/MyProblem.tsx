@@ -63,7 +63,7 @@ class MyProblem extends React.Component<MyProblemProps, MyProblemState> {
         <section className={'myProblem'}>
           <h3>Můj Problém se týká</h3>
 
-          <p>Klikněte na část těla se kterou máte problém.</p>
+          <p>Klikněte na část těla, se kterou máte problém.</p>
 
           <div className={'flexRow myProblem__holder'}>
             <Avatar onClick={this.clickArea} activeArea={this.state.area ? 'active--' + this.state.area : ''} />

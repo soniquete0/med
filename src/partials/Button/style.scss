@@ -101,13 +101,11 @@ button:disabled {
     background-color: transparent;
 
     &:hover {
-      @include md {
-        color: $blue;
-        background-color: white;
+      color: $blue;
+      background-color: white;
 
-        .arrow {
-          border-color: $blue;
-        }
+      .arrow {
+        border-color: $blue;
       }
     }
   }
@@ -122,13 +120,11 @@ button:disabled {
     }
 
     &:hover {
-      @include md {
-        color: white;
-        background-color: black;
+      color: white;
+      background-color: black;
 
-        .arrow {
-          border-color: white;
-        }
+      .arrow {
+        border-color: white;
       }
     }
   }

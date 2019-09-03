@@ -61,7 +61,7 @@ export default class ExpertiseList extends React.Component<ExpertiseListProps, E
                     className={'btn btn--blueBkg btn--fullWidth'}
                     onClick={() => this.setState({ numberOfPage: lastPage })}
                   >
-                    zobrazit dalši odbornosti
+                    Zobrazit další odbornosti
                   </button>}
               </div>
             </section>

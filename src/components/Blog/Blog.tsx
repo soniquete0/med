@@ -92,7 +92,7 @@ export default class Blog extends React.Component<BlogProps, BlogState> {
           {displaySearch &&
             <SearchBar
               barColor={'gray'}
-              placeholder={'Search'}
+              placeholder={'Hledat'}
               value={this.state.searchQuery}
               onChange={this.onSearchChange}
             />}

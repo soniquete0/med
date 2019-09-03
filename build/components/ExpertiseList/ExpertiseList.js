@@ -52,7 +52,7 @@ var ExpertiseList = /** @class */ (function (_super) {
                             React.createElement(Link_1.default, __assign({}, item.url)),
                             item.title && React.createElement("p", null, item.title)))); })),
                     _this.state.numberOfPage < lastPage &&
-                        React.createElement("button", { className: 'btn btn--blueBkg btn--fullWidth', onClick: function () { return _this.setState({ numberOfPage: lastPage }); } }, "zobrazit dal\u0161i odbornosti"))));
+                        React.createElement("button", { className: 'btn btn--blueBkg btn--fullWidth', onClick: function () { return _this.setState({ numberOfPage: lastPage }); } }, "Zobrazit dal\u0161\u00ED odbornosti"))));
         }));
     };
     return ExpertiseList;
