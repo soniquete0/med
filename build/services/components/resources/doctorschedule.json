@@ -4,6 +4,10 @@
         "schema": {
             "type": "object",
             "properties": {
+                "doctor": {
+                    "type": "string",
+                    "title": "Doctor"
+                },
                 "schedule": {
                     "type": "string",
                     "title": "Schedule"
@@ -23,6 +27,14 @@
                 "regularWeekTitle": {
                     "type": "string",
                     "title": "Regular week title"
+                },
+                "absenceMessage": {
+                    "type": "string",
+                    "title": "Absence message"
+                },
+                "extraAbsenceSettings": {
+                    "type": "markdown",
+                    "title": "Extra absence settings (expertises replacements)"
                 }
             }
         }

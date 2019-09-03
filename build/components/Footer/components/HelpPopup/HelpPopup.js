@@ -28,6 +28,9 @@ var HelpPopup = /** @class */ (function (_super) {
         };
         return _this;
     }
+    //  componentDidMount() {
+    //    console.log("i am vibing..");
+    //  }
     HelpPopup.prototype.render = function () {
         var _this = this;
         return (React.createElement("div", { className: "helpPopup " + (this.state.active ? 'helpPopup--active' : '') + " " },
