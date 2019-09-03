@@ -105,7 +105,9 @@ class SearchBar extends React.Component<SearchBarProps, SearchBarState> {
 
   clearData() {
     this.setState({ focused: false, query: '' });
-    this.input.current.value = '';
+    if (this.input.current) {
+      this.input.current.value = '';
+    }
   }
   
   renderNoResults() {
